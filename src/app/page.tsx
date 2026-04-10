@@ -298,94 +298,94 @@ export default function Home() {
           </FadeInOnScroll>
 
           <FadeInOnScroll>
-            <div className="rounded-2xl border border-gray-200 overflow-hidden">
-              {/* Table header */}
-              <div className="grid grid-cols-4 bg-gray-50 border-b border-gray-200">
-                <div className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider" />
-                {axSolutions.map((sol) => (
-                  <div key={sol.id} className="p-4 text-center">
-                    <Link href={sol.href} className="group">
-                      <p
-                        className="text-lg font-bold group-hover:opacity-80 transition-opacity"
-                        style={{ color: sol.color }}
-                      >
-                        {sol.name}
-                      </p>
-                      {sol.highlight && (
-                        <span className="inline-block mt-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-purple-100 text-purple-700">
-                          핵심 솔루션
-                        </span>
-                      )}
-                    </Link>
-                  </div>
-                ))}
-              </div>
-
-              {/* Rows */}
-              {[
-                { label: "이런 고민이 있다면", key: "question" as const },
-                { label: "대상", key: "target" as const },
-                { label: "활용 사례", key: "useCase" as const },
-                { label: "제공 방식", key: "delivery" as const },
-                { label: "도입 기간", key: "timeline" as const },
-                { label: "핵심 성과", key: "metric" as const },
-              ].map((row, ri) => (
-                <div
-                  key={row.key}
-                  className={`grid grid-cols-4 ${
-                    ri % 2 === 0 ? "bg-white" : "bg-gray-50/50"
-                  } border-b border-gray-100 last:border-b-0`}
-                >
-                  <div className="p-4 flex items-center">
-                    <span className="text-xs font-semibold text-gray-500">
-                      {row.label}
-                    </span>
-                  </div>
-                  {axSolutions.map((sol) => (
-                    <div
-                      key={sol.id}
-                      className={`p-4 text-center flex items-center justify-center ${
-                        sol.highlight && row.key === "metric"
-                          ? "font-bold"
-                          : ""
-                      }`}
-                    >
-                      <span
-                        className={`text-sm ${
-                          row.key === "question"
-                            ? "text-gray-600 italic"
-                            : row.key === "metric"
-                            ? "font-bold"
-                            : "text-gray-700"
-                        }`}
-                        style={
-                          row.key === "metric" ? { color: sol.color } : undefined
-                        }
-                      >
-                        {row.key === "question"
-                          ? `"${sol[row.key]}"`
-                          : sol[row.key]}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              ))}
-
-              {/* CTA row */}
-              <div className="grid grid-cols-4 bg-gray-50/30 border-t border-gray-200">
-                <div className="p-4" />
-                {axSolutions.map((sol) => (
-                  <div key={sol.id} className="p-4 text-center">
-                    <Link
-                      href={sol.href}
-                      className="inline-flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
-                    >
-                      자세히 보기
-                      <ArrowRight size={14} />
-                    </Link>
-                  </div>
-                ))}
-              </div>
+            <div className="rounded-2xl border border-gray-200 overflow-x-auto">
+              <table className="w-full min-w-[640px]">
+                <thead>
+                  <tr className="bg-gray-50 border-b border-gray-200">
+                    <th className="p-4 text-left w-[160px]" />
+                    {axSolutions.map((sol) => (
+                      <th key={sol.id} className="p-4 text-center">
+                        <Link href={sol.href} className="group">
+                          <p
+                            className="text-lg font-bold group-hover:opacity-80 transition-opacity"
+                            style={{ color: sol.color }}
+                          >
+                            {sol.name}
+                          </p>
+                          {sol.highlight && (
+                            <span className="inline-block mt-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-purple-100 text-purple-700">
+                              핵심 솔루션
+                            </span>
+                          )}
+                        </Link>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {/* 이런 고민이 있다면 */}
+                  <tr className="border-b border-gray-100 bg-white">
+                    <td className="p-4 text-xs font-semibold text-gray-500">이런 고민이 있다면</td>
+                    {axSolutions.map((sol) => (
+                      <td key={sol.id} className="p-4 text-center text-sm text-gray-600 italic">
+                        &ldquo;{sol.question}&rdquo;
+                      </td>
+                    ))}
+                  </tr>
+                  {/* 대상 */}
+                  <tr className="border-b border-gray-100 bg-gray-50/50">
+                    <td className="p-4 text-xs font-semibold text-gray-500">대상</td>
+                    {axSolutions.map((sol) => (
+                      <td key={sol.id} className="p-4 text-center text-sm text-gray-700">{sol.target}</td>
+                    ))}
+                  </tr>
+                  {/* 활용 사례 */}
+                  <tr className="border-b border-gray-100 bg-white">
+                    <td className="p-4 text-xs font-semibold text-gray-500">활용 사례</td>
+                    {axSolutions.map((sol) => (
+                      <td key={sol.id} className="p-4 text-center text-sm text-gray-700">{sol.useCase}</td>
+                    ))}
+                  </tr>
+                  {/* 제공 방식 */}
+                  <tr className="border-b border-gray-100 bg-gray-50/50">
+                    <td className="p-4 text-xs font-semibold text-gray-500">제공 방식</td>
+                    {axSolutions.map((sol) => (
+                      <td key={sol.id} className="p-4 text-center text-sm text-gray-700">{sol.delivery}</td>
+                    ))}
+                  </tr>
+                  {/* 도입 기간 */}
+                  <tr className="border-b border-gray-100 bg-white">
+                    <td className="p-4 text-xs font-semibold text-gray-500">도입 기간</td>
+                    {axSolutions.map((sol) => (
+                      <td key={sol.id} className="p-4 text-center text-sm text-gray-700">{sol.timeline}</td>
+                    ))}
+                  </tr>
+                  {/* 핵심 성과 */}
+                  <tr className="border-b border-gray-100 bg-gray-50/50">
+                    <td className="p-4 text-xs font-semibold text-gray-500">핵심 성과</td>
+                    {axSolutions.map((sol) => (
+                      <td key={sol.id} className="p-4 text-center text-sm font-bold" style={{ color: sol.color }}>
+                        {sol.metric}
+                      </td>
+                    ))}
+                  </tr>
+                  {/* CTA row */}
+                  <tr className="bg-gray-50/30 border-t border-gray-200">
+                    <td className="p-4" />
+                    {axSolutions.map((sol) => (
+                      <td key={sol.id} className="p-4 text-center">
+                        <Link
+                          href={sol.href}
+                          className="inline-flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+                        >
+                          자세히 보기
+                          <ArrowRight size={14} />
+                        </Link>
+                      </td>
+                    ))}
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </FadeInOnScroll>
 
