@@ -62,7 +62,7 @@ export default function Home() {
           <div className="absolute bottom-[20%] right-[20%] w-[400px] h-[400px] rounded-full opacity-15 blur-[120px] bg-[#a5f3fc]" />
         </div>
 
-        <div className="relative max-w-6xl mx-auto px-6 pt-24 pb-0 text-center">
+        <div className="relative max-w-6xl mx-auto px-6 pt-24 pb-8 text-center">
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -91,7 +91,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="flex flex-col sm:flex-row gap-3 justify-center mb-16"
+            className="flex flex-col sm:flex-row gap-3 justify-center"
           >
             <Link
               href="#contact"
