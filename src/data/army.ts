@@ -69,7 +69,7 @@ export const agents: Agent[] = [
     funnelPhase: "Acquisition",
     tagline: "광고 소재부터 집행·최적화까지 자동화",
     description: "수십 개 프로젝트로 검증된 Language Market-Fit 프레임워크",
-    expertise: "길드 LMF 플레이북",
+    expertise: "검증된 LMF 플레이북",
     impactMetric: "CTR / ROAS",
     impactValue: "+87% / 3배",
     color: "#EC4899",
@@ -111,7 +111,7 @@ export const agents: Agent[] = [
     funnelPhase: "Conversion",
     tagline: "가설부터 실험 세팅까지, 혼자서 다 하는 CRO",
     description: "7년 3,000+회 AB 실험이 학습된 자율주행 CRO 머신",
-    expertise: "폴 7년 CRO 레코드",
+    expertise: "7년 3,000회 AB 실험 데이터",
     impactMetric: "실험 속도",
     impactValue: "최대 21배",
     color: "#7C3AED",
@@ -230,17 +230,17 @@ export const agents: Agent[] = [
 
 export const armyOverview = {
   heroLabel: "Agents Running Marketing for You",
-  heroH1: "ARMY",
-  heroSub: "리서치부터 실험까지, 풀퍼널을 자동화하는 에이전트 군단",
+  heroH1: "MFL ARMY",
+  heroSub: "마켓핏랩의 그로스 마케팅 에이전트 군단",
   heroSubDetail:
-    "마켓핏랩의 7년 그로스 노하우가 학습된 에이전트 군단. 리서치, 가설 수립, 실험 설계, 실행, 분석까지 풀퍼널 그로스 마케팅을 자동화합니다.",
+    "마켓핏랩의 7년 그로스 노하우가 학습된 에이전트 군단. 리서치, 가설 수립, 실험 설계, 실행, 분석까지 그로스 마케팅을 자동화합니다.",
   differentiators: [
     {
       number: "01",
-      title: "길드 헤리티지가 학습된 에이전트",
+      title: "3,000회 실험이 학습된 에이전트",
       body: '"버튼 색 바꿔보자" 수준이 아닙니다. 7년간 3,000번이 넘는 AB 실험의 실패와 성공 패턴을 스킬(Skill) 단위로 에이전트에 학습시켰습니다.',
       bodyExtended:
-        "마켓핏랩은 7년간 250개 이상의 프로젝트에서 3,000번이 넘는 AB 실험을 직접 수행했습니다. 이 실패와 성공의 패턴을 스킬(Skill) 단위로 에이전트에 학습시켰습니다. CRO Agent의 ICE 가설 생성, LMF Agent의 소구점 도출 프레임워크는 일반 GPT가 흉내 낼 수 없는 길드 자산입니다.",
+        "마켓핏랩은 7년간 250개 이상의 프로젝트에서 3,000번이 넘는 AB 실험을 직접 수행했습니다. 이 실패와 성공의 패턴을 스킬(Skill) 단위로 에이전트에 학습시켰습니다. CRO Agent의 가설 생성, LMF Agent의 소구점 도출 프레임워크는 일반 GPT가 흉내 낼 수 없는 실전 자산입니다.",
     },
     {
       number: "02",
@@ -259,10 +259,9 @@ export const armyOverview = {
   ],
   heritage: {
     stats: [
-      { value: "7년", label: "그로스 마케팅 길드 운영" },
+      { value: "7년", label: "그로스 마케팅 전문 운영" },
       { value: "3,000+", label: "AB 실험 레코드" },
       { value: "250+", label: "컨설팅 프로젝트" },
-      { value: "50+", label: "LMF 프레임워크 프로젝트" },
     ],
     quote: {
       text: "에이전트는 일을 대신 해주는 비서가 아니라, 우리가 문제를 다루는 방식을 축적하는 container다.",
@@ -314,13 +313,42 @@ export const armyOverview = {
     ],
   },
   scenario: {
-    headline: "Slack에서 에이전트 군단이 일하는 법",
+    headline: "Slack 한 줄이면, 에이전트가 움직입니다",
     subheadline: "마켓핏랩의 ARMY는 Slack 워크스페이스 안에서 에이전트들이 협업합니다.",
-    steps: [
-      'PM이 "이 페이지 실험 가설 뽑아줘"라고 Slack에 URL을 던집니다.',
-      "CRO Agent가 페이지를 자율 분석하고 ICE 스코어 기반 가설 10개를 1초 만에 도출합니다.",
-      "PM이 가설을 선택하면, 에이전트가 VWO에 실험을 직접 세팅하고 QA까지 완료합니다.",
-      "실험 결과가 나오면 다음 액션 인사이트까지 정리합니다.",
+    tabs: [
+      {
+        agent: "CRO Agent",
+        channel: "# army-cro-channel",
+        color: "#7C3AED",
+        steps: [
+          { role: "user", label: "마케터", text: 'PM이 "이 페이지 실험 가설 뽑아줘"라고 Slack에 URL을 던집니다.' },
+          { role: "agent", label: "CRO Agent", text: "페이지를 자율 분석하고 가설 10개를 1초 만에 도출합니다." },
+          { role: "user", label: "마케터", text: "PM이 가설을 선택하면, 에이전트가 AB 테스트를 직접 세팅하고 QA까지 완료합니다." },
+          { role: "agent", label: "CRO Agent", text: "실험 결과가 나오면 다음 액션 인사이트까지 정리합니다." },
+        ],
+      },
+      {
+        agent: "LMF Agent",
+        channel: "# army-lmf-channel",
+        color: "#EC4899",
+        steps: [
+          { role: "user", label: "마케터", text: '"이 제품 광고 소재 만들어줘"라고 제품 URL을 공유합니다.' },
+          { role: "agent", label: "LMF Agent", text: "브랜드·경쟁사를 자동 리서치하고 타겟 퍼소나와 소구점을 도출합니다." },
+          { role: "user", label: "마케터", text: "소구점을 확인하면, AI가 카피와 이미지 소재를 자동 생성합니다." },
+          { role: "agent", label: "LMF Agent", text: "Meta 캠페인을 자동 세팅하고 성과를 실시간 추적합니다." },
+        ],
+      },
+      {
+        agent: "Voice Agent",
+        channel: "# army-voice-channel",
+        color: "#4361EE",
+        steps: [
+          { role: "agent", label: "Voice Agent", text: "새 리드가 감지되었습니다. 2분 내 자동 콜을 시작합니다." },
+          { role: "agent", label: "Voice Agent", text: "고객 맥락을 파악하고, 관심 제품에 맞춰 대화합니다." },
+          { role: "agent", label: "Voice Agent", text: "리드 품질을 검증하고 적합한 담당자에게 자동 연결합니다." },
+          { role: "agent", label: "Voice Agent", text: "통화 결과를 CRM에 자동 기록하고 후속 액션을 제안합니다." },
+        ],
+      },
     ],
   },
 };
@@ -335,6 +363,10 @@ export const axSolutions = [
     href: "/army",
     color: "#7C3AED",
     highlight: true,
+    target: "그로스 마케팅팀",
+    useCase: "AB 실험, 광고 최적화, 리드 전환",
+    delivery: "Slack 기반 에이전트 파견",
+    timeline: "2~4주 세팅",
   },
   {
     id: "replit",
@@ -345,6 +377,10 @@ export const axSolutions = [
     href: "/solutions/replit",
     color: "#F26522",
     highlight: false,
+    target: "비개발 직군 전체",
+    useCase: "내부 툴, MVP, 프로토타입 제작",
+    delivery: "워크샵 (4시간~1일)",
+    timeline: "당일 완성",
   },
   {
     id: "articul8",
@@ -355,6 +391,10 @@ export const axSolutions = [
     href: "/solutions/articul8",
     color: "#1E3A5F",
     highlight: false,
+    target: "IT/데이터팀, C-Level",
+    useCase: "사내 문서 AI, 도메인 특화 모델",
+    delivery: "온프레미스/클라우드 구축",
+    timeline: "4~8주 구축",
   },
 ];
 

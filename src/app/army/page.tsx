@@ -190,7 +190,7 @@ export default function ArmyPage() {
           </FadeInOnScroll>
 
           <div className="space-y-6">
-            {armyOverview.scenario.steps.map((step, i) => (
+            {armyOverview.scenario.tabs[0].steps.map((step, i) => (
               <FadeInOnScroll key={i} delay={i * 0.1}>
                 <div className="flex gap-4 items-start">
                   <div className="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center shrink-0 text-sm font-bold">
@@ -198,7 +198,7 @@ export default function ArmyPage() {
                   </div>
                   <div className="rounded-xl bg-white border border-gray-100 p-5 flex-1">
                     <p className="text-sm text-gray-700 leading-relaxed">
-                      {step}
+                      {step.text}
                     </p>
                   </div>
                 </div>

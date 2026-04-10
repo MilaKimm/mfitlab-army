@@ -53,7 +53,6 @@ export default function Home() {
     <>
       {/* ─── Section 1: Hero ─── */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[#f8f6f3] via-[#f0eef8] to-white">
-        {/* Warm-to-cool ambient light behind silhouettes */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-[10%] left-[5%] w-[600px] h-[600px] rounded-full opacity-25 blur-[150px] bg-[#fde68a]" />
           <div className="absolute top-[5%] left-[25%] w-[500px] h-[500px] rounded-full opacity-20 blur-[140px] bg-[#f9a8d4]" />
@@ -100,61 +99,18 @@ export default function Home() {
               ARMY 도입 상담
             </Link>
             <Link
-              href="/army#dashboard"
+              href="#scenario"
               className="h-12 px-6 flex items-center justify-center rounded-lg border border-gray-200 text-gray-700 font-medium hover:bg-white/80 transition-all duration-300"
             >
-              에이전트 작동 시나리오 보기
+              작동 방식 보기
             </Link>
           </motion.div>
 
-          {/* 7 Silhouettes */}
           <HeroSilhouettes />
         </div>
       </section>
 
-      {/* ─── Section 2: Heritage (moved up) ─── */}
-      <section className="py-20 bg-white border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-6">
-          <FadeInOnScroll>
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 text-center">
-              마켓핏랩의 핵심 노하우를 담았습니다
-            </h2>
-            <p className="text-sm text-gray-500 text-center mb-10">
-              실패와 성공의 기록이 에이전트의 스킬이 됩니다
-            </p>
-          </FadeInOnScroll>
-
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
-            {armyOverview.heritage.stats.map((stat, i) => (
-              <FadeInOnScroll key={i} delay={i * 0.08}>
-                <div className="text-center">
-                  <p className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent mb-2">
-                    {stat.value}
-                  </p>
-                  <p className="text-sm text-gray-500">{stat.label}</p>
-                </div>
-              </FadeInOnScroll>
-            ))}
-          </div>
-
-          {/* Client logos */}
-          <FadeInOnScroll>
-            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 pt-6 border-t border-gray-100">
-              {armyOverview.heritage.clients.map((client) => (
-                <span
-                  key={client}
-                  className="text-xs text-gray-300 font-medium uppercase tracking-wider"
-                >
-                  {client}
-                </span>
-              ))}
-            </div>
-          </FadeInOnScroll>
-        </div>
-      </section>
-
-      {/* ─── Section 3: Why ARMY ─── */}
+      {/* ─── Section 2: Why ARMY (moved before Heritage) ─── */}
       <section className="py-24 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
           <FadeInOnScroll>
@@ -170,7 +126,6 @@ export default function Home() {
             {armyOverview.differentiators.map((d, i) => (
               <FadeInOnScroll key={i} delay={i * 0.1}>
                 <div className="rounded-2xl bg-white border border-gray-100 p-8 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 h-full relative overflow-hidden">
-                  {/* Decorative gradient */}
                   <div
                     className="absolute top-0 right-0 w-32 h-32 rounded-full opacity-10 blur-2xl"
                     style={{
@@ -193,7 +148,47 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── Section 4: Agent Grid (with graphics) ─── */}
+      {/* ─── Section 3: Heritage (moved after Why ARMY) ─── */}
+      <section className="py-20 bg-white border-b border-gray-100">
+        <div className="max-w-6xl mx-auto px-6">
+          <FadeInOnScroll>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 text-center">
+              7년간 3,000번의 실험에서 배운 것, ARMY에 담았습니다
+            </h2>
+            <p className="text-sm text-gray-500 text-center mb-10">
+              실패와 성공의 기록이 에이전트의 스킬이 됩니다
+            </p>
+          </FadeInOnScroll>
+
+          <div className="grid grid-cols-3 gap-8 mb-10">
+            {armyOverview.heritage.stats.map((stat, i) => (
+              <FadeInOnScroll key={i} delay={i * 0.08}>
+                <div className="text-center">
+                  <p className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent mb-2">
+                    {stat.value}
+                  </p>
+                  <p className="text-sm text-gray-500">{stat.label}</p>
+                </div>
+              </FadeInOnScroll>
+            ))}
+          </div>
+
+          <FadeInOnScroll>
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 pt-6 border-t border-gray-100">
+              {armyOverview.heritage.clients.map((client) => (
+                <span
+                  key={client}
+                  className="text-xs text-gray-300 font-medium uppercase tracking-wider"
+                >
+                  {client}
+                </span>
+              ))}
+            </div>
+          </FadeInOnScroll>
+        </div>
+      </section>
+
+      {/* ─── Section 4: Agent Grid ─── */}
       <section className="py-24 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <FadeInOnScroll>
@@ -201,7 +196,7 @@ export default function Home() {
               ARMY Agents
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-              5개 에이전트가 풀퍼널 그로스를 자동화합니다
+              인지부터 재구매까지, 5개 에이전트가 자동화합니다
             </h2>
             <p className="text-gray-600 mb-12 max-w-2xl">
               각 에이전트에는 마켓핏랩의 프레임워크와 실전 노하우가 학습되어
@@ -232,7 +227,6 @@ export default function Home() {
                       gradientMap[agent.id]
                     } p-0 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-[280px] flex overflow-hidden`}
                   >
-                    {/* Left: content */}
                     <div className="flex flex-col justify-between p-6 w-[55%]">
                       <div>
                         <div className="flex items-center gap-2 mb-3">
@@ -274,7 +268,6 @@ export default function Home() {
                       </div>
                     </div>
 
-                    {/* Right: graphic */}
                     <div className="w-[45%] relative">
                       {graphicMap[agent.id]}
                     </div>
@@ -286,82 +279,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── Section 5: Dashboard Showcase ─── */}
-      <section className="py-24 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-6">
-          <FadeInOnScroll>
-            <p className="text-xs font-semibold tracking-widest uppercase text-purple-600 mb-3">
-              How ARMY Works
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-              {armyOverview.scenario.headline}
-            </h2>
-            <p className="text-gray-600 mb-12 max-w-2xl">
-              {armyOverview.scenario.subheadline}
-            </p>
-          </FadeInOnScroll>
+      {/* ─── Section 5: How ARMY Works (Tabbed) ─── */}
+      <ScenarioSection />
 
-          {/* Slack-style scenario */}
-          <FadeInOnScroll>
-            <div className="max-w-2xl mx-auto">
-              <div className="rounded-2xl border border-gray-200 bg-white shadow-lg overflow-hidden">
-                {/* Slack header */}
-                <div className="bg-slate-800 px-4 py-3 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="flex gap-1.5">
-                      <div className="w-3 h-3 rounded-full bg-red-400" />
-                      <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                      <div className="w-3 h-3 rounded-full bg-green-400" />
-                    </div>
-                    <span className="text-xs text-slate-400 ml-2 font-mono">
-                      # army-cro-channel
-                    </span>
-                  </div>
-                  <span className="text-[10px] text-slate-500">
-                    CRO Agent 시나리오 예시
-                  </span>
-                </div>
-
-                {/* Messages */}
-                <div className="p-4 space-y-4">
-                  {armyOverview.scenario.steps.map((step, i) => {
-                    const isUser = i === 0 || i === 2;
-                    return (
-                      <FadeInOnScroll key={i} delay={i * 0.15}>
-                        <div className={`flex gap-3 ${isUser ? "" : ""}`}>
-                          <div
-                            className={`w-8 h-8 rounded-lg shrink-0 flex items-center justify-center text-[10px] font-bold text-white ${
-                              isUser ? "bg-gray-400" : "bg-purple-500"
-                            }`}
-                          >
-                            {isUser ? "PM" : "AI"}
-                          </div>
-                          <div className="flex-1">
-                            <p className="text-[10px] text-gray-400 mb-1">
-                              {isUser ? "마케터" : "CRO Agent"}
-                            </p>
-                            <div
-                              className={`rounded-xl px-4 py-3 text-sm ${
-                                isUser
-                                  ? "bg-gray-50 text-gray-700"
-                                  : "bg-purple-50 text-purple-900"
-                              }`}
-                            >
-                              {step}
-                            </div>
-                          </div>
-                        </div>
-                      </FadeInOnScroll>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          </FadeInOnScroll>
-        </div>
-      </section>
-
-      {/* ─── Section 6: AX 3축 ─── */}
+      {/* ─── Section 6: AX 비교표 ─── */}
       <section className="py-24 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <FadeInOnScroll>
@@ -369,60 +290,108 @@ export default function Home() {
               AI Transformation
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-              마케팅 자동화만이 아닙니다.
-              <br />
-              조직의 AI 역량 자체를 바꿉니다.
+              우리 팀에 필요한 솔루션은?
             </h2>
             <p className="text-gray-600 mb-12 max-w-2xl">
-              마켓핏랩이 AI로 성장을 만드는 3가지 방법 — 고객의 과제에 따라 다른
-              해법을 제안합니다.
+              과제에 따라 다른 해법을 제안합니다. 한눈에 비교하세요.
             </p>
           </FadeInOnScroll>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {axSolutions.map((sol, i) => (
-              <FadeInOnScroll key={sol.id} delay={i * 0.1}>
-                <Link href={sol.href} className="block group">
-                  <div
-                    className={`rounded-2xl p-6 h-full transition-all duration-300 hover:-translate-y-1 ${
-                      sol.highlight
-                        ? "border-2 border-purple-200 bg-gradient-to-br from-purple-50/80 to-white hover:shadow-xl"
-                        : "border border-gray-100 bg-white hover:shadow-lg"
-                    }`}
-                  >
-                    <p className="text-sm text-gray-500 italic mb-4">
-                      &ldquo;{sol.question}&rdquo;
-                    </p>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">
-                      {sol.name}
-                    </h3>
-                    <p className="text-sm text-gray-600 mb-6">
-                      {sol.description}
-                    </p>
-                    <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                      <span
-                        className="text-sm font-bold"
+          <FadeInOnScroll>
+            <div className="rounded-2xl border border-gray-200 overflow-hidden">
+              {/* Table header */}
+              <div className="grid grid-cols-4 bg-gray-50 border-b border-gray-200">
+                <div className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider" />
+                {axSolutions.map((sol) => (
+                  <div key={sol.id} className="p-4 text-center">
+                    <Link href={sol.href} className="group">
+                      <p
+                        className="text-lg font-bold group-hover:opacity-80 transition-opacity"
                         style={{ color: sol.color }}
                       >
-                        {sol.metric}
-                      </span>
-                      <span className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-purple-50 transition-colors">
-                        <ArrowRight
-                          size={14}
-                          className="text-gray-400 group-hover:text-purple-600 transition-colors"
-                        />
+                        {sol.name}
+                      </p>
+                      {sol.highlight && (
+                        <span className="inline-block mt-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-purple-100 text-purple-700">
+                          핵심 솔루션
+                        </span>
+                      )}
+                    </Link>
+                  </div>
+                ))}
+              </div>
+
+              {/* Rows */}
+              {[
+                { label: "이런 고민이 있다면", key: "question" as const },
+                { label: "대상", key: "target" as const },
+                { label: "활용 사례", key: "useCase" as const },
+                { label: "제공 방식", key: "delivery" as const },
+                { label: "도입 기간", key: "timeline" as const },
+                { label: "핵심 성과", key: "metric" as const },
+              ].map((row, ri) => (
+                <div
+                  key={row.key}
+                  className={`grid grid-cols-4 ${
+                    ri % 2 === 0 ? "bg-white" : "bg-gray-50/50"
+                  } border-b border-gray-100 last:border-b-0`}
+                >
+                  <div className="p-4 flex items-center">
+                    <span className="text-xs font-semibold text-gray-500">
+                      {row.label}
+                    </span>
+                  </div>
+                  {axSolutions.map((sol) => (
+                    <div
+                      key={sol.id}
+                      className={`p-4 text-center flex items-center justify-center ${
+                        sol.highlight && row.key === "metric"
+                          ? "font-bold"
+                          : ""
+                      }`}
+                    >
+                      <span
+                        className={`text-sm ${
+                          row.key === "question"
+                            ? "text-gray-600 italic"
+                            : row.key === "metric"
+                            ? "font-bold"
+                            : "text-gray-700"
+                        }`}
+                        style={
+                          row.key === "metric" ? { color: sol.color } : undefined
+                        }
+                      >
+                        {row.key === "question"
+                          ? `"${sol[row.key]}"`
+                          : sol[row.key]}
                       </span>
                     </div>
+                  ))}
+                </div>
+              ))}
+
+              {/* CTA row */}
+              <div className="grid grid-cols-4 bg-gray-50/30 border-t border-gray-200">
+                <div className="p-4" />
+                {axSolutions.map((sol) => (
+                  <div key={sol.id} className="p-4 text-center">
+                    <Link
+                      href={sol.href}
+                      className="inline-flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+                    >
+                      자세히 보기
+                      <ArrowRight size={14} />
+                    </Link>
                   </div>
-                </Link>
-              </FadeInOnScroll>
-            ))}
-          </div>
+                ))}
+              </div>
+            </div>
+          </FadeInOnScroll>
 
           <FadeInOnScroll>
             <p className="text-center text-xs text-gray-400 mt-8">
-              각 솔루션은 독립적인 전문 파트너(Replit Inc. / Intel 출신 Articul8
-              팀)와 함께 운영됩니다.
+              Replit, Articul8은 독립적인 전문 파트너와 함께 운영됩니다.
             </p>
           </FadeInOnScroll>
         </div>
@@ -430,7 +399,6 @@ export default function Home() {
 
       {/* ─── Section 7: Diagnostic CTA ─── */}
       <section className="relative py-20 overflow-hidden">
-        {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-r from-purple-50 via-indigo-50 to-cyan-50" />
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-1/4 w-[300px] h-[300px] rounded-full bg-purple-200/20 blur-3xl" />
@@ -484,6 +452,124 @@ export default function Home() {
   );
 }
 
+/* ─── Scenario Section with Tabs ─── */
+function ScenarioSection() {
+  const [activeTab, setActiveTab] = useState(0);
+  const tabs = armyOverview.scenario.tabs;
+  const current = tabs[activeTab];
+
+  return (
+    <section id="scenario" className="py-24 bg-gray-50">
+      <div className="max-w-6xl mx-auto px-6">
+        <FadeInOnScroll>
+          <p className="text-xs font-semibold tracking-widest uppercase text-purple-600 mb-3">
+            How ARMY Works
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+            {armyOverview.scenario.headline}
+          </h2>
+          <p className="text-gray-600 mb-8 max-w-2xl">
+            {armyOverview.scenario.subheadline}
+          </p>
+        </FadeInOnScroll>
+
+        {/* Agent tabs */}
+        <div className="flex gap-2 mb-8 max-w-2xl mx-auto justify-center">
+          {tabs.map((tab, i) => (
+            <button
+              key={i}
+              onClick={() => setActiveTab(i)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                activeTab === i
+                  ? "text-white shadow-md"
+                  : "bg-white text-gray-500 border border-gray-200 hover:border-gray-300"
+              }`}
+              style={
+                activeTab === i ? { backgroundColor: tab.color } : undefined
+              }
+            >
+              {tab.agent}
+            </button>
+          ))}
+        </div>
+
+        {/* Slack mockup */}
+        <div className="max-w-2xl mx-auto">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="rounded-2xl border border-gray-200 bg-white shadow-lg overflow-hidden"
+          >
+            {/* Slack header */}
+            <div className="bg-slate-800 px-4 py-3 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="flex gap-1.5">
+                  <div className="w-3 h-3 rounded-full bg-red-400" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-400" />
+                  <div className="w-3 h-3 rounded-full bg-green-400" />
+                </div>
+                <span className="text-xs text-slate-400 ml-2 font-mono">
+                  {current.channel}
+                </span>
+              </div>
+              <span className="text-[10px] text-slate-500">
+                {current.agent} 시나리오
+              </span>
+            </div>
+
+            {/* Messages */}
+            <div className="p-4 space-y-4">
+              {current.steps.map((step, i) => {
+                const isUser = step.role === "user";
+                return (
+                  <FadeInOnScroll key={i} delay={i * 0.1}>
+                    <div className="flex gap-3">
+                      <div
+                        className={`w-8 h-8 rounded-lg shrink-0 flex items-center justify-center text-[10px] font-bold text-white`}
+                        style={{
+                          backgroundColor: isUser ? "#9CA3AF" : current.color,
+                        }}
+                      >
+                        {isUser ? "PM" : "AI"}
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-[10px] text-gray-400 mb-1">
+                          {step.label}
+                        </p>
+                        <div
+                          className={`rounded-xl px-4 py-3 text-sm ${
+                            isUser
+                              ? "bg-gray-50 text-gray-700"
+                              : "bg-opacity-10 border"
+                          }`}
+                          style={
+                            !isUser
+                              ? {
+                                  backgroundColor: current.color + "10",
+                                  borderColor: current.color + "20",
+                                  color: current.color,
+                                }
+                              : undefined
+                          }
+                        >
+                          {step.text}
+                        </div>
+                      </div>
+                    </div>
+                  </FadeInOnScroll>
+                );
+              })}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Contact Section ─── */
 function ContactSection() {
   const [formState, setFormState] = useState<"idle" | "sending" | "sent">(
     "idle"
@@ -523,10 +609,21 @@ function ContactSection() {
     }
   };
 
-  const armyAgents = agents.map((a) => ({ id: a.id, name: a.name }));
-  const otherSolutions = [
-    { id: "replit", name: "Replit 워크샵" },
-    { id: "articul8", name: "Articul8" },
+  const solutionGroups = [
+    {
+      label: "ARMY 에이전트",
+      items: [
+        { id: "army-all", name: "ARMY 전체" },
+        ...agents.map((a) => ({ id: a.id, name: a.name })),
+      ],
+    },
+    {
+      label: "기타 솔루션",
+      items: [
+        { id: "replit", name: "Replit 워크샵" },
+        { id: "articul8", name: "Articul8" },
+      ],
+    },
   ];
 
   return (
@@ -593,46 +690,29 @@ function ContactSection() {
               />
             </div>
 
-            <div>
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
-                ARMY — 그로스 마케팅 AI
-              </p>
-              <div className="flex flex-wrap gap-2 mb-3">
-                {armyAgents.map((a) => (
-                  <button
-                    key={a.id}
-                    type="button"
-                    onClick={() => toggleSolution(a.id)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all duration-200 ${
-                      selectedSolutions.includes(a.id)
-                        ? "border-purple-400 bg-purple-50 text-purple-700 shadow-sm"
-                        : "border-gray-200 text-gray-500 hover:border-gray-300"
-                    }`}
-                  >
-                    {a.name}
-                  </button>
-                ))}
+            {solutionGroups.map((group) => (
+              <div key={group.label}>
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                  {group.label}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {group.items.map((item) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => toggleSolution(item.id)}
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all duration-200 ${
+                        selectedSolutions.includes(item.id)
+                          ? "border-purple-400 bg-purple-50 text-purple-700 shadow-sm"
+                          : "border-gray-200 text-gray-500 hover:border-gray-300"
+                      }`}
+                    >
+                      {item.name}
+                    </button>
+                  ))}
+                </div>
               </div>
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
-                기타 솔루션
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {otherSolutions.map((s) => (
-                  <button
-                    key={s.id}
-                    type="button"
-                    onClick={() => toggleSolution(s.id)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all duration-200 ${
-                      selectedSolutions.includes(s.id)
-                        ? "border-purple-400 bg-purple-50 text-purple-700 shadow-sm"
-                        : "border-gray-200 text-gray-500 hover:border-gray-300"
-                    }`}
-                  >
-                    {s.name}
-                  </button>
-                ))}
-              </div>
-            </div>
+            ))}
 
             <textarea
               name="message"
