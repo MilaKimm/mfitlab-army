@@ -2,142 +2,120 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { agents } from "@/data/army";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [armyDropdown, setArmyDropdown] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <span className="text-lg font-bold text-gray-900">MarketFitLab</span>
-          <span className="text-[10px] font-semibold tracking-widest uppercase bg-gray-900 text-white px-2 py-0.5 rounded">
-            AX
-          </span>
-        </Link>
-
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          {/* ARMY Dropdown */}
-          <div
-            className="relative"
-            onMouseEnter={() => setArmyDropdown(true)}
-            onMouseLeave={() => setArmyDropdown(false)}
-          >
-            <button className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-gray-900 transition">
-              ARMY <ChevronDown size={14} />
-            </button>
-            {armyDropdown && (
-              <div className="absolute top-full left-0 pt-2">
-                <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-4 min-w-[320px] grid grid-cols-2 gap-x-6 gap-y-2">
-                  <Link
-                    href="/army"
-                    className="col-span-2 text-sm font-semibold text-gray-900 hover:text-purple-600 transition pb-2 border-b border-gray-100 mb-1"
-                  >
-                    ARMY 소개
-                  </Link>
-                  {agents.map((agent) => (
-                    <Link
-                      key={agent.id}
-                      href={`/army/${agent.id}`}
-                      className="text-sm text-gray-600 hover:text-gray-900 transition py-1"
-                    >
-                      <span
-                        className="inline-block w-2 h-2 rounded-full mr-2"
-                        style={{ backgroundColor: agent.color }}
-                      />
-                      {agent.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
-          <Link
-            href="/solutions/replit"
-            className="text-sm font-medium text-gray-700 hover:text-gray-900 transition"
-          >
-            Replit
-          </Link>
-          <Link
-            href="/solutions/articul8"
-            className="text-sm font-medium text-gray-700 hover:text-gray-900 transition"
-          >
-            Articul8
+    <>
+      <header
+        className="fixed top-0 left-0 right-0 z-50 mix-blend-difference"
+        style={{ padding: "24px 32px" }}
+      >
+        <div className="max-w-[1400px] mx-auto flex items-center justify-between">
+          {/* Logo */}
+          <Link href="/" className="font-display text-2xl tracking-widest text-white uppercase">
+            ARMY
           </Link>
 
-          <Link
-            href="#contact"
-            className="h-10 px-5 flex items-center rounded-lg bg-gray-900 text-white text-sm font-medium hover:bg-gray-800 transition"
-          >
-            도입 상담
-          </Link>
-        </nav>
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center gap-8">
+            <Link
+              href="/army"
+              className="text-[12px] uppercase tracking-[0.2em] text-white/70 hover:text-white transition-colors duration-300"
+            >
+              About
+            </Link>
+            <Link
+              href="/solutions/replit"
+              className="text-[12px] uppercase tracking-[0.2em] text-white/70 hover:text-white transition-colors duration-300"
+            >
+              Replit
+            </Link>
+            <Link
+              href="/solutions/articul8"
+              className="text-[12px] uppercase tracking-[0.2em] text-white/70 hover:text-white transition-colors duration-300"
+            >
+              Articul8
+            </Link>
+            <Link
+              href="#contact"
+              className="text-[12px] uppercase tracking-[0.2em] text-white border border-white/50 px-5 py-2 hover:bg-white hover:text-[#171e19] transition-all duration-300"
+            >
+              Get in Touch
+            </Link>
+          </nav>
 
-        {/* Mobile Toggle */}
-        <button
-          className="md:hidden p-2"
-          onClick={() => setMobileOpen(!mobileOpen)}
-        >
-          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
+          {/* Mobile Toggle */}
+          <button
+            className="md:hidden text-white"
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
+            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+      </header>
 
       {/* Mobile Drawer */}
       {mobileOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 px-6 py-4 space-y-4">
-          <div>
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">
-              ARMY
-            </p>
+        <div className="fixed inset-0 z-[60] bg-[#171e19] flex flex-col p-8">
+          <div className="flex justify-between items-center mb-12">
             <Link
-              href="/army"
-              className="block text-sm font-semibold text-gray-900 py-1.5"
+              href="/"
+              className="font-display text-2xl tracking-widest text-white uppercase"
               onClick={() => setMobileOpen(false)}
             >
-              ARMY 소개
+              ARMY
             </Link>
+            <button className="text-white" onClick={() => setMobileOpen(false)}>
+              <X size={24} />
+            </button>
+          </div>
+
+          <nav className="flex flex-col gap-6">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[#9f8d8b] mb-2">
+              Agents
+            </p>
             {agents.map((agent) => (
               <Link
                 key={agent.id}
                 href={`/army/${agent.id}`}
-                className="block text-sm text-gray-600 py-1.5"
+                className="font-display text-3xl text-white/80 hover:text-white uppercase tracking-wider transition-colors"
                 onClick={() => setMobileOpen(false)}
               >
                 {agent.name}
               </Link>
             ))}
-          </div>
-          <div className="border-t border-gray-100 pt-3 space-y-2">
+
+            <div className="border-t border-white/10 my-4" />
+
             <Link
               href="/solutions/replit"
-              className="block text-sm text-gray-700 py-1.5"
+              className="text-[12px] uppercase tracking-[0.2em] text-white/60 hover:text-white transition-colors"
               onClick={() => setMobileOpen(false)}
             >
               Replit
             </Link>
             <Link
               href="/solutions/articul8"
-              className="block text-sm text-gray-700 py-1.5"
+              className="text-[12px] uppercase tracking-[0.2em] text-white/60 hover:text-white transition-colors"
               onClick={() => setMobileOpen(false)}
             >
               Articul8
             </Link>
-          </div>
-          <Link
-            href="#contact"
-            className="block text-center h-10 flex items-center justify-center rounded-lg bg-gray-900 text-white text-sm font-medium"
-            onClick={() => setMobileOpen(false)}
-          >
-            도입 상담
-          </Link>
+
+            <Link
+              href="#contact"
+              className="mt-4 text-center text-[12px] uppercase tracking-[0.2em] text-white border border-white/50 px-6 py-3 hover:bg-white hover:text-[#171e19] transition-all duration-300"
+              onClick={() => setMobileOpen(false)}
+            >
+              Get in Touch
+            </Link>
+          </nav>
         </div>
       )}
-    </header>
+    </>
   );
 }
