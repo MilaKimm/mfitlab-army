@@ -2,96 +2,151 @@
 
 import { motion } from "framer-motion";
 
+/*
+ * 7 translucent silhouette figures with layered gradients.
+ * - Much larger than before, filling the hero width
+ * - Shoulders overlap slightly, heights vary
+ * - Bottom fades out with a gradient mask (no hard cut)
+ * - Multiple translucent layers per figure for depth
+ */
+
 const figures = [
-  { color1: "#06B6D4", color2: "#0891B2", height: 280, delay: 0 },
-  { color1: "#EC4899", color2: "#DB2777", height: 300, delay: 0.08 },
-  { color1: "#7C3AED", color2: "#6D28D9", height: 320, delay: 0.16 },
-  { color1: "#4361EE", color2: "#3B51D3", height: 310, delay: 0.24 },
-  { color1: "#F59E0B", color2: "#D97706", height: 290, delay: 0.32 },
-  { color1: "#8B5CF6", color2: "#7C3AED", height: 305, delay: 0.4 },
-  { color1: "#06B6D4", color2: "#4361EE", height: 295, delay: 0.48 },
+  { colors: ["#06B6D4", "#67E8F9", "#0E7490"], h: 420, xOff: 0, delay: 0 },
+  { colors: ["#EC4899", "#F9A8D4", "#BE185D"], h: 460, xOff: 0, delay: 0.06 },
+  { colors: ["#7C3AED", "#C4B5FD", "#5B21B6"], h: 500, xOff: 0, delay: 0.12 },
+  { colors: ["#4361EE", "#93C5FD", "#1E3A8A"], h: 480, xOff: 0, delay: 0.18 },
+  { colors: ["#F59E0B", "#FDE68A", "#B45309"], h: 440, xOff: 0, delay: 0.24 },
+  { colors: ["#8B5CF6", "#DDD6FE", "#6D28D9"], h: 470, xOff: 0, delay: 0.30 },
+  { colors: ["#06B6D4", "#A5F3FC", "#4361EE"], h: 450, xOff: 0, delay: 0.36 },
 ];
 
-function SilhouetteFigure({
-  color1,
-  color2,
-  height,
+function Figure({
+  colors,
+  h,
   delay,
   index,
 }: {
-  color1: string;
-  color2: string;
-  height: number;
+  colors: string[];
+  h: number;
   delay: number;
   index: number;
 }) {
-  const gradientId = `silhouette-grad-${index}`;
-  const glowId = `silhouette-glow-${index}`;
+  const [c1, c2, c3] = colors;
+  const gId = `fig-g-${index}`;
+  const gId2 = `fig-g2-${index}`;
+  const gId3 = `fig-g3-${index}`;
+  const blurId = `fig-blur-${index}`;
+  const fadeId = `fig-fade-${index}`;
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 60 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, delay: delay + 0.3, ease: "easeOut" }}
-      className="relative"
-      style={{ height, width: 90, marginLeft: index === 0 ? 0 : -20 }}
+      transition={{ duration: 1.2, delay: delay + 0.4, ease: "easeOut" }}
+      className="relative shrink-0"
+      style={{
+        width: 140,
+        height: h,
+        marginLeft: index === 0 ? 0 : -30,
+        zIndex: index === 3 ? 10 : 7 - Math.abs(index - 3),
+      }}
     >
       <svg
-        viewBox="0 0 90 320"
+        viewBox="0 0 140 500"
         fill="none"
-        className="absolute bottom-0 w-full"
-        style={{ height }}
+        className="absolute bottom-0 w-full h-full"
+        preserveAspectRatio="xMidYMax meet"
       >
         <defs>
-          <linearGradient id={gradientId} x1="0.5" y1="0" x2="0.5" y2="1">
-            <stop offset="0%" stopColor={color1} stopOpacity="0.9" />
-            <stop offset="50%" stopColor={color2} stopOpacity="0.6" />
-            <stop offset="100%" stopColor={color1} stopOpacity="0.1" />
+          {/* Main gradient: top opaque, bottom transparent */}
+          <linearGradient id={gId} x1="0.5" y1="0" x2="0.5" y2="1">
+            <stop offset="0%" stopColor={c1} stopOpacity="0.85" />
+            <stop offset="35%" stopColor={c2} stopOpacity="0.5" />
+            <stop offset="70%" stopColor={c1} stopOpacity="0.25" />
+            <stop offset="100%" stopColor={c2} stopOpacity="0" />
           </linearGradient>
-          <filter id={glowId}>
-            <feGaussianBlur stdDeviation="8" result="blur" />
+          {/* Inner layer gradient */}
+          <linearGradient id={gId2} x1="0.5" y1="0" x2="0.5" y2="1">
+            <stop offset="0%" stopColor={c2} stopOpacity="0.4" />
+            <stop offset="50%" stopColor={c1} stopOpacity="0.15" />
+            <stop offset="100%" stopColor={c3} stopOpacity="0" />
+          </linearGradient>
+          {/* Core highlight */}
+          <linearGradient id={gId3} x1="0.5" y1="0" x2="0.5" y2="1">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.25" />
+            <stop offset="40%" stopColor={c2} stopOpacity="0.1" />
+            <stop offset="100%" stopColor={c1} stopOpacity="0" />
+          </linearGradient>
+          {/* Soft blur for glow */}
+          <filter id={blurId}>
+            <feGaussianBlur stdDeviation="6" result="b" />
             <feMerge>
-              <feMergeNode in="blur" />
+              <feMergeNode in="b" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
+          {/* Fade mask for bottom */}
+          <linearGradient id={fadeId} x1="0.5" y1="0" x2="0.5" y2="1">
+            <stop offset="0%" stopColor="white" stopOpacity="1" />
+            <stop offset="60%" stopColor="white" stopOpacity="1" />
+            <stop offset="85%" stopColor="white" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="white" stopOpacity="0" />
+          </linearGradient>
+          <mask id={`fig-mask-${index}`}>
+            <rect x="0" y="0" width="140" height="500" fill={`url(#${fadeId})`} />
+          </mask>
         </defs>
-        {/* Head */}
-        <ellipse
-          cx="45"
-          cy="35"
-          rx="20"
-          ry="24"
-          fill={`url(#${gradientId})`}
-          filter={`url(#${glowId})`}
-        />
-        {/* Neck */}
-        <rect
-          x="38"
-          y="55"
-          width="14"
-          height="15"
-          rx="7"
-          fill={`url(#${gradientId})`}
-          opacity="0.7"
-        />
-        {/* Body */}
-        <path
-          d="M10 320 L20 100 Q25 70 45 70 Q65 70 70 100 L80 320 Z"
-          fill={`url(#${gradientId})`}
-          filter={`url(#${glowId})`}
-        />
-        {/* Inner glow layers */}
-        <path
-          d="M18 320 L26 115 Q30 80 45 80 Q60 80 64 115 L72 320 Z"
-          fill={color1}
-          opacity="0.15"
-        />
-        <path
-          d="M26 320 L32 130 Q35 95 45 95 Q55 95 58 130 L64 320 Z"
-          fill={color2}
-          opacity="0.1"
-        />
+
+        <g mask={`url(#fig-mask-${index})`}>
+          {/* Outer body — widest, most transparent */}
+          <path
+            d="M5 500 L18 145 Q25 80 45 55 L50 45 Q55 35 70 35 Q85 35 90 45 L95 55 Q115 80 122 145 L135 500 Z"
+            fill={`url(#${gId})`}
+            filter={`url(#${blurId})`}
+          />
+
+          {/* Head — large ellipse with glow */}
+          <ellipse
+            cx="70"
+            cy="52"
+            rx="28"
+            ry="34"
+            fill={`url(#${gId})`}
+            filter={`url(#${blurId})`}
+          />
+
+          {/* Middle body layer */}
+          <path
+            d="M20 500 L30 160 Q38 95 55 70 Q62 58 70 58 Q78 58 85 70 Q102 95 110 160 L120 500 Z"
+            fill={`url(#${gId2})`}
+          />
+
+          {/* Inner highlight body */}
+          <path
+            d="M35 500 L42 175 Q48 110 60 85 Q65 72 70 72 Q75 72 80 85 Q92 110 98 175 L105 500 Z"
+            fill={`url(#${gId3})`}
+          />
+
+          {/* Head inner glow */}
+          <ellipse
+            cx="70"
+            cy="50"
+            rx="18"
+            ry="22"
+            fill={c2}
+            opacity="0.15"
+          />
+
+          {/* Neck area */}
+          <ellipse
+            cx="70"
+            cy="78"
+            rx="12"
+            ry="10"
+            fill={c1}
+            opacity="0.2"
+          />
+        </g>
       </svg>
     </motion.div>
   );
@@ -99,9 +154,11 @@ function SilhouetteFigure({
 
 export default function HeroSilhouettes() {
   return (
-    <div className="flex items-end justify-center">
+    <div className="flex items-end justify-center relative">
+      {/* Extra bottom fade to blend into next section */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent z-20 pointer-events-none" />
       {figures.map((fig, i) => (
-        <SilhouetteFigure key={i} {...fig} index={i} />
+        <Figure key={i} {...fig} index={i} />
       ))}
     </div>
   );

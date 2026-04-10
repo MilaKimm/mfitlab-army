@@ -52,17 +52,17 @@ export default function Home() {
   return (
     <>
       {/* ─── Section 1: Hero ─── */}
-      <section className="relative overflow-hidden">
-        {/* Animated gradient orbs */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#f8f6f3] via-[#f0eef8] to-white">
+        {/* Warm-to-cool ambient light behind silhouettes */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full opacity-20 blur-[120px] bg-[#06B6D4] animate-[spin_30s_linear_infinite]" />
-          <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full opacity-20 blur-[120px] bg-[#EC4899] animate-[spin_30s_linear_infinite_reverse]" />
-          <div className="absolute bottom-[-20%] left-[30%] w-[550px] h-[550px] rounded-full opacity-15 blur-[120px] bg-[#7C3AED] animate-[spin_30s_linear_infinite]" />
-          <div className="absolute top-[20%] right-[20%] w-[400px] h-[400px] rounded-full opacity-15 blur-[120px] bg-[#4361EE] animate-[spin_30s_linear_infinite_reverse]" />
-          <div className="absolute bottom-[10%] left-[10%] w-[350px] h-[350px] rounded-full opacity-10 blur-[120px] bg-[#10B981] animate-[spin_30s_linear_infinite]" />
+          <div className="absolute top-[10%] left-[5%] w-[600px] h-[600px] rounded-full opacity-25 blur-[150px] bg-[#fde68a]" />
+          <div className="absolute top-[5%] left-[25%] w-[500px] h-[500px] rounded-full opacity-20 blur-[140px] bg-[#f9a8d4]" />
+          <div className="absolute top-[0%] right-[10%] w-[600px] h-[600px] rounded-full opacity-25 blur-[150px] bg-[#93c5fd]" />
+          <div className="absolute bottom-[10%] left-[40%] w-[500px] h-[500px] rounded-full opacity-15 blur-[130px] bg-[#c4b5fd]" />
+          <div className="absolute bottom-[20%] right-[20%] w-[400px] h-[400px] rounded-full opacity-15 blur-[120px] bg-[#a5f3fc]" />
         </div>
 
-        <div className="relative max-w-6xl mx-auto px-6 pt-24 pb-12 text-center">
+        <div className="relative max-w-6xl mx-auto px-6 pt-24 pb-0 text-center">
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
