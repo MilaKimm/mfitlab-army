@@ -229,9 +229,9 @@ export const agents: Agent[] = [
 ];
 
 export const armyOverview = {
-  heroLabel: "ARMY — Growth Marketing AI Solution",
-  heroH1: "그로스 마케팅을 AI 군단이 대신 돌립니다",
-  heroSub: "7년 3,000번의 실험이 학습된 마켓핏랩의 에이전트 군단, ARMY.",
+  heroLabel: "Agents Running Marketing for You",
+  heroH1: "ARMY",
+  heroSub: "마켓핏랩 그로스 마케팅 에이전트",
   heroSubDetail:
     "마켓핏랩의 7년 그로스 노하우가 학습된 에이전트 군단. 리서치, 가설 수립, 실험 설계, 실행, 분석까지 풀퍼널 그로스 마케팅을 자동화합니다.",
   differentiators: [

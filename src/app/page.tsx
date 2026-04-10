@@ -62,7 +62,7 @@ export default function Home() {
           <div className="absolute bottom-[20%] right-[20%] w-[400px] h-[400px] rounded-full opacity-15 blur-[120px] bg-[#a5f3fc]" />
         </div>
 
-        <div className="relative max-w-6xl mx-auto px-6 pt-24 pb-8 text-center">
+        <div className="relative z-20 max-w-6xl mx-auto px-6 pt-24 pb-8 text-center">
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -75,7 +75,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900 mb-6"
+            className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight text-gray-900 mb-4"
           >
             {armyOverview.heroH1}
           </motion.h1>
