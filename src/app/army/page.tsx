@@ -289,9 +289,7 @@ export default function ArmyPage() {
               <p className="text-lg text-gray-700 italic leading-relaxed mb-3">
                 &ldquo;{armyOverview.heritage.quote.text}&rdquo;
               </p>
-              <cite className="text-sm text-gray-400 not-italic">
-                — {armyOverview.heritage.quote.author}
-              </cite>
+              {/* quote only, no author */}
             </blockquote>
           </FadeInOnScroll>
         </div>

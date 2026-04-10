@@ -266,7 +266,6 @@ export const armyOverview = {
     ],
     quote: {
       text: "에이전트는 일을 대신 해주는 비서가 아니라, 우리가 문제를 다루는 방식을 축적하는 container다.",
-      author: "폴(Paul), 마켓핏랩",
     },
     clients: [
       "현대자동차",
