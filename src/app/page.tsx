@@ -116,9 +116,12 @@ export default function Home() {
       <section className="py-20 bg-white border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-6">
           <FadeInOnScroll>
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-10 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 text-center">
               마켓핏랩의 핵심 노하우를 담았습니다
             </h2>
+            <p className="text-sm text-gray-500 text-center mb-10">
+              실패와 성공의 기록이 에이전트의 스킬이 됩니다
+            </p>
           </FadeInOnScroll>
 
           {/* Stats */}
@@ -303,14 +306,19 @@ export default function Home() {
             <div className="max-w-2xl mx-auto">
               <div className="rounded-2xl border border-gray-200 bg-white shadow-lg overflow-hidden">
                 {/* Slack header */}
-                <div className="bg-slate-800 px-4 py-3 flex items-center gap-2">
-                  <div className="flex gap-1.5">
-                    <div className="w-3 h-3 rounded-full bg-red-400" />
-                    <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                    <div className="w-3 h-3 rounded-full bg-green-400" />
+                <div className="bg-slate-800 px-4 py-3 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="flex gap-1.5">
+                      <div className="w-3 h-3 rounded-full bg-red-400" />
+                      <div className="w-3 h-3 rounded-full bg-yellow-400" />
+                      <div className="w-3 h-3 rounded-full bg-green-400" />
+                    </div>
+                    <span className="text-xs text-slate-400 ml-2 font-mono">
+                      # army-cro-channel
+                    </span>
                   </div>
-                  <span className="text-xs text-slate-400 ml-2 font-mono">
-                    # army-cro-channel
+                  <span className="text-[10px] text-slate-500">
+                    CRO Agent 시나리오 예시
                   </span>
                 </div>
 
@@ -525,11 +533,16 @@ function ContactSection() {
     <section id="contact" className="py-24 bg-gray-50">
       <div className="max-w-2xl mx-auto px-6">
         <FadeInOnScroll>
+          <p className="text-lg md:text-xl text-gray-700 text-center mb-3 leading-relaxed">
+            나보다 꼼꼼하게 진단하고, 나보다 빠르게 세팅하는
+            <br className="hidden md:block" />
+            에이전트 군단이 있다면 —
+          </p>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3 text-center">
-            ARMY 도입, 지금 바로 시작하고 싶다면?
+            지금 바로 시작하세요
           </h2>
-          <p className="text-gray-600 text-center mb-10">
-            마켓핏랩의 에이전트 군단으로 그로스 팀의 생산성을 극대화하세요.
+          <p className="text-gray-500 text-center mb-10 text-sm">
+            도입 상담부터 에이전트 파견까지, 마켓핏랩이 함께합니다.
           </p>
         </FadeInOnScroll>
 
