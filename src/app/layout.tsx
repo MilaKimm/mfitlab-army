@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Anton, Plus_Jakarta_Sans } from "next/font/google";
+import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/layout/Header";
@@ -8,18 +8,6 @@ import Footer from "@/components/layout/Footer";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-});
-
-const anton = Anton({
-  variable: "--font-anton",
-  weight: "400",
-  subsets: ["latin"],
-});
-
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
 });
 
 const pretendard = localFont({
@@ -42,7 +30,7 @@ export default function RootLayout({
   return (
     <html
       lang="ko"
-      className={`${inter.variable} ${anton.variable} ${jakarta.variable} ${pretendard.variable} h-full antialiased`}
+      className={`${inter.variable} ${pretendard.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans bg-white text-gray-900">
         <Header />

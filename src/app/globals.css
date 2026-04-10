@@ -3,16 +3,7 @@
 @theme inline {
   --color-background: #ffffff;
   --color-foreground: #0f172a;
-  --color-navy: #171e19;
-  --color-sage: #b7c6c2;
-  --color-taupe: #9f8d8b;
-  --color-beige: #d7c5b2;
-  --color-cyan-light: #d5f4f9;
-  --color-soft-blue: #bbe2f5;
-  --color-charcoal: #302b2f;
-  --font-sans: var(--font-pretendard), var(--font-jakarta), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-anton), ui-sans-serif, system-ui, sans-serif;
-  --font-body: var(--font-jakarta), var(--font-pretendard), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-pretendard), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
@@ -31,41 +22,4 @@
   html {
     scroll-behavior: smooth;
   }
-}
-
-@layer utilities {
-  .font-display {
-    font-family: var(--font-display);
-  }
-  .font-body {
-    font-family: var(--font-body);
-  }
-  .text-outline {
-    -webkit-text-stroke: 1px var(--color-sage);
-    color: transparent;
-  }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-.animate-fade-in-up {
-  animation: fadeInUp 1s ease-out forwards;
 }

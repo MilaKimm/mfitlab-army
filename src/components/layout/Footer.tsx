@@ -1,45 +1,91 @@
 import Link from "next/link";
+import { agents } from "@/data/army";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#171e19] text-white">
-      <div className="max-w-[1400px] mx-auto px-8 md:px-12 pt-24 md:pt-32 pb-8">
-        {/* Massive CTA */}
-        <div className="mb-16 md:mb-24">
-          <h2 className="font-display text-6xl md:text-8xl lg:text-9xl uppercase tracking-tighter leading-[0.85] text-white mb-8">
-            Let&apos;s
-            <br />
-            <span className="text-outline">Create</span>
-          </h2>
-          <a
-            href="mailto:mila@mfitlab.com"
-            className="text-[#b7c6c2] text-2xl md:text-4xl underline underline-offset-8 hover:text-white transition-colors duration-300 font-body font-light"
-          >
-            mila@mfitlab.com
-          </a>
+    <footer className="bg-gray-50 border-t border-gray-100">
+      <div className="max-w-7xl mx-auto px-6 py-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {/* Brand */}
+          <div className="col-span-2 md:col-span-1">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-lg font-bold text-gray-900">
+                MarketFitLab
+              </span>
+              <span className="text-[10px] font-semibold tracking-widest uppercase bg-gray-900 text-white px-2 py-0.5 rounded">
+                AX
+              </span>
+            </div>
+            <p className="text-sm text-gray-500">
+              AI로 성장을 만드는 3가지 방법
+            </p>
+          </div>
+
+          {/* ARMY */}
+          <div>
+            <p className="text-sm font-semibold text-gray-900 mb-3">ARMY</p>
+            <div className="space-y-2">
+              <Link
+                href="/army"
+                className="block text-sm text-gray-500 hover:text-gray-700 transition"
+              >
+                ARMY 소개
+              </Link>
+              {agents.map((agent) => (
+                <Link
+                  key={agent.id}
+                  href={`/army/${agent.id}`}
+                  className="block text-sm text-gray-500 hover:text-gray-700 transition"
+                >
+                  {agent.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* AX */}
+          <div>
+            <p className="text-sm font-semibold text-gray-900 mb-3">AX</p>
+            <div className="space-y-2">
+              <Link
+                href="/solutions/replit"
+                className="block text-sm text-gray-500 hover:text-gray-700 transition"
+              >
+                Replit 바이브 코딩
+              </Link>
+              <Link
+                href="/solutions/articul8"
+                className="block text-sm text-gray-500 hover:text-gray-700 transition"
+              >
+                Articul8
+              </Link>
+            </div>
+          </div>
+
+          {/* Company */}
+          <div>
+            <p className="text-sm font-semibold text-gray-900 mb-3">Company</p>
+            <div className="space-y-2">
+              <a
+                href="https://www.mfitlab.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-sm text-gray-500 hover:text-gray-700 transition"
+              >
+                mfitlab.com
+              </a>
+              <Link
+                href="#contact"
+                className="block text-sm text-gray-500 hover:text-gray-700 transition"
+              >
+                도입 상담
+              </Link>
+            </div>
+          </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-[12px] uppercase tracking-[0.2em] text-white/40">
-            &copy; {new Date().getFullYear()} MarketFitLab. All rights reserved.
-          </p>
-          <div className="flex gap-6">
-            <a
-              href="https://www.mfitlab.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[12px] uppercase tracking-[0.2em] text-white/40 hover:text-white/70 transition-colors"
-            >
-              mfitlab.com
-            </a>
-            <Link
-              href="#contact"
-              className="text-[12px] uppercase tracking-[0.2em] text-white/40 hover:text-white/70 transition-colors"
-            >
-              Contact
-            </Link>
-          </div>
+        <div className="mt-12 pt-6 border-t border-gray-200 text-center text-xs text-gray-400">
+          &copy; {new Date().getFullYear()} MarketFitLab. All rights reserved.
         </div>
       </div>
     </footer>
