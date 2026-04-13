@@ -16,6 +16,15 @@ const pretendard = localFont({
   display: "swap",
 });
 
+const clashDisplay = localFont({
+  src: [
+    { path: "../fonts/ClashDisplay-Semibold.woff2", weight: "600" },
+    { path: "../fonts/ClashDisplay-Bold.woff2", weight: "700" },
+  ],
+  variable: "--font-clash",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "ARMY | Growth Marketing AI Agent — MarketFitLab",
   description:
@@ -30,7 +39,7 @@ export default function RootLayout({
   return (
     <html
       lang="ko"
-      className={`${inter.variable} ${pretendard.variable} h-full antialiased`}
+      className={`${inter.variable} ${pretendard.variable} ${clashDisplay.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans bg-white text-gray-900">
         <Header />

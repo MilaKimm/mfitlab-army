@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   Globe,
@@ -12,9 +13,15 @@ import {
   ArrowRight,
   Check,
   Send,
+  Zap,
+  Target,
+  Database,
+  Search,
+  PenTool,
+  Rocket,
+  BarChart3,
 } from "lucide-react";
 import FadeInOnScroll from "@/components/motion/FadeInOnScroll";
-import HeroSilhouettes from "@/components/home/HeroSilhouettes";
 import {
   GeoGraphic,
   LmfGraphic,
@@ -22,7 +29,9 @@ import {
   LeadMagnetGraphic,
   VoiceGraphic,
 } from "@/components/home/AgentCardGraphics";
-import { agents, armyOverview, axSolutions, partners } from "@/data/army";
+import AgentDemo from "@/components/home/AgentDemo";
+import DashboardGraphic from "@/components/home/DashboardGraphic";
+import { agents, armyOverview, axSolutions } from "@/data/army";
 
 const iconMap: Record<string, React.ReactNode> = {
   Globe: <Globe size={20} />,
@@ -31,7 +40,6 @@ const iconMap: Record<string, React.ReactNode> = {
   Magnet: <Magnet size={20} />,
   Phone: <Phone size={20} />,
 };
-
 const graphicMap: Record<string, React.ReactNode> = {
   "geo-agent": <GeoGraphic />,
   "lmf-agent": <LmfGraphic />,
@@ -39,7 +47,6 @@ const graphicMap: Record<string, React.ReactNode> = {
   "lead-magnet-agent": <LeadMagnetGraphic />,
   "voice-agent": <VoiceGraphic />,
 };
-
 const gradientMap: Record<string, string> = {
   "geo-agent": "from-cyan-50 via-cyan-50/40 to-white",
   "lmf-agent": "from-pink-50 via-pink-50/40 to-white",
@@ -47,45 +54,63 @@ const gradientMap: Record<string, string> = {
   "lead-magnet-agent": "from-amber-50 via-amber-50/40 to-white",
   "voice-agent": "from-indigo-50 via-indigo-50/40 to-white",
 };
+const solutionIcons = [<Zap key="z" size={24} />, <Target key="t" size={24} />, <Database key="d" size={24} />];
+const adoptionIcons = [<Search key="s" size={20} />, <PenTool key="p" size={20} />, <Rocket key="r" size={20} />, <BarChart3 key="b" size={20} />];
+
+const clientLogos = [
+  { name: "현대자동차", file: "현대.png" },
+  { name: "삼성전자", file: "삼성.png" },
+  { name: "LG전자", file: "엘지전자.png" },
+  { name: "LG유플러스", file: "엘지유플러스.png" },
+  { name: "SK네트웍스", file: "SK네트웍스.png" },
+  { name: "한샘", file: "한샘.png" },
+  { name: "클래스101", file: "클래스101.png" },
+];
 
 export default function Home() {
   return (
     <>
-      {/* ─── Section 1: Hero ─── */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#f8f6f3] via-[#f0eef8] to-white">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-[10%] left-[5%] w-[600px] h-[600px] rounded-full opacity-25 blur-[150px] bg-[#fde68a]" />
-          <div className="absolute top-[5%] left-[25%] w-[500px] h-[500px] rounded-full opacity-20 blur-[140px] bg-[#f9a8d4]" />
-          <div className="absolute top-[0%] right-[10%] w-[600px] h-[600px] rounded-full opacity-25 blur-[150px] bg-[#93c5fd]" />
-          <div className="absolute bottom-[10%] left-[40%] w-[500px] h-[500px] rounded-full opacity-15 blur-[130px] bg-[#c4b5fd]" />
-          <div className="absolute bottom-[20%] right-[20%] w-[400px] h-[400px] rounded-full opacity-15 blur-[120px] bg-[#a5f3fc]" />
+      {/* ─── 1. Hero ─── */}
+      <section className="relative overflow-hidden bg-[#CCFFFC]/30 min-h-[85vh] flex items-center justify-center">
+        {/* Abstract gradient graphic — MFL palette */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          {/* Main blob — primary green */}
+          <div className="absolute w-[60vw] h-[70vh] rounded-[50%] bg-gradient-to-b from-[#A0EBE6] via-[#65E3D0] to-[#CCFFFC] blur-[100px] opacity-20" />
+          {/* Top glow — primary light */}
+          <div className="absolute top-[5%] w-[50vw] h-[40vh] rounded-[50%] bg-gradient-to-b from-[#CCFFFC]/30 to-transparent blur-[120px]" />
+          {/* Bottom sphere — teal */}
+          <div className="absolute bottom-[5%] w-[35vw] h-[35vw] max-w-[450px] max-h-[450px] rounded-full bg-gradient-to-br from-[#A0EBE6] to-[#52C0CE] opacity-15 blur-[60px]" />
+          {/* Accent lime left */}
+          <div className="absolute left-[10%] top-[30%] w-[20vw] h-[30vh] rounded-full bg-[#DFF15D] opacity-8 blur-[120px]" />
+          {/* Accent teal right */}
+          <div className="absolute right-[10%] top-[20%] w-[15vw] h-[25vh] rounded-full bg-[#BFE9EF] opacity-15 blur-[100px]" />
         </div>
 
-        <div className="relative z-20 max-w-6xl mx-auto px-6 pt-24 pb-8 text-center">
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-xs font-semibold tracking-widest uppercase text-purple-600 mb-4"
-          >
-            {armyOverview.heroLabel}
-          </motion.p>
+        {/* Text content */}
+        <div className="relative z-10 text-center px-6">
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight text-gray-900 mb-4"
+            className="text-7xl md:text-9xl font-bold tracking-tight mb-8 leading-[0.9]"
+            style={{ fontFamily: "var(--font-clash)" }}
           >
-            {armyOverview.heroH1}
+            <span className="block text-[#15867E]">MFL</span>
+            <span className="block text-[#1B1B1B]">ARMY</span>
           </motion.h1>
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-10"
+            className="mb-14"
           >
-            {armyOverview.heroSub}
-          </motion.p>
+            <p className="text-xl md:text-2xl font-bold text-[#36B1A7]">
+              마켓핏랩 그로스 마케팅 에이전트 군단
+            </p>
+            <p className="text-xl md:text-2xl font-bold text-[#1B1B1B]/60">
+              이제 실험은 에이전트가, 판단은 사람이.
+            </p>
+          </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -94,113 +119,94 @@ export default function Home() {
           >
             <Link
               href="#contact"
-              className="h-12 px-6 flex items-center justify-center rounded-lg bg-gray-900 text-white font-medium hover:bg-gray-800 transition-all duration-300"
+              className="h-12 px-8 flex items-center justify-center rounded-full bg-[#36B1A7] text-white font-semibold hover:bg-[#15867E] transition-all duration-300 shadow-lg shadow-[#36B1A7]/20"
             >
-              ARMY 도입 상담
+              도입 상담하기
             </Link>
             <Link
-              href="#scenario"
-              className="h-12 px-6 flex items-center justify-center rounded-lg border border-gray-200 text-gray-700 font-medium hover:bg-white/80 transition-all duration-300"
+              href="#showcase"
+              className="h-12 px-8 flex items-center justify-center rounded-full bg-white/70 backdrop-blur-sm border border-white/50 text-[#1B1B1B] font-semibold hover:bg-white hover:border-[#36B1A7] hover:text-[#36B1A7] transition-all duration-300"
             >
               작동 방식 보기
             </Link>
           </motion.div>
-
-          <HeroSilhouettes />
         </div>
       </section>
 
-      {/* ─── Section 2: Why ARMY (moved before Heritage) ─── */}
-      <section className="py-24 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-6">
+      {/* ─── 2. Heritage + Clients ─── */}
+      <section id="heritage" className="py-24 bg-white">
+        <div className="max-w-5xl mx-auto px-6">
           <FadeInOnScroll>
-            <p className="text-xs font-semibold tracking-widest uppercase text-purple-600 mb-3">
-              Why ARMY
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-16">
-              일반 AI 자동화와는 다릅니다
+            <p className="text-xs font-semibold tracking-widest uppercase text-[#36B1A7] mb-3 text-center">Heritage</p>
+            <h2 className="text-[28px] md:text-[40px] font-semibold text-[#1B1B1B] leading-[1.5] mb-3 text-center">
+              마켓핏랩의 노하우를 담은 에이전트
             </h2>
-          </FadeInOnScroll>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {armyOverview.differentiators.map((d, i) => (
-              <FadeInOnScroll key={i} delay={i * 0.1}>
-                <div className="rounded-2xl bg-white border border-gray-100 p-8 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 h-full relative overflow-hidden">
-                  <div
-                    className="absolute top-0 right-0 w-32 h-32 rounded-full opacity-10 blur-2xl"
-                    style={{
-                      backgroundColor: ["#7C3AED", "#EC4899", "#4361EE"][i],
-                    }}
-                  />
-                  <span className="text-6xl font-bold text-gray-100/80 mb-4 block">
-                    {d.number}
-                  </span>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                    {d.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    {d.body}
-                  </p>
-                </div>
-              </FadeInOnScroll>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── Section 3: Heritage (moved after Why ARMY) ─── */}
-      <section className="py-20 bg-white border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-6">
-          <FadeInOnScroll>
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 text-center">
-              7년간 3,000번의 실험에서 배운 것, ARMY에 담았습니다
-            </h2>
-            <p className="text-sm text-gray-500 text-center mb-10">
-              실패와 성공의 기록이 에이전트의 스킬이 됩니다
+            <p className="text-[17px] text-[#626166] text-center mb-12">
+              실전 실험 데이터가 에이전트의 정교한 판단력이 됩니다.
             </p>
           </FadeInOnScroll>
 
-          <div className="grid grid-cols-3 gap-8 mb-10">
+          <div className="grid grid-cols-3 gap-8 mb-12">
             {armyOverview.heritage.stats.map((stat, i) => (
               <FadeInOnScroll key={i} delay={i * 0.08}>
                 <div className="text-center">
-                  <p className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent mb-2">
-                    {stat.value}
-                  </p>
-                  <p className="text-sm text-gray-500">{stat.label}</p>
+                  <p className="text-4xl md:text-5xl font-semibold text-[#36B1A7] mb-2">{stat.value}</p>
+                  <p className="text-sm text-[#626166]">{stat.label}</p>
                 </div>
               </FadeInOnScroll>
             ))}
           </div>
 
           <FadeInOnScroll>
-            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 pt-6 border-t border-gray-100">
-              {armyOverview.heritage.clients.map((client) => (
-                <span
-                  key={client}
-                  className="text-xs text-gray-300 font-medium uppercase tracking-wider"
-                >
-                  {client}
-                </span>
+            <div className="flex flex-wrap justify-center items-center gap-8 pt-8 border-t border-[#36B1A7]/15">
+              {clientLogos.map((logo) => (
+                <div key={logo.name} className="h-8 opacity-40 hover:opacity-70 transition-opacity grayscale">
+                  <Image src={`/logos/${logo.file}`} alt={logo.name} width={120} height={32} className="h-8 w-auto object-contain" />
+                </div>
               ))}
             </div>
           </FadeInOnScroll>
         </div>
       </section>
 
-      {/* ─── Section 4: Agent Grid ─── */}
-      <section className="py-24 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
+      {/* ─── 3. 해법 (Why ARMY) ─── */}
+      <section className="py-24 bg-[#F4F4F4]">
+        <div className="max-w-5xl mx-auto px-6">
           <FadeInOnScroll>
-            <p className="text-xs font-semibold tracking-widest uppercase text-purple-600 mb-3">
-              ARMY Agents
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-              인지부터 재구매까지, 5개 에이전트가 자동화합니다
+            <p className="text-xs font-semibold tracking-widest uppercase text-[#36B1A7] mb-3">Why MFL ARMY</p>
+            <h2 className="text-[28px] md:text-[40px] font-semibold text-[#1B1B1B] leading-[1.5] mb-3">
+              단순 자동화가 아니라, 일하는 방식을 바꿉니다
             </h2>
-            <p className="text-gray-600 mb-12 max-w-2xl">
-              각 에이전트에는 마켓핏랩의 프레임워크와 실전 노하우가 학습되어
-              있습니다.
+            <p className="text-[#626166] mb-12 max-w-2xl">ARMY의 에이전트는 실행만 하지 않습니다. 가설을 세우고, 노하우를 축적하고, 팀의 실험 역량을 높입니다.</p>
+          </FadeInOnScroll>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {armyOverview.differentiators.map((d, i) => (
+              <FadeInOnScroll key={i} delay={i * 0.1}>
+                <div className="rounded-2xl p-8 h-full hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 border-l-4 border-[#36B1A7] bg-gradient-to-br from-[#F2FDFB] to-white">
+                  <div className="w-10 h-10 rounded-xl bg-[#CCFFFC] text-[#36B1A7] flex items-center justify-center mb-5">
+                    {solutionIcons[i]}
+                  </div>
+                  <h3 className="text-base font-semibold text-[#1B1B1B] mb-3 whitespace-pre-line">{d.title}</h3>
+                  <p className="text-[15px] text-[#626166] leading-relaxed">{d.body}</p>
+                </div>
+              </FadeInOnScroll>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 4. Agent Grid ─── */}
+      <section className="py-24 bg-white">
+        <div className="max-w-5xl mx-auto px-6">
+          <FadeInOnScroll>
+            <p className="text-xs font-semibold tracking-widest uppercase text-[#36B1A7] mb-3">MFL ARMY Agents</p>
+            <h2 className="text-[28px] md:text-[40px] font-semibold text-[#1B1B1B] leading-[1.5] mb-3">
+              퍼널 단계마다, 담당 에이전트가 있습니다
+            </h2>
+            <p className="text-[#626166] mb-12 max-w-2xl">
+              각 에이전트에는 마켓핏랩의 프레임워크와 실전 데이터가 학습되어 있습니다.
+              <br />독립 도입도, 조합 운영도 가능합니다.
             </p>
           </FadeInOnScroll>
 
@@ -208,69 +214,38 @@ export default function Home() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            variants={{
-              visible: { transition: { staggerChildren: 0.08 } },
-            }}
+            variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
             className="grid md:grid-cols-2 gap-6"
           >
             {agents.map((agent) => (
               <motion.div
                 key={agent.id}
-                variants={{
-                  hidden: { opacity: 0, y: 24 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-                }}
+                variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
               >
                 <Link href={`/army/${agent.id}`} className="block group">
-                  <div
-                    className={`rounded-2xl border border-gray-100/60 bg-gradient-to-br ${
-                      gradientMap[agent.id]
-                    } p-0 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-[280px] flex overflow-hidden`}
-                  >
+                  <div className={`rounded-2xl border border-white/60 bg-gradient-to-br ${gradientMap[agent.id]} p-0 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-[260px] flex overflow-hidden`}>
                     <div className="flex flex-col justify-between p-6 w-[55%]">
                       <div>
                         <div className="flex items-center gap-2 mb-3">
-                          <span
-                            className="w-8 h-8 rounded-lg flex items-center justify-center"
-                            style={{
-                              backgroundColor: agent.color + "15",
-                              color: agent.color,
-                            }}
-                          >
+                          <span className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: agent.color + "15", color: agent.color }}>
                             {iconMap[agent.lucideIcon]}
                           </span>
-                          <span className="text-[10px] font-medium text-gray-400 uppercase tracking-widest">
-                            {agent.funnelPhase}
-                          </span>
+                          <span className="text-xs font-medium text-[#9B9B9B] uppercase tracking-widest">{agent.funnelPhase}</span>
                         </div>
-                        <h3 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-purple-600 transition-colors">
-                          {agent.name}
-                        </h3>
-                        <p className="text-xs text-gray-500 leading-relaxed line-clamp-2">
-                          {agent.tagline}
-                        </p>
+                        <h3 className="text-lg font-semibold text-[#1B1B1B] mb-1 group-hover:text-[#36B1A7] transition-colors">{agent.name}</h3>
+                        <p className="text-sm text-[#626166] leading-relaxed line-clamp-2">{agent.tagline}</p>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-[10px] text-gray-400">
-                          {agent.expertise}
-                        </span>
+                        <span className="text-xs text-[#9B9B9B]">{agent.expertise}</span>
                         <div className="flex items-center gap-2">
-                          <span
-                            className="text-sm font-bold"
-                            style={{ color: agent.color }}
-                          >
-                            {agent.impactValue}
-                          </span>
-                          <span className="w-6 h-6 rounded-full bg-gray-900/5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <ArrowRight size={12} className="text-gray-600" />
+                          <span className="text-sm font-semibold" style={{ color: agent.color }}>{agent.impactValue}</span>
+                          <span className="w-6 h-6 rounded-full bg-black/5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <ArrowRight size={12} className="text-[#626166]" />
                           </span>
                         </div>
                       </div>
                     </div>
-
-                    <div className="w-[45%] relative">
-                      {graphicMap[agent.id]}
-                    </div>
+                    <div className="w-[45%] relative">{graphicMap[agent.id]}</div>
                   </div>
                 </Link>
               </motion.div>
@@ -279,313 +254,168 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── Section 5: How ARMY Works (Tabbed) ─── */}
-      <ScenarioSection />
-
-      {/* ─── Section 6: AX 비교표 ─── */}
-      <section className="py-24 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
+      {/* ─── 5. 예시 화면 (Agent Demo + Dashboard, 상하 분리) ─── */}
+      <section id="showcase" className="py-24 bg-[#F4F4F4]">
+        <div className="max-w-5xl mx-auto px-6">
           <FadeInOnScroll>
-            <p className="text-xs font-semibold tracking-widest uppercase text-purple-600 mb-3">
-              AI Transformation
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-              우리 팀에 필요한 솔루션은?
-            </h2>
-            <p className="text-gray-600 mb-12 max-w-2xl">
-              과제에 따라 다른 해법을 제안합니다. 한눈에 비교하세요.
-            </p>
+            <p className="text-xs font-semibold tracking-widest uppercase text-[#36B1A7] mb-3">How It Works</p>
+            <h2 className="text-[28px] md:text-[40px] font-semibold text-[#1B1B1B] leading-[1.5] mb-3">실제로 이렇게 작동합니다</h2>
+            <p className="text-[#626166] mb-12 max-w-2xl">Slack에서 지시하면 에이전트가 실행하고, 대시보드에서 전체 성과를 관리합니다.</p>
           </FadeInOnScroll>
 
-          <FadeInOnScroll>
-            <div className="rounded-2xl border border-gray-200 overflow-x-auto">
-              <table className="w-full min-w-[640px]">
-                <thead>
-                  <tr className="bg-gray-50 border-b border-gray-200">
-                    <th className="p-4 text-left w-[160px]" />
-                    {axSolutions.map((sol) => (
-                      <th key={sol.id} className="p-4 text-center">
-                        <Link href={sol.href} className="group">
-                          <p
-                            className="text-lg font-bold group-hover:opacity-80 transition-opacity"
-                            style={{ color: sol.color }}
-                          >
-                            {sol.name}
-                          </p>
-                          {sol.highlight && (
-                            <span className="inline-block mt-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-purple-100 text-purple-700">
-                              핵심 솔루션
-                            </span>
-                          )}
-                        </Link>
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {/* 이런 고민이 있다면 */}
-                  <tr className="border-b border-gray-100 bg-white">
-                    <td className="p-4 text-xs font-semibold text-gray-500">이런 고민이 있다면</td>
-                    {axSolutions.map((sol) => (
-                      <td key={sol.id} className="p-4 text-center text-sm text-gray-600 italic">
-                        &ldquo;{sol.question}&rdquo;
-                      </td>
-                    ))}
-                  </tr>
-                  {/* 대상 */}
-                  <tr className="border-b border-gray-100 bg-gray-50/50">
-                    <td className="p-4 text-xs font-semibold text-gray-500">대상</td>
-                    {axSolutions.map((sol) => (
-                      <td key={sol.id} className="p-4 text-center text-sm text-gray-700">{sol.target}</td>
-                    ))}
-                  </tr>
-                  {/* 활용 사례 */}
-                  <tr className="border-b border-gray-100 bg-white">
-                    <td className="p-4 text-xs font-semibold text-gray-500">활용 사례</td>
-                    {axSolutions.map((sol) => (
-                      <td key={sol.id} className="p-4 text-center text-sm text-gray-700">{sol.useCase}</td>
-                    ))}
-                  </tr>
-                  {/* 제공 방식 */}
-                  <tr className="border-b border-gray-100 bg-gray-50/50">
-                    <td className="p-4 text-xs font-semibold text-gray-500">제공 방식</td>
-                    {axSolutions.map((sol) => (
-                      <td key={sol.id} className="p-4 text-center text-sm text-gray-700">{sol.delivery}</td>
-                    ))}
-                  </tr>
-                  {/* 도입 기간 */}
-                  <tr className="border-b border-gray-100 bg-white">
-                    <td className="p-4 text-xs font-semibold text-gray-500">도입 기간</td>
-                    {axSolutions.map((sol) => (
-                      <td key={sol.id} className="p-4 text-center text-sm text-gray-700">{sol.timeline}</td>
-                    ))}
-                  </tr>
-                  {/* 핵심 성과 */}
-                  <tr className="border-b border-gray-100 bg-gray-50/50">
-                    <td className="p-4 text-xs font-semibold text-gray-500">핵심 성과</td>
-                    {axSolutions.map((sol) => (
-                      <td key={sol.id} className="p-4 text-center text-sm font-bold" style={{ color: sol.color }}>
-                        {sol.metric}
-                      </td>
-                    ))}
-                  </tr>
-                  {/* CTA row */}
-                  <tr className="bg-gray-50/30 border-t border-gray-200">
-                    <td className="p-4" />
-                    {axSolutions.map((sol) => (
-                      <td key={sol.id} className="p-4 text-center">
-                        <Link
-                          href={sol.href}
-                          className="inline-flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
-                        >
-                          자세히 보기
-                          <ArrowRight size={14} />
-                        </Link>
-                      </td>
-                    ))}
-                  </tr>
-                </tbody>
-              </table>
+          {/* Agent Demo — Slack → Mobile */}
+          <div className="mb-20">
+            <FadeInOnScroll>
+              <p className="text-sm font-semibold text-[#1B1B1B] mb-4">에이전트 작동 예시 — CRO Agent (슬랙봇)</p>
+            </FadeInOnScroll>
+            <div className="max-w-3xl mx-auto">
+              <AgentDemo />
             </div>
+          </div>
+
+          {/* Dashboard */}
+          <div>
+            <FadeInOnScroll>
+              <p className="text-sm font-semibold text-[#1B1B1B] mb-4">ARMY 대시보드 예시 (웹)</p>
+            </FadeInOnScroll>
+            <DashboardGraphic />
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 6. AX 솔루션 ─── */}
+      <section className="py-24 bg-white">
+        <div className="max-w-5xl mx-auto px-6">
+          <FadeInOnScroll>
+            <p className="text-xs font-semibold tracking-widest uppercase text-[#36B1A7] mb-3">AI Transformation</p>
+            <h2 className="text-[28px] md:text-[40px] font-semibold text-[#1B1B1B] leading-[1.5] mb-3">우리 팀에 필요한 건 어떤 솔루션일까요?</h2>
+            <p className="text-[#626166] mb-12 max-w-2xl">과제가 다르면 해법도 다릅니다.</p>
           </FadeInOnScroll>
 
+          {/* 고민 박스 → 화살표 → 솔루션 카드 */}
+          <div className="grid md:grid-cols-3 gap-8">
+            {axSolutions.map((sol, i) => (
+              <FadeInOnScroll key={sol.id} delay={i * 0.1}>
+                <div className="flex flex-col items-center">
+                  {/* 고민 박스 */}
+                  <div className="rounded-2xl bg-[#F4F4F4] border border-[#E9E9E9] px-6 py-5 text-center w-full">
+                    <p className="text-[15px] font-semibold text-[#1B1B1B]">&ldquo;{sol.question}&rdquo;</p>
+                  </div>
+
+                  {/* 화살표 애니메이션 */}
+                  <div className="flex flex-col items-center py-3">
+                    <motion.div
+                      initial={{ opacity: 0.3 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
+                      className="flex flex-col items-center"
+                    >
+                      <div className="w-px h-4 bg-[#36B1A7]" />
+                      <div className="w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[6px] border-t-[#36B1A7]" />
+                    </motion.div>
+                  </div>
+
+                  {/* 솔루션 카드 */}
+                  <Link href={sol.href} className="block group w-full">
+                    <div className="rounded-2xl border border-[#E9E9E9] bg-white p-6 group-hover:border-[#36B1A7] group-hover:shadow-lg transition-all duration-300 w-full">
+                      {/* 로고 */}
+                      <div className="flex items-center justify-center h-[80px] mb-5">
+                        {sol.id === "army" ? (
+                          <Image src="/logos/mfl-army.png" alt="MFL ARMY" width={140} height={36} className="h-[80px] w-[300px] object-contain" />
+                        ) : sol.id === "replit" ? (
+                          <Image src="/logos/replit.png" alt="Replit" width={140} height={36} className="h-[80px] w-[300px] object-contain" />
+                        ) : (
+                          <Image src="/logos/articul8.png" alt="Articul8" width={140} height={36} className="h-[80px] w-[300px] object-contain" />
+                        )}
+                      </div>
+
+                      {/* 설명 */}
+                      <p className="text-[15px] text-[#626166] text-center mb-4 leading-relaxed">{sol.useCase}</p>
+
+                      {/* 핵심 성과 */}
+                      <p className="text-center text-lg font-semibold mb-5" style={{ color: sol.color }}>{sol.metric}</p>
+
+                      {/* CTA 버튼 */}
+                      <div className="flex justify-center">
+                        <span className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full border border-[#E9E9E9] text-sm font-medium text-[#626166] group-hover:border-[#36B1A7] group-hover:text-[#36B1A7] transition-all duration-300">
+                          자세히 보기 <ArrowRight size={14} />
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              </FadeInOnScroll>
+            ))}
+          </div>
+
           <FadeInOnScroll>
-            <p className="text-center text-xs text-gray-400 mt-8">
-              Replit, Articul8은 독립적인 전문 파트너와 함께 운영됩니다.
-            </p>
+            <p className="text-center text-xs text-[#9B9B9B] mt-8">Replit, Articul8은 독립적인 전문 파트너와 함께 운영됩니다.</p>
           </FadeInOnScroll>
         </div>
       </section>
 
-      {/* ─── Section 7: Diagnostic CTA ─── */}
-      <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-50 via-indigo-50 to-cyan-50" />
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-1/4 w-[300px] h-[300px] rounded-full bg-purple-200/20 blur-3xl" />
-          <div className="absolute bottom-0 right-1/4 w-[250px] h-[250px] rounded-full bg-cyan-200/20 blur-3xl" />
-        </div>
+      {/* ─── 7. Adoption ─── */}
+      <section className="py-24 bg-[#F4F4F4]">
+        <div className="max-w-5xl mx-auto px-6">
+          <FadeInOnScroll>
+            <p className="text-xs font-semibold tracking-widest uppercase text-[#36B1A7] mb-3">Adoption</p>
+            <h2 className="text-[28px] md:text-[40px] font-semibold text-[#1B1B1B] leading-[1.5] mb-3">도입이 막막하다면, 시작부터 도와드립니다</h2>
+            <p className="text-[#626166] mb-12 max-w-3xl">어디서부터 시작할지 고민할 필요 없습니다.<br />진단부터 설계, 구축, 운영까지 — 3,000번의 실험을 함께한 팀이 최전선에서 세팅합니다.</p>
+          </FadeInOnScroll>
 
+          <div className="grid md:grid-cols-4 gap-6">
+            {armyOverview.adoption.steps.map((step, i) => (
+              <FadeInOnScroll key={i} delay={i * 0.1}>
+                <div className="text-center relative">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#CCFFFC] to-[#A0EBE6] text-[#15867E] flex items-center justify-center mx-auto mb-4 shadow-sm">
+                    {adoptionIcons[i]}
+                  </div>
+                  <h3 className="font-semibold text-[#1B1B1B] mb-2">{step.title}</h3>
+                  <p className="text-[15px] text-[#626166]">{step.description}</p>
+                  {i < 3 && <div className="hidden md:block absolute top-7 left-[calc(50%+44px)] w-[calc(100%-88px)] border-t-2 border-dashed border-[#A0EBE6]" />}
+                </div>
+              </FadeInOnScroll>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 8. Diagnostic CTA ─── */}
+      <section className="relative py-20 overflow-hidden" style={{ background: "linear-gradient(135deg, #1B1B1B 0%, #083F54 100%)" }}>
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 right-[20%] w-[300px] h-[300px] rounded-full opacity-10 blur-[100px] bg-[#36B1A7]" />
+          <div className="absolute bottom-0 left-[10%] w-[200px] h-[200px] rounded-full opacity-10 blur-[80px] bg-[#DFF15D]" />
+        </div>
         <div className="relative max-w-4xl mx-auto px-6 text-center">
           <FadeInOnScroll>
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
-              우리 팀에 맞는 ARMY 에이전트, 2분 만에 찾아보세요
-            </h2>
-            <p className="text-gray-600 mb-8">
-              5개 질문에 답하면, 팀 상황에 맞는 ARMY 에이전트를 추천해드립니다.
-            </p>
-            <Link
-              href="/diagnostic"
-              className="inline-flex h-12 px-8 items-center rounded-lg bg-gray-900 text-white font-medium hover:bg-gray-800 transition-all duration-300 hover:shadow-lg"
-            >
+            <h2 className="text-[24px] md:text-[32px] font-semibold text-white leading-[1.5] mb-3">우리 팀에 맞는 에이전트, 2분만에 진단해보세요</h2>
+            <p className="text-white/50 mb-8">5개 질문에 답하면 팀 상황에 맞는 에이전트를 추천합니다.</p>
+            <Link href="/diagnostic" className="inline-flex h-12 px-8 items-center rounded-full bg-[#DFF15D] text-[#1B1B1B] font-semibold hover:bg-[#EDF994] transition-all duration-300 shadow-lg shadow-[#DFF15D]/20">
               진단 시작
             </Link>
           </FadeInOnScroll>
         </div>
       </section>
 
-      {/* ─── Section 8: Partners ─── */}
-      <section className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <FadeInOnScroll>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {partners.map((p) => (
-                <div
-                  key={p.name}
-                  className="text-center rounded-xl border border-gray-100 p-4 hover:border-gray-200 hover:shadow-sm transition-all duration-300"
-                >
-                  <p className="text-sm font-semibold text-gray-700">
-                    {p.name}
-                  </p>
-                  <p className="text-[10px] text-gray-400 mt-1">
-                    {p.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </FadeInOnScroll>
-        </div>
-      </section>
-
-      {/* ─── Section 9: Contact Form ─── */}
+      {/* ─── 9. Contact Form ─── */}
       <ContactSection />
     </>
   );
 }
 
-/* ─── Scenario Section with Tabs ─── */
-function ScenarioSection() {
-  const [activeTab, setActiveTab] = useState(0);
-  const tabs = armyOverview.scenario.tabs;
-  const current = tabs[activeTab];
-
-  return (
-    <section id="scenario" className="py-24 bg-gray-50">
-      <div className="max-w-6xl mx-auto px-6">
-        <FadeInOnScroll>
-          <p className="text-xs font-semibold tracking-widest uppercase text-purple-600 mb-3">
-            How ARMY Works
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-            {armyOverview.scenario.headline}
-          </h2>
-          <p className="text-gray-600 mb-8 max-w-2xl">
-            {armyOverview.scenario.subheadline}
-          </p>
-        </FadeInOnScroll>
-
-        {/* Agent tabs */}
-        <div className="flex gap-2 mb-8 max-w-2xl mx-auto justify-center">
-          {tabs.map((tab, i) => (
-            <button
-              key={i}
-              onClick={() => setActiveTab(i)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                activeTab === i
-                  ? "text-white shadow-md"
-                  : "bg-white text-gray-500 border border-gray-200 hover:border-gray-300"
-              }`}
-              style={
-                activeTab === i ? { backgroundColor: tab.color } : undefined
-              }
-            >
-              {tab.agent}
-            </button>
-          ))}
-        </div>
-
-        {/* Slack mockup */}
-        <div className="max-w-2xl mx-auto">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="rounded-2xl border border-gray-200 bg-white shadow-lg overflow-hidden"
-          >
-            {/* Slack header */}
-            <div className="bg-slate-800 px-4 py-3 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="flex gap-1.5">
-                  <div className="w-3 h-3 rounded-full bg-red-400" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                  <div className="w-3 h-3 rounded-full bg-green-400" />
-                </div>
-                <span className="text-xs text-slate-400 ml-2 font-mono">
-                  {current.channel}
-                </span>
-              </div>
-              <span className="text-[10px] text-slate-500">
-                {current.agent} 시나리오
-              </span>
-            </div>
-
-            {/* Messages */}
-            <div className="p-4 space-y-4">
-              {current.steps.map((step, i) => {
-                const isUser = step.role === "user";
-                return (
-                  <FadeInOnScroll key={i} delay={i * 0.1}>
-                    <div className="flex gap-3">
-                      <div
-                        className={`w-8 h-8 rounded-lg shrink-0 flex items-center justify-center text-[10px] font-bold text-white`}
-                        style={{
-                          backgroundColor: isUser ? "#9CA3AF" : current.color,
-                        }}
-                      >
-                        {isUser ? "PM" : "AI"}
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-[10px] text-gray-400 mb-1">
-                          {step.label}
-                        </p>
-                        <div
-                          className={`rounded-xl px-4 py-3 text-sm ${
-                            isUser
-                              ? "bg-gray-50 text-gray-700"
-                              : "bg-opacity-10 border"
-                          }`}
-                          style={
-                            !isUser
-                              ? {
-                                  backgroundColor: current.color + "10",
-                                  borderColor: current.color + "20",
-                                  color: current.color,
-                                }
-                              : undefined
-                          }
-                        >
-                          {step.text}
-                        </div>
-                      </div>
-                    </div>
-                  </FadeInOnScroll>
-                );
-              })}
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* ─── Contact Section ─── */
 function ContactSection() {
-  const [formState, setFormState] = useState<"idle" | "sending" | "sent">(
-    "idle"
-  );
+  const [formState, setFormState] = useState<"idle" | "sending" | "sent">("idle");
   const [selectedSolutions, setSelectedSolutions] = useState<string[]>([]);
 
   const toggleSolution = (id: string) => {
-    setSelectedSolutions((prev) =>
-      prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]
-    );
+    setSelectedSolutions((prev) => prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormState("sending");
-
     const form = e.currentTarget;
     const data = {
       name: (form.elements.namedItem("name") as HTMLInputElement).value,
@@ -593,144 +423,74 @@ function ContactSection() {
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
       phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
       solutions: selectedSolutions,
-      message: (form.elements.namedItem("message") as HTMLTextAreaElement)
-        .value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
     };
-
     try {
-      await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+      await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
       setFormState("sent");
-    } catch {
-      setFormState("idle");
-    }
+    } catch { setFormState("idle"); }
   };
 
   const solutionGroups = [
-    {
-      label: "ARMY 에이전트",
-      items: [
-        { id: "army-all", name: "ARMY 전체" },
-        ...agents.map((a) => ({ id: a.id, name: a.name })),
-      ],
-    },
-    {
-      label: "기타 솔루션",
-      items: [
-        { id: "replit", name: "Replit 워크샵" },
-        { id: "articul8", name: "Articul8" },
-      ],
-    },
+    { label: "ARMY 에이전트", items: [{ id: "army-all", name: "ARMY 전체" }, ...agents.map((a) => ({ id: a.id, name: a.name }))] },
+    { label: "기타 솔루션", items: [{ id: "replit", name: "Replit 워크샵" }, { id: "articul8", name: "Articul8" }] },
   ];
 
   return (
-    <section id="contact" className="py-24 bg-gray-50">
-      <div className="max-w-2xl mx-auto px-6">
-        <FadeInOnScroll>
-          <p className="text-lg md:text-xl text-gray-700 text-center mb-3 leading-relaxed">
-            나보다 꼼꼼하게 진단하고, 나보다 빠르게 세팅하는
-            <br className="hidden md:block" />
-            에이전트 군단이 있다면 —
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3 text-center">
-            지금 바로 시작하세요
-          </h2>
-          <p className="text-gray-500 text-center mb-10 text-sm">
-            도입 상담부터 에이전트 파견까지, 마켓핏랩이 함께합니다.
-          </p>
-        </FadeInOnScroll>
-
-        {formState === "sent" ? (
+    <section id="contact" className="relative py-24 overflow-hidden bg-white">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full opacity-15 blur-[120px] bg-[#CCFFFC]" />
+      </div>
+      <div className="relative max-w-5xl mx-auto px-6">
+        <div className="grid md:grid-cols-2 gap-16">
           <FadeInOnScroll>
-            <div className="rounded-2xl border border-green-200 bg-green-50 p-8 text-center">
-              <Check size={40} className="mx-auto text-green-500 mb-3" />
-              <p className="text-lg font-semibold text-gray-900">
-                문의가 접수되었습니다
-              </p>
-              <p className="text-sm text-gray-500 mt-2">
-                영업일 기준 1~2일 내 연락드리겠습니다.
-              </p>
+            <div className="flex flex-col justify-center">
+              <p className="text-lg text-[#626166] mb-4 leading-relaxed">반복은 줄이고, 실험은 더 자주.</p>
+              <h2 className="text-3xl md:text-4xl font-semibold text-[#1B1B1B] mb-4">도입 상담부터<br />시작하세요</h2>
+              <p className="text-[#626166]">에이전트 설계부터 운영까지, 마켓핏랩이 함께합니다.</p>
             </div>
           </FadeInOnScroll>
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="grid md:grid-cols-2 gap-4">
-              <input
-                name="name"
-                type="text"
-                placeholder="담당자명"
-                required
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-purple-200 focus:border-purple-400 transition-all"
-              />
-              <input
-                name="company"
-                type="text"
-                placeholder="회사명"
-                required
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-purple-200 focus:border-purple-400 transition-all"
-              />
-            </div>
-            <div className="grid md:grid-cols-2 gap-4">
-              <input
-                name="email"
-                type="email"
-                placeholder="이메일"
-                required
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-purple-200 focus:border-purple-400 transition-all"
-              />
-              <input
-                name="phone"
-                type="tel"
-                placeholder="전화번호"
-                required
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-purple-200 focus:border-purple-400 transition-all"
-              />
-            </div>
 
-            {solutionGroups.map((group) => (
-              <div key={group.label}>
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
-                  {group.label}
-                </p>
-                <div className="flex flex-wrap gap-2 mb-3">
-                  {group.items.map((item) => (
-                    <button
-                      key={item.id}
-                      type="button"
-                      onClick={() => toggleSolution(item.id)}
-                      className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all duration-200 ${
-                        selectedSolutions.includes(item.id)
-                          ? "border-purple-400 bg-purple-50 text-purple-700 shadow-sm"
-                          : "border-gray-200 text-gray-500 hover:border-gray-300"
-                      }`}
-                    >
-                      {item.name}
-                    </button>
-                  ))}
+          <div className="bg-white rounded-2xl border border-[#E9E9E9] p-8 shadow-sm">
+            {formState === "sent" ? (
+              <FadeInOnScroll>
+                <div className="text-center py-8">
+                  <div className="w-16 h-16 rounded-full bg-[#CCFFFC] flex items-center justify-center mx-auto mb-4"><Check size={32} className="text-[#36B1A7]" /></div>
+                  <p className="text-lg font-semibold text-[#1B1B1B]">문의가 접수되었습니다</p>
+                  <p className="text-sm text-[#626166] mt-2">영업일 기준 1~2일 내 연락드리겠습니다.</p>
                 </div>
-              </div>
-            ))}
-
-            <textarea
-              name="message"
-              placeholder="문의 내용 (선택)"
-              rows={4}
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-purple-200 focus:border-purple-400 resize-none transition-all"
-            />
-
-            <button
-              type="submit"
-              disabled={formState === "sending"}
-              className="w-full h-12 flex items-center justify-center gap-2 rounded-xl bg-gray-900 text-white font-medium hover:bg-gray-800 transition-all duration-300 disabled:opacity-50 hover:shadow-lg"
-            >
-              <Send size={16} />
-              {formState === "sending" ? "전송 중..." : "문의하기"}
-            </button>
-          </form>
-        )}
+              </FadeInOnScroll>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-2 gap-3">
+                  <input name="name" type="text" placeholder="담당자명 *" required className="w-full px-4 py-3 rounded-lg border border-[#E9E9E9] text-sm focus:outline-none focus:ring-2 focus:ring-[#CCFFFC] focus:border-[#36B1A7] transition-all" />
+                  <input name="company" type="text" placeholder="회사명 *" required className="w-full px-4 py-3 rounded-lg border border-[#E9E9E9] text-sm focus:outline-none focus:ring-2 focus:ring-[#CCFFFC] focus:border-[#36B1A7] transition-all" />
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <input name="email" type="email" placeholder="업무용 이메일 *" required className="w-full px-4 py-3 rounded-lg border border-[#E9E9E9] text-sm focus:outline-none focus:ring-2 focus:ring-[#CCFFFC] focus:border-[#36B1A7] transition-all" />
+                  <input name="phone" type="tel" placeholder="전화번호 *" required className="w-full px-4 py-3 rounded-lg border border-[#E9E9E9] text-sm focus:outline-none focus:ring-2 focus:ring-[#CCFFFC] focus:border-[#36B1A7] transition-all" />
+                </div>
+                {solutionGroups.map((group) => (
+                  <div key={group.label}>
+                    <p className="text-xs font-semibold text-[#9B9B9B] uppercase tracking-wider mb-2">{group.label}</p>
+                    <div className="flex flex-wrap gap-2 mb-2">
+                      {group.items.map((item) => (
+                        <button key={item.id} type="button" onClick={() => toggleSolution(item.id)} className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all duration-200 ${selectedSolutions.includes(item.id) ? "border-[#36B1A7] bg-[#CCFFFC] text-[#15867E]" : "border-[#E9E9E9] text-[#626166] hover:border-[#C0C0C0]"}`}>
+                          {item.name}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+                <textarea name="message" placeholder="문의 내용 (선택)" rows={3} className="w-full px-4 py-3 rounded-lg border border-[#E9E9E9] text-sm focus:outline-none focus:ring-2 focus:ring-[#CCFFFC] focus:border-[#36B1A7] resize-none transition-all" />
+                <button type="submit" disabled={formState === "sending"} className="w-full h-12 flex items-center justify-center gap-2 rounded-full bg-[#36B1A7] text-white font-semibold hover:bg-[#15867E] transition-all duration-300 disabled:opacity-50 shadow-lg shadow-[#36B1A7]/20">
+                  <Send size={16} />
+                  {formState === "sending" ? "전송 중..." : "문의하기"}
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
       </div>
     </section>
   );

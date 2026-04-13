@@ -1,8 +1,23 @@
 @import "tailwindcss";
 
 @theme inline {
+  /* MFL Colors as Tailwind tokens */
   --color-background: #ffffff;
-  --color-foreground: #0f172a;
+  --color-foreground: #1B1B1B;
+  --color-mfl-muted: #F4F4F4;
+  --color-mfl-primary: #36B1A7;
+  --color-mfl-primary-light: #CCFFFC;
+  --color-mfl-primary-dark: #15867E;
+  --color-mfl-primary-deep: #083F54;
+  --color-mfl-lime: #DFF15D;
+  --color-mfl-teal: #0098AD;
+  --color-mfl-gray10: #E9E9E9;
+  --color-mfl-gray20: #C0C0C0;
+  --color-mfl-gray30: #9B9B9B;
+  --color-mfl-gray40: #626166;
+  --color-mfl-error: #FA144C;
+
+  /* Font */
   --font-sans: var(--font-pretendard), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -16,7 +31,11 @@
     word-break: keep-all;
     overflow-wrap: break-word;
   }
-  h1, h2, h3, h4, h5, h6, p, span, label {
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    text-wrap: balance;
+  }
+  p, span, label {
     text-wrap: balance;
   }
   html {

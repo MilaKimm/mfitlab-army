@@ -134,16 +134,16 @@ export function VoiceGraphic() {
             <div className="text-[7px] text-white font-medium">AI Call</div>
             <div className="text-[7px] text-green-400">● Live</div>
           </div>
-          {/* Waveform */}
+          {/* Waveform — fixed heights to avoid hydration mismatch */}
           <div className="flex items-center justify-center gap-[2px] h-6">
-            {Array.from({ length: 16 }).map((_, i) => (
+            {[17, 14, 9, 6, 8, 14, 19, 20, 16, 10, 6, 7, 12, 18, 20, 17].map((h, i) => (
               <div
                 key={i}
                 className="w-[3px] bg-indigo-400 rounded-full animate-pulse"
                 style={{
-                  height: `${8 + Math.sin(i * 0.8) * 12}px`,
+                  height: `${h}px`,
                   animationDelay: `${i * 0.1}s`,
-                  opacity: 0.6 + Math.sin(i * 0.5) * 0.4,
+                  opacity: i % 3 === 0 ? 0.7 : 0.9,
                 }}
               />
             ))}

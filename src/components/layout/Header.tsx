@@ -7,47 +7,40 @@ import { agents } from "@/data/army";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [armyDropdown, setArmyDropdown] = useState(false);
+  const [agentDropdown, setAgentDropdown] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-[#E9E9E9]">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <span className="text-lg font-bold text-gray-900">MarketFitLab</span>
-          <span className="text-[10px] font-semibold tracking-widest uppercase bg-gray-900 text-white px-2 py-0.5 rounded">
-            AX
+          <span className="text-lg font-bold" style={{ fontFamily: "var(--font-clash)" }}>
+            <span className="text-[#15867E]">MFL</span>
+            <span className="inline-block w-[0.2em]" />
+            <span className="text-[#1B1B1B]">ARMY</span>
           </span>
+          <span className="text-[9px] font-bold tracking-widest uppercase bg-[#1B1B1B] text-white px-1.5 py-0.5 rounded">AX</span>
         </Link>
 
-        {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
-          {/* ARMY Dropdown */}
           <div
             className="relative"
-            onMouseEnter={() => setArmyDropdown(true)}
-            onMouseLeave={() => setArmyDropdown(false)}
+            onMouseEnter={() => setAgentDropdown(true)}
+            onMouseLeave={() => setAgentDropdown(false)}
           >
-            <button className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-gray-900 transition">
-              ARMY <ChevronDown size={14} />
+            <button className="flex items-center gap-1 text-sm font-medium text-[#626166] hover:text-[#1B1B1B] transition">
+              에이전트 <ChevronDown size={14} />
             </button>
-            {armyDropdown && (
+            {agentDropdown && (
               <div className="absolute top-full left-0 pt-2">
-                <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-4 min-w-[320px] grid grid-cols-2 gap-x-6 gap-y-2">
-                  <Link
-                    href="/army"
-                    className="col-span-2 text-sm font-semibold text-gray-900 hover:text-purple-600 transition pb-2 border-b border-gray-100 mb-1"
-                  >
-                    ARMY 소개
-                  </Link>
+                <div className="bg-white rounded-2xl shadow-lg border border-[#E9E9E9] p-4 min-w-[240px] space-y-1">
                   {agents.map((agent) => (
                     <Link
                       key={agent.id}
                       href={`/army/${agent.id}`}
-                      className="text-sm text-gray-600 hover:text-gray-900 transition py-1"
+                      className="flex items-center text-sm text-[#626166] hover:text-[#1B1B1B] transition py-2 px-2 rounded-lg hover:bg-[#F4F4F4]"
                     >
                       <span
-                        className="inline-block w-2 h-2 rounded-full mr-2"
+                        className="inline-block w-2 h-2 rounded-full mr-3"
                         style={{ backgroundColor: agent.color }}
                       />
                       {agent.name}
@@ -58,82 +51,41 @@ export default function Header() {
             )}
           </div>
 
-          <Link
-            href="/solutions/replit"
-            className="text-sm font-medium text-gray-700 hover:text-gray-900 transition"
-          >
-            Replit
+          <Link href="#showcase" className="text-sm font-medium text-[#626166] hover:text-[#1B1B1B] transition">
+            작동 방식
           </Link>
-          <Link
-            href="/solutions/articul8"
-            className="text-sm font-medium text-gray-700 hover:text-gray-900 transition"
-          >
-            Articul8
+          <Link href="#heritage" className="text-sm font-medium text-[#626166] hover:text-[#1B1B1B] transition">
+            도입 사례
           </Link>
 
           <Link
             href="#contact"
-            className="h-10 px-5 flex items-center rounded-lg bg-gray-900 text-white text-sm font-medium hover:bg-gray-800 transition"
+            className="h-10 px-5 flex items-center rounded-full bg-[#36B1A7] text-white text-sm font-semibold hover:bg-[#15867E] transition"
           >
             도입 상담
           </Link>
         </nav>
 
-        {/* Mobile Toggle */}
-        <button
-          className="md:hidden p-2"
-          onClick={() => setMobileOpen(!mobileOpen)}
-        >
+        <button className="md:hidden p-2" onClick={() => setMobileOpen(!mobileOpen)}>
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
-      {/* Mobile Drawer */}
       {mobileOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 px-6 py-4 space-y-4">
+        <div className="md:hidden bg-white border-t border-[#E9E9E9] px-6 py-4 space-y-4">
           <div>
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">
-              ARMY
-            </p>
-            <Link
-              href="/army"
-              className="block text-sm font-semibold text-gray-900 py-1.5"
-              onClick={() => setMobileOpen(false)}
-            >
-              ARMY 소개
-            </Link>
+            <p className="text-xs font-semibold text-[#9B9B9B] uppercase tracking-widest mb-2">에이전트</p>
             {agents.map((agent) => (
-              <Link
-                key={agent.id}
-                href={`/army/${agent.id}`}
-                className="block text-sm text-gray-600 py-1.5"
-                onClick={() => setMobileOpen(false)}
-              >
+              <Link key={agent.id} href={`/army/${agent.id}`} className="block text-sm text-[#626166] py-2" onClick={() => setMobileOpen(false)}>
                 {agent.name}
               </Link>
             ))}
           </div>
-          <div className="border-t border-gray-100 pt-3 space-y-2">
-            <Link
-              href="/solutions/replit"
-              className="block text-sm text-gray-700 py-1.5"
-              onClick={() => setMobileOpen(false)}
-            >
-              Replit
-            </Link>
-            <Link
-              href="/solutions/articul8"
-              className="block text-sm text-gray-700 py-1.5"
-              onClick={() => setMobileOpen(false)}
-            >
-              Articul8
-            </Link>
+          <div className="border-t border-[#E9E9E9] pt-3 space-y-2">
+            <Link href="#showcase" className="block text-sm text-[#626166] py-2" onClick={() => setMobileOpen(false)}>작동 방식</Link>
+            <Link href="#heritage" className="block text-sm text-[#626166] py-2" onClick={() => setMobileOpen(false)}>도입 사례</Link>
           </div>
-          <Link
-            href="#contact"
-            className="block text-center h-10 flex items-center justify-center rounded-lg bg-gray-900 text-white text-sm font-medium"
-            onClick={() => setMobileOpen(false)}
-          >
+          <Link href="#contact" className="block text-center h-10 flex items-center justify-center rounded-full bg-[#36B1A7] text-white text-sm font-semibold" onClick={() => setMobileOpen(false)}>
             도입 상담
           </Link>
         </div>
