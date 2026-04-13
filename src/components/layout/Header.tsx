@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowUpRight } from "lucide-react";
 import { agents } from "@/data/army";
 
 export default function Header() {
@@ -22,13 +22,14 @@ export default function Header() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
+          {/* ARMY Agent 드롭다운 */}
           <div
             className="relative"
             onMouseEnter={() => setAgentDropdown(true)}
             onMouseLeave={() => setAgentDropdown(false)}
           >
             <button className="flex items-center gap-1 text-sm font-medium text-[#626166] hover:text-[#1B1B1B] transition">
-              에이전트 <ChevronDown size={14} />
+              ARMY Agent <ChevronDown size={14} />
             </button>
             {agentDropdown && (
               <div className="absolute top-full left-0 pt-2">
@@ -51,12 +52,25 @@ export default function Header() {
             )}
           </div>
 
-          <Link href="#showcase" className="text-sm font-medium text-[#626166] hover:text-[#1B1B1B] transition">
-            작동 방식
-          </Link>
-          <Link href="#heritage" className="text-sm font-medium text-[#626166] hover:text-[#1B1B1B] transition">
-            도입 사례
-          </Link>
+          {/* Replit — 외부 링크 */}
+          <a
+            href="https://replit.mfitlab.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 text-sm font-medium text-[#626166] hover:text-[#1B1B1B] transition"
+          >
+            Replit <ArrowUpRight size={12} className="text-[#9B9B9B]" />
+          </a>
+
+          {/* Articul8 — 외부 링크 */}
+          <a
+            href="https://www.mfitlab.com/articul8/articul8"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 text-sm font-medium text-[#626166] hover:text-[#1B1B1B] transition"
+          >
+            Articul8 <ArrowUpRight size={12} className="text-[#9B9B9B]" />
+          </a>
 
           <Link
             href="#contact"
@@ -74,7 +88,7 @@ export default function Header() {
       {mobileOpen && (
         <div className="md:hidden bg-white border-t border-[#E9E9E9] px-6 py-4 space-y-4">
           <div>
-            <p className="text-xs font-semibold text-[#9B9B9B] uppercase tracking-widest mb-2">에이전트</p>
+            <p className="text-xs font-semibold text-[#9B9B9B] uppercase tracking-widest mb-2">ARMY Agent</p>
             {agents.map((agent) => (
               <Link key={agent.id} href={`/army/${agent.id}`} className="block text-sm text-[#626166] py-2" onClick={() => setMobileOpen(false)}>
                 {agent.name}
@@ -82,8 +96,12 @@ export default function Header() {
             ))}
           </div>
           <div className="border-t border-[#E9E9E9] pt-3 space-y-2">
-            <Link href="#showcase" className="block text-sm text-[#626166] py-2" onClick={() => setMobileOpen(false)}>작동 방식</Link>
-            <Link href="#heritage" className="block text-sm text-[#626166] py-2" onClick={() => setMobileOpen(false)}>도입 사례</Link>
+            <a href="https://replit.mfitlab.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm text-[#626166] py-2" onClick={() => setMobileOpen(false)}>
+              Replit <ArrowUpRight size={12} className="text-[#9B9B9B]" />
+            </a>
+            <a href="https://www.mfitlab.com/articul8/articul8" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm text-[#626166] py-2" onClick={() => setMobileOpen(false)}>
+              Articul8 <ArrowUpRight size={12} className="text-[#9B9B9B]" />
+            </a>
           </div>
           <Link href="#contact" className="block text-center h-10 flex items-center justify-center rounded-full bg-[#36B1A7] text-white text-sm font-semibold" onClick={() => setMobileOpen(false)}>
             도입 상담

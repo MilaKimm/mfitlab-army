@@ -124,10 +124,10 @@ export default function Home() {
               도입 상담하기
             </Link>
             <Link
-              href="#showcase"
+              href="/diagnostic?start=true"
               className="h-12 px-8 flex items-center justify-center rounded-full bg-white/70 backdrop-blur-sm border border-white/50 text-[#1B1B1B] font-semibold hover:bg-white hover:border-[#36B1A7] hover:text-[#36B1A7] transition-all duration-300"
             >
-              작동 방식 보기
+              2분 진단 시작
             </Link>
           </motion.div>
         </div>
@@ -150,7 +150,7 @@ export default function Home() {
             {armyOverview.heritage.stats.map((stat, i) => (
               <FadeInOnScroll key={i} delay={i * 0.08}>
                 <div className="text-center">
-                  <p className="text-4xl md:text-5xl font-semibold text-[#36B1A7] mb-2">{stat.value}</p>
+                  <p className="text-4xl md:text-5xl font-bold text-[#36B1A7] mb-2">{stat.value}</p>
                   <p className="text-sm text-[#626166]">{stat.label}</p>
                 </div>
               </FadeInOnScroll>
@@ -264,7 +264,7 @@ export default function Home() {
           </FadeInOnScroll>
 
           {/* Agent Demo — Slack → Mobile */}
-          <div className="mb-20">
+          <div className="mb-20 text-center">
             <FadeInOnScroll>
               <p className="text-sm font-semibold text-[#1B1B1B] mb-4">에이전트 작동 예시 — CRO Agent (슬랙봇)</p>
             </FadeInOnScroll>
@@ -274,7 +274,7 @@ export default function Home() {
           </div>
 
           {/* Dashboard */}
-          <div>
+          <div className="text-center">
             <FadeInOnScroll>
               <p className="text-sm font-semibold text-[#1B1B1B] mb-4">ARMY 대시보드 예시 (웹)</p>
             </FadeInOnScroll>
@@ -330,6 +330,9 @@ export default function Home() {
                         )}
                       </div>
 
+                      {/* 서브타이틀 */}
+                      <p className="text-[13px] text-[#9B9B9B] text-center mb-2">{sol.subtitle}</p>
+
                       {/* 설명 */}
                       <p className="text-[15px] text-[#626166] text-center mb-4 leading-relaxed">{sol.useCase}</p>
 
@@ -338,7 +341,7 @@ export default function Home() {
 
                       {/* CTA 버튼 */}
                       <div className="flex justify-center">
-                        <span className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full border border-[#E9E9E9] text-sm font-medium text-[#626166] group-hover:border-[#36B1A7] group-hover:text-[#36B1A7] transition-all duration-300">
+                        <span className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full text-sm font-medium text-white transition-all duration-300" style={{ backgroundColor: sol.color }}>
                           자세히 보기 <ArrowRight size={14} />
                         </span>
                       </div>

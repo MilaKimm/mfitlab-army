@@ -43,7 +43,7 @@ export default function AgentDemo() {
   }, [phase, visibleMessages, startCycle]);
 
   return (
-    <div className="min-h-[420px] flex items-center">
+    <div className="min-h-[420px] flex items-center justify-center">
     <AnimatePresence mode="wait">
       {phase === "slack" ? (
         <motion.div
