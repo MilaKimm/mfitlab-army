@@ -317,36 +317,15 @@ export default function Home() {
                   </div>
 
                   {/* 솔루션 카드 */}
-                  <Link href={sol.href} className="block group w-full">
-                    <div className="rounded-2xl border border-[#E9E9E9] bg-white p-6 group-hover:border-[#36B1A7] group-hover:shadow-lg transition-all duration-300 w-full">
-                      {/* 로고 */}
-                      <div className="flex items-center justify-center h-[80px] mb-5">
-                        {sol.id === "army" ? (
-                          <Image src="/logos/mfl-army.png" alt="MFL ARMY" width={140} height={36} className="h-[80px] w-[300px] object-contain" />
-                        ) : sol.id === "replit" ? (
-                          <Image src="/logos/replit.png" alt="Replit" width={140} height={36} className="h-[80px] w-[300px] object-contain" />
-                        ) : (
-                          <Image src="/logos/articul8.png" alt="Articul8" width={140} height={36} className="h-[80px] w-[300px] object-contain" />
-                        )}
-                      </div>
-
-                      {/* 서브타이틀 */}
-                      <p className="text-[13px] text-[#9B9B9B] text-center mb-2">{sol.subtitle}</p>
-
-                      {/* 설명 */}
-                      <p className="text-[15px] text-[#626166] text-center mb-4 leading-relaxed">{sol.useCase}</p>
-
-                      {/* 핵심 성과 */}
-                      <p className="text-center text-lg font-semibold mb-5" style={{ color: sol.color }}>{sol.metric}</p>
-
-                      {/* CTA 버튼 */}
-                      <div className="flex justify-center">
-                        <span className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full text-sm font-medium text-white transition-all duration-300" style={{ backgroundColor: sol.color }}>
-                          자세히 보기 <ArrowRight size={14} />
-                        </span>
-                      </div>
-                    </div>
-                  </Link>
+                  {sol.href.startsWith("http") ? (
+                    <a href={sol.href} target="_blank" rel="noopener noreferrer" className="block group w-full">
+                      <SolutionCardInner sol={sol} />
+                    </a>
+                  ) : (
+                    <Link href={sol.href} className="block group w-full">
+                      <SolutionCardInner sol={sol} />
+                    </Link>
+                  )}
                 </div>
               </FadeInOnScroll>
             ))}
@@ -394,7 +373,7 @@ export default function Home() {
           <FadeInOnScroll>
             <h2 className="text-[24px] md:text-[32px] font-semibold text-white leading-[1.5] mb-3">우리 팀에 맞는 에이전트, 2분만에 진단해보세요</h2>
             <p className="text-white/50 mb-8">5개 질문에 답하면 팀 상황에 맞는 에이전트를 추천합니다.</p>
-            <Link href="/diagnostic" className="inline-flex h-12 px-8 items-center rounded-full bg-[#DFF15D] text-[#1B1B1B] font-semibold hover:bg-[#EDF994] transition-all duration-300 shadow-lg shadow-[#DFF15D]/20">
+            <Link href="/diagnostic?start=true" className="inline-flex h-12 px-8 items-center rounded-full bg-[#DFF15D] text-[#1B1B1B] font-semibold hover:bg-[#EDF994] transition-all duration-300 shadow-lg shadow-[#DFF15D]/20">
               진단 시작
             </Link>
           </FadeInOnScroll>
@@ -404,6 +383,31 @@ export default function Home() {
       {/* ─── 9. Contact Form ─── */}
       <ContactSection />
     </>
+  );
+}
+
+/* ─── Solution Card Inner ─── */
+function SolutionCardInner({ sol }: { sol: typeof axSolutions[number] }) {
+  return (
+    <div className="rounded-2xl border border-[#E9E9E9] bg-white p-6 group-hover:border-[#36B1A7] group-hover:shadow-lg transition-all duration-300 w-full">
+      <div className="flex items-center justify-center h-[80px] mb-5">
+        {sol.id === "army" ? (
+          <Image src="/logos/mfl-army.png" alt="MFL ARMY" width={140} height={36} className="h-[80px] w-[300px] object-contain" />
+        ) : sol.id === "replit" ? (
+          <Image src="/logos/replit.png" alt="Replit" width={140} height={36} className="h-[80px] w-[300px] object-contain" />
+        ) : (
+          <Image src="/logos/articul8.png" alt="Articul8" width={140} height={36} className="h-[80px] w-[300px] object-contain" />
+        )}
+      </div>
+      <p className="text-[13px] text-[#9B9B9B] text-center mb-2">{sol.subtitle}</p>
+      <p className="text-[15px] text-[#626166] text-center mb-4 leading-relaxed">{sol.useCase}</p>
+      <p className="text-center text-lg font-semibold mb-5" style={{ color: sol.color }}>{sol.metric}</p>
+      <div className="flex justify-center">
+        <span className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full text-sm font-medium text-white transition-all duration-300" style={{ backgroundColor: sol.color }}>
+          자세히 보기 <ArrowRight size={14} />
+        </span>
+      </div>
+    </div>
   );
 }
 
