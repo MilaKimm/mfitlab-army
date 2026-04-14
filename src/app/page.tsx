@@ -71,7 +71,7 @@ export default function Home() {
   return (
     <>
       {/* ─── 1. Hero ─── */}
-      <section className="relative overflow-hidden bg-[#CCFFFC]/30 min-h-[85vh] flex items-center justify-center">
+      <section id="hero" className="relative overflow-hidden bg-[#CCFFFC]/30 min-h-[85vh] flex items-center justify-center">
         {/* Abstract gradient graphic — MFL palette */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           {/* Main blob — primary green */}
