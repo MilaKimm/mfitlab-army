@@ -164,7 +164,7 @@ export const agents: Agent[] = [
       "SNS 바이럴 최적화",
     ],
     heroLabel: "ARMY의 Lead Magnet Agent — Engagement",
-    heroH1: "방문자 참여형 도구로 리드 데이터 수집",
+    heroH1: "방문자가 참여하고, 리드는 자동으로 쌓입니다",
     heroSub: "상품 카탈로그, 계산기, 진단 도구 — 대화 한 번으로 생성",
     trustCopy: "전환율 높은 인터랙티브 콘텐츠에는 공식이 있습니다. 마켓핏랩의 CRO·LMF 프로젝트에서 검증된 고객 심리 모델과 바이럴 메커니즘이 콘텐츠 설계에 반영되어 있습니다.",
     problems: [
