@@ -163,28 +163,6 @@ export default function LeadMagnetDetailPage({ agent }: Props) {
         </div>
       </section>
 
-      {/* ━━ 5단계 프로세스 ━━ */}
-      <section className="py-16">
-        <div className="max-w-5xl mx-auto px-6">
-          <FadeInOnScroll>
-            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">이렇게 작동합니다</h2>
-            <p className="text-sm text-gray-500 text-center mb-10">목표 설정부터 리드 수집까지, 에이전트가 전 과정을 처리합니다</p>
-          </FadeInOnScroll>
-          <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }} className="flex flex-col md:flex-row items-stretch gap-3">
-            {processSteps.map((step, i) => (
-              <motion.div key={i} variants={item} className="flex items-center gap-3 flex-1">
-                <div className="flex-1 text-center p-5 rounded-xl bg-gray-50 border border-gray-100 h-full flex flex-col items-center">
-                  <div className="w-11 h-11 rounded-lg flex items-center justify-center mb-3" style={{ backgroundColor: `${agent.color}15`, color: agent.color }}>{step.icon}</div>
-                  <h3 className="text-sm font-bold text-gray-900">{step.title}</h3>
-                  <p className="text-sm text-gray-600 mt-1 leading-relaxed">{step.desc}</p>
-                </div>
-                {i < processSteps.length - 1 && <ArrowRight size={16} className="text-gray-300 flex-shrink-0 hidden md:block" />}
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
       {/* ━━ Product Showcase ━━ */}
       <section className="py-16">
         <div className="max-w-5xl mx-auto px-6">
@@ -224,6 +202,28 @@ export default function LeadMagnetDetailPage({ agent }: Props) {
                     <p className="text-sm text-gray-600 mt-1 leading-relaxed">{card.desc}</p>
                   </div>
                 </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ━━ 5단계 프로세스 ━━ */}
+      <section className="py-16">
+        <div className="max-w-5xl mx-auto px-6">
+          <FadeInOnScroll>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">이렇게 작동합니다</h2>
+            <p className="text-sm text-gray-500 text-center mb-10">목표 설정부터 리드 수집까지, 에이전트가 전 과정을 처리합니다</p>
+          </FadeInOnScroll>
+          <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }} className="flex flex-col md:flex-row items-stretch gap-3">
+            {processSteps.map((step, i) => (
+              <motion.div key={i} variants={item} className="flex items-center gap-3 flex-1">
+                <div className="flex-1 text-center p-5 rounded-xl bg-gray-50 border border-gray-100 h-full flex flex-col items-center">
+                  <div className="w-11 h-11 rounded-lg flex items-center justify-center mb-3" style={{ backgroundColor: `${agent.color}15`, color: agent.color }}>{step.icon}</div>
+                  <h3 className="text-sm font-bold text-gray-900">{step.title}</h3>
+                  <p className="text-sm text-gray-600 mt-1 leading-relaxed">{step.desc}</p>
+                </div>
+                {i < processSteps.length - 1 && <ArrowRight size={16} className="text-gray-300 flex-shrink-0 hidden md:block" />}
               </motion.div>
             ))}
           </motion.div>
