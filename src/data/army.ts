@@ -165,7 +165,7 @@ export const agents: Agent[] = [
     ],
     heroLabel: "ARMY의 Lead Magnet Agent — Engagement",
     heroH1: "방문자 참여형 도구로 리드 데이터 수집",
-    heroSub: "비용 계산기, 맞춤 추천, 진단 퀴즈 등 — 대화 한 번으로 생성",
+    heroSub: "상품 카탈로그, 계산기, 진단 도구 — 대화 한 번으로 생성",
     trustCopy: "전환율 높은 인터랙티브 콘텐츠에는 공식이 있습니다. 마켓핏랩의 CRO·LMF 프로젝트에서 검증된 고객 심리 모델과 바이럴 메커니즘이 콘텐츠 설계에 반영되어 있습니다.",
     problems: [
       { title: "기획/개발 리소스 부족", body: "인터랙티브 콘텐츠를 만들려면 기획, 디자인, 개발이 모두 필요합니다." },

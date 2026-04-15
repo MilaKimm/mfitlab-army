@@ -13,6 +13,7 @@ import {
   Megaphone,
   FlaskConical,
   Phone,
+  ShoppingBag,
   ExternalLink,
 } from "lucide-react";
 import type { Agent } from "@/data/army";
@@ -60,6 +61,7 @@ const typeCards = [
   { icon: <FileText size={24} />, title: "진단 퀴즈", desc: "적합성 진단, 지식 테스트 등 참여형 콘텐츠로 자연스럽게 리드를 확보하고 공유 유도" },
   { icon: <Monitor size={24} />, title: "계산기 / 시뮬레이터", desc: "TCO 비교, 절세 시뮬레이션 등 고객이 직접 계산해보는 실용 도구로 전환율 향상" },
   { icon: <Globe size={24} />, title: "인터랙티브 맵", desc: "충전소, 매장, 서비스 거점 등 위치 기반 탐색 서비스를 자동으로 기획하고 생성" },
+  { icon: <ShoppingBag size={24} />, title: "커머스 팩", desc: "상품 카탈로그, 상세페이지를 자동 생성하고 브랜드 가이드에 맞춰 배포" },
 ];
 
 export default function LeadMagnetDetailPage({ agent }: Props) {
@@ -78,7 +80,7 @@ export default function LeadMagnetDetailPage({ agent }: Props) {
             <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: agent.color }}>{agent.category}</span>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mt-2">{agent.name}</h1>
             <p className="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">{agent.tagline}</p>
-            <p className="text-sm text-gray-500 mt-3 max-w-xl mx-auto">비용 계산기, 맞춤 추천, 진단 퀴즈 등 — 대화 한 번으로 생성합니다</p>
+            <p className="text-sm text-gray-500 mt-3 max-w-xl mx-auto">상품 카탈로그, 계산기, 진단 도구 — 대화 한 번으로 생성합니다</p>
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.25 }} className="mt-8 flex items-center justify-center gap-3">
             <Link href="#contact" className="inline-flex items-center px-6 py-3 text-sm font-semibold text-white rounded-lg hover:opacity-90 transition-colors" style={{ backgroundColor: agent.color }}>도입 문의</Link>
