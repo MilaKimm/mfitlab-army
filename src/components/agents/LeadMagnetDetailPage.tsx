@@ -62,6 +62,7 @@ const typeCards = [
   { icon: <Monitor size={24} />, title: "계산기 / 시뮬레이터", desc: "TCO 비교, 절세 시뮬레이션 등 고객이 직접 계산해보는 실용 도구로 전환율 향상" },
   { icon: <Globe size={24} />, title: "인터랙티브 맵", desc: "충전소, 매장, 서비스 거점 등 위치 기반 탐색 서비스를 자동으로 기획하고 생성" },
   { icon: <ShoppingBag size={24} />, title: "커머스 팩", desc: "상품 카탈로그, 상세페이지를 자동 생성하고 브랜드 가이드에 맞춰 배포" },
+  { icon: <FileText size={24} />, title: "리포트 / 가이드", desc: "업계 트렌드 리포트, 실무 가이드 등 B2B에서 가장 익숙한 리드마그넷 형태를 자동 생성" },
 ];
 
 export default function LeadMagnetDetailPage({ agent }: Props) {
