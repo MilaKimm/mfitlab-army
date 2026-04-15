@@ -78,7 +78,7 @@ export default function LeadMagnetDetailPage({ agent }: Props) {
             <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: agent.color }}>{agent.category}</span>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mt-2">{agent.name}</h1>
             <p className="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">{agent.tagline}</p>
-            <p className="text-sm text-gray-500 mt-3 max-w-xl mx-auto">퀴즈, 맞춤 진단, 계산기 등 인터랙티브 콘텐츠를 대화만으로 무한 생성</p>
+            <p className="text-sm text-gray-500 mt-3 max-w-xl mx-auto">비용 계산기, 맞춤 추천, 진단 퀴즈 등 — 대화 한 번으로 생성합니다</p>
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.25 }} className="mt-8 flex items-center justify-center gap-3">
             <Link href="#contact" className="inline-flex items-center px-6 py-3 text-sm font-semibold text-white rounded-lg hover:opacity-90 transition-colors" style={{ backgroundColor: agent.color }}>도입 문의</Link>
