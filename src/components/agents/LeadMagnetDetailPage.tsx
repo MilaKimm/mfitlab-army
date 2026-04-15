@@ -15,6 +15,11 @@ import {
   Phone,
   ShoppingBag,
   ExternalLink,
+  Target,
+  Pencil,
+  Sparkles,
+  Rocket,
+  BarChart3,
 } from "lucide-react";
 import type { Agent } from "@/data/army";
 import { agents } from "@/data/army";
@@ -54,6 +59,14 @@ const showcaseImages = [
   { src: "/cases/lm-pfinder-q1.png", label: "질문 1 — 운동 종류", w: 430, h: 932 },
   { src: "/cases/lm-pfinder-q2.png", label: "질문 2 — 착용감", w: 430, h: 932 },
   { src: "/cases/lm-pfinder-result.png", label: "맞춤 추천 결과", w: 430, h: 932 },
+];
+
+const processSteps = [
+  { icon: <Target size={24} />, title: "목표 설정", desc: "리드 수집 목표와 타겟 정의" },
+  { icon: <Pencil size={24} />, title: "도구 기획", desc: "질문 플로우, 결과 로직 설계" },
+  { icon: <Sparkles size={24} />, title: "자동 생성", desc: "브랜드 가이드 반영 후 빌드" },
+  { icon: <Rocket size={24} />, title: "배포", desc: "랜딩페이지 즉시 배포" },
+  { icon: <BarChart3 size={24} />, title: "리드 수집", desc: "참여 데이터 자동 수집·연동" },
 ];
 
 const typeCards = [
@@ -147,6 +160,28 @@ export default function LeadMagnetDetailPage({ agent }: Props) {
               </div>
             </div>
           </FadeInOnScroll>
+        </div>
+      </section>
+
+      {/* ━━ 5단계 프로세스 ━━ */}
+      <section className="py-16">
+        <div className="max-w-5xl mx-auto px-6">
+          <FadeInOnScroll>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">이렇게 작동합니다</h2>
+            <p className="text-sm text-gray-500 text-center mb-10">목표 설정부터 리드 수집까지, 에이전트가 전 과정을 처리합니다</p>
+          </FadeInOnScroll>
+          <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }} className="flex flex-col md:flex-row items-stretch gap-3">
+            {processSteps.map((step, i) => (
+              <motion.div key={i} variants={item} className="flex items-center gap-3 flex-1">
+                <div className="flex-1 text-center p-5 rounded-xl bg-gray-50 border border-gray-100 h-full flex flex-col items-center">
+                  <div className="w-11 h-11 rounded-lg flex items-center justify-center mb-3" style={{ backgroundColor: `${agent.color}15`, color: agent.color }}>{step.icon}</div>
+                  <h3 className="text-sm font-bold text-gray-900">{step.title}</h3>
+                  <p className="text-sm text-gray-600 mt-1 leading-relaxed">{step.desc}</p>
+                </div>
+                {i < processSteps.length - 1 && <ArrowRight size={16} className="text-gray-300 flex-shrink-0 hidden md:block" />}
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
