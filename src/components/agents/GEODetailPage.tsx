@@ -201,7 +201,8 @@ export default function GEODetailPage({ agent }: Props) {
         <div className="max-w-5xl mx-auto px-6">
           <FadeInOnScroll>
             <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">CMS를 건드리지 않고 배포합니다</h2>
-            <p className="text-sm text-gray-500 text-center mb-10">CDN 기반 딜리버리로 기존 사이트 수정 없이 최적화된 콘텐츠를 제공합니다</p>
+            <p className="text-sm text-gray-500 text-center">CDN 기반 딜리버리로 기존 사이트 수정 없이 최적화된 콘텐츠를 제공합니다</p>
+            <p className="text-xs text-gray-400 text-center mt-1 mb-10">* 커스텀 구축 기능</p>
           </FadeInOnScroll>
 
           <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }} className="flex flex-col md:flex-row items-stretch gap-3">

@@ -230,6 +230,44 @@ export default function LeadMagnetDetailPage({ agent }: Props) {
         </div>
       </section>
 
+      {/* ━━ Integration ━━ */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-5xl mx-auto px-6">
+          <FadeInOnScroll>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">기존 스택에 바로 연동됩니다</h2>
+            <p className="text-sm text-gray-500 text-center">고객사 플랫폼에 연동해 publish 직전 단계까지 자동으로 세팅합니다</p>
+            <p className="text-xs text-gray-400 text-center mt-1 mb-10">* 커스텀 구축 기능</p>
+          </FadeInOnScroll>
+
+          <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }} className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+            {[
+              { name: "AEM (Adobe)", desc: "엔터프라이즈 CMS" },
+              { name: "Salesforce", desc: "CRM / Marketing Cloud" },
+              { name: "Shopify", desc: "글로벌 커머스" },
+              { name: "Cafe24", desc: "국내 커머스" },
+            ].map((platform, i) => (
+              <motion.div key={i} variants={item} className="text-center p-5 rounded-xl bg-white border border-gray-100 shadow-sm">
+                <h3 className="text-sm font-bold text-gray-900">{platform.name}</h3>
+                <p className="text-xs text-gray-500 mt-1">{platform.desc}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <FadeInOnScroll delay={0.2}>
+            <div className="mt-8 max-w-2xl mx-auto">
+              <div className="flex items-center gap-3 justify-center">
+                {["웹앱 생성", "플랫폼 연동", "Draft 세팅", "담당자 승인 → 배포"].map((step, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <span className="text-xs font-medium text-gray-600 bg-gray-100 px-3 py-1.5 rounded-full whitespace-nowrap">{step}</span>
+                    {i < 3 && <ArrowRight size={12} className="text-gray-300 flex-shrink-0" />}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </FadeInOnScroll>
+        </div>
+      </section>
+
       {/* ━━ Timeline Comparison ━━ */}
       <section className="py-16">
         <div className="max-w-5xl mx-auto px-6">
