@@ -71,7 +71,7 @@ const processSteps = [
 
 const typeCards = [
   { icon: <Search size={24} />, title: "Product Finder", desc: "질문 기반 맞춤 상품 추천으로 구매 전환율 향상과 고객 취향 데이터 수집을 동시에" },
-  { icon: <FileText size={24} />, title: "진단 퀴즈", desc: "적합성 진단, 지식 테스트 등 참여형 콘텐츠로 자연스럽게 리드를 확보하고 공유 유도" },
+  { icon: <FileText size={24} />, title: "진단 퀴즈", desc: "적합성 진단, 지식 테스트 등 참여형 도구로 자연스럽게 리드를 확보하고 공유 유도" },
   { icon: <Monitor size={24} />, title: "계산기 / 시뮬레이터", desc: "TCO 비교, 절세 시뮬레이션 등 고객이 직접 계산해보는 실용 도구로 전환율 향상" },
   { icon: <Globe size={24} />, title: "인터랙티브 맵", desc: "충전소, 매장, 서비스 거점 등 위치 기반 탐색 서비스를 자동으로 기획하고 생성" },
   { icon: <ShoppingBag size={24} />, title: "커머스 팩", desc: "상품 카탈로그, 상세페이지를 자동 생성하고 브랜드 가이드에 맞춰 배포" },
@@ -111,7 +111,7 @@ export default function LeadMagnetDetailPage({ agent }: Props) {
       <section className="py-16 bg-gray-50">
         <div className="max-w-5xl mx-auto px-6">
           <FadeInOnScroll>
-            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">AI 에이전트와 대화하면 콘텐츠가 완성됩니다</h2>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">AI 에이전트와 대화하면 웹앱이 완성됩니다</h2>
             <p className="text-sm text-gray-500 text-center mb-10">Slack, Teams 등 협업 툴은 물론 전용 웹 인터페이스에서도 바로 사용할 수 있습니다</p>
           </FadeInOnScroll>
 
@@ -188,8 +188,8 @@ export default function LeadMagnetDetailPage({ agent }: Props) {
       <section className="py-16 bg-gray-50">
         <div className="max-w-5xl mx-auto px-6">
           <FadeInOnScroll>
-            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">다양한 형태의 콘텐츠를 자동 생성합니다</h2>
-            <p className="text-sm text-gray-500 text-center mb-10">업종과 목적에 맞는 콘텐츠 유형을 지원합니다</p>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">다양한 형태의 웹앱을 자동 생성합니다</h2>
+            <p className="text-sm text-gray-500 text-center mb-10">업종과 목적에 맞는 웹앱 유형을 지원합니다</p>
           </FadeInOnScroll>
 
           <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }} className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -235,9 +235,9 @@ export default function LeadMagnetDetailPage({ agent }: Props) {
         <div className="max-w-5xl mx-auto px-6">
           <FadeInOnScroll>
             <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">
-              콘텐츠 제작 2~3주 → <span style={{ color: agent.color }}>30분</span>
+              웹앱 제작 2~3주 → <span style={{ color: agent.color }}>30분</span>
             </h2>
-            <p className="text-sm text-gray-500 text-center mb-10">외주에 맡기던 콘텐츠를, 에이전트가 즉시 만듭니다</p>
+            <p className="text-sm text-gray-500 text-center mb-10">외주에 맡기던 웹앱을, 에이전트가 즉시 만듭니다</p>
           </FadeInOnScroll>
 
           <div className="max-w-4xl mx-auto space-y-4">
@@ -306,7 +306,7 @@ export default function LeadMagnetDetailPage({ agent }: Props) {
         <div className="max-w-2xl mx-auto px-6 text-center">
           <FadeInOnScroll>
             <h2 className="text-2xl font-bold text-gray-900">Lead Magnet Agent를 도입해보세요</h2>
-            <p className="text-sm text-gray-500 mt-3">트래픽을 리드로 전환하는 바이럴 콘텐츠, 대화 한 번으로 완성합니다.</p>
+            <p className="text-sm text-gray-500 mt-3">트래픽을 리드로 전환하는 바이럴 도구, 대화 한 번으로 완성합니다.</p>
             <div className="mt-8">
               <Link href="#contact" className="inline-flex items-center px-6 py-3 text-sm font-semibold text-white rounded-lg hover:opacity-90 transition-colors" style={{ backgroundColor: agent.color }}>도입 문의</Link>
             </div>
