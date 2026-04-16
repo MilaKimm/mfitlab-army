@@ -240,23 +240,39 @@ export default function LeadMagnetDetailPage({ agent }: Props) {
           </FadeInOnScroll>
 
           <FadeInOnScroll delay={0.1}>
-            <div className="flex items-center justify-center gap-4 md:gap-6 max-w-2xl mx-auto">
-              {/* Lead Magnet Agent */}
-              <div className="flex-shrink-0 px-5 py-3 rounded-xl text-sm font-bold text-white" style={{ backgroundColor: agent.color }}>
+            <div className="flex flex-col items-center max-w-3xl mx-auto">
+              {/* Lead Magnet Agent Box */}
+              <motion.div initial={{ opacity: 0, y: -10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="px-8 py-4 rounded-2xl text-base font-bold text-white shadow-lg" style={{ backgroundColor: agent.color }}>
                 Lead Magnet Agent
+              </motion.div>
+
+              {/* Connecting lines */}
+              <div className="relative w-full h-12 flex items-end justify-center">
+                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 600 48" fill="none" preserveAspectRatio="xMidYMid meet">
+                  <line x1="300" y1="0" x2="300" y2="20" stroke="#D1D5DB" strokeWidth="2" />
+                  <line x1="75" y1="20" x2="525" y2="20" stroke="#D1D5DB" strokeWidth="2" />
+                  {[75, 225, 375, 525].map((x, i) => (
+                    <g key={i}>
+                      <line x1={x} y1="20" x2={x} y2="42" stroke="#D1D5DB" strokeWidth="2" />
+                      <polygon points={`${x - 5},37 ${x + 5},37 ${x},47`} fill="#D1D5DB" />
+                    </g>
+                  ))}
+                </svg>
               </div>
 
-              {/* Arrow */}
-              <div className="flex flex-col items-center gap-1">
-                <ArrowRight size={20} className="text-gray-400" />
-                <span className="text-[10px] text-gray-400 font-medium">Draft 세팅</span>
-              </div>
-
-              {/* Platforms */}
-              <div className="flex flex-col gap-2">
-                {["AEM (Adobe)", "Salesforce", "Shopify", "Cafe24"].map((name, i) => (
-                  <motion.div key={i} initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.1 }} className="px-4 py-2 rounded-lg bg-white border border-gray-200 text-sm font-semibold text-gray-700 text-center">
-                    {name}
+              {/* Platform logos */}
+              <div className="grid grid-cols-4 gap-4 w-full">
+                {[
+                  { name: "AEM (Adobe)", logo: "/images/logos/aem.png" },
+                  { name: "Salesforce", logo: "/images/logos/salesforce.png" },
+                  { name: "Shopify", logo: "/images/logos/shopify.png" },
+                  { name: "Cafe24", logo: "/images/logos/cafe24.png" },
+                ].map((platform, i) => (
+                  <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.1 }} className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white border border-gray-100 shadow-sm">
+                    <div className="h-10 flex items-center justify-center">
+                      <Image src={platform.logo} alt={platform.name} width={120} height={40} className="object-contain max-h-10" />
+                    </div>
+                    <span className="text-xs font-medium text-gray-500">{platform.name}</span>
                   </motion.div>
                 ))}
               </div>
