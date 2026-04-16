@@ -72,6 +72,16 @@ export default function Header() {
             Articul8 <ArrowUpRight size={12} className="text-[#9B9B9B]" />
           </a>
 
+          {/* 마켓핏랩 — 외부 링크 */}
+          <a
+            href="https://www.mfitlab.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 text-sm font-medium text-[#626166] hover:text-[#1B1B1B] transition"
+          >
+            마켓핏랩 <ArrowUpRight size={12} className="text-[#9B9B9B]" />
+          </a>
+
           <Link
             href="#contact"
             className="h-10 px-5 flex items-center rounded-full bg-[#36B1A7] text-white text-sm font-semibold hover:bg-[#15867E] transition"
@@ -101,6 +111,9 @@ export default function Header() {
             </a>
             <a href="https://www.mfitlab.com/articul8/articul8" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm text-[#626166] py-2" onClick={() => setMobileOpen(false)}>
               Articul8 <ArrowUpRight size={12} className="text-[#9B9B9B]" />
+            </a>
+            <a href="https://www.mfitlab.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm text-[#626166] py-2" onClick={() => setMobileOpen(false)}>
+              마켓핏랩 <ArrowUpRight size={12} className="text-[#9B9B9B]" />
             </a>
           </div>
           <Link href="#contact" className="block text-center h-10 flex items-center justify-center rounded-full bg-[#36B1A7] text-white text-sm font-semibold" onClick={() => setMobileOpen(false)}>
