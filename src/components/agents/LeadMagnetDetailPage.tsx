@@ -235,8 +235,7 @@ export default function LeadMagnetDetailPage({ agent }: Props) {
         <div className="max-w-5xl mx-auto px-6">
           <FadeInOnScroll>
             <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">기존 스택에 바로 연동됩니다</h2>
-            <p className="text-sm text-gray-500 text-center">고객사 플랫폼에 연동해 publish 직전 단계까지 자동으로 세팅합니다</p>
-            <p className="text-xs text-gray-400 text-center mt-1 mb-10">* 커스텀 구축 기능</p>
+            <p className="text-sm text-gray-500 text-center mb-10">고객사 기존 스택에 연동하여, 배포 직전 초안(Draft) 단계까지 자동으로 세팅합니다</p>
           </FadeInOnScroll>
 
           <FadeInOnScroll delay={0.1}>
