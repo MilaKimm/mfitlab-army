@@ -283,6 +283,57 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── 5.5 Integration ─── */}
+      <section className="py-24 bg-white">
+        <div className="max-w-5xl mx-auto px-6">
+          <FadeInOnScroll>
+            <p className="text-xs font-semibold tracking-widest uppercase text-[#36B1A7] mb-3">Enterprise Integration</p>
+            <h2 className="text-[28px] md:text-[40px] font-semibold text-[#1B1B1B] leading-[1.5] mb-3">기존 스택에 바로 연동됩니다</h2>
+            <p className="text-[#626166] mb-12 max-w-2xl">고객사 기존 스택에 연동하여, 배포 직전 초안(Draft) 단계까지 자동으로 세팅합니다</p>
+          </FadeInOnScroll>
+
+          <FadeInOnScroll delay={0.1}>
+            <div className="flex flex-col items-center max-w-3xl mx-auto">
+              {/* MFL ARMY Agent Box */}
+              <motion.div initial={{ opacity: 0, y: -10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="px-8 py-4 rounded-2xl text-base font-bold text-white shadow-lg bg-[#36B1A7]">
+                MFL ARMY Agent
+              </motion.div>
+
+              {/* Connecting lines with animation */}
+              <div className="relative w-full h-12 flex items-end justify-center">
+                <motion.svg className="absolute inset-0 w-full h-full" viewBox="0 0 600 48" fill="none" preserveAspectRatio="xMidYMid meet" initial="hidden" whileInView="visible" viewport={{ once: true }}>
+                  <motion.line x1="300" y1="0" x2="300" y2="20" stroke="#36B1A7" strokeWidth="2" variants={{ hidden: { pathLength: 0, opacity: 0 }, visible: { pathLength: 1, opacity: 1, transition: { duration: 0.4, delay: 0.2 } } }} />
+                  <motion.line x1="75" y1="20" x2="525" y2="20" stroke="#36B1A7" strokeWidth="2" variants={{ hidden: { pathLength: 0, opacity: 0 }, visible: { pathLength: 1, opacity: 1, transition: { duration: 0.5, delay: 0.5 } } }} />
+                  {[75, 225, 375, 525].map((x, i) => (
+                    <motion.g key={i} variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.3, delay: 0.8 + i * 0.12 } } }}>
+                      <motion.line x1={x} y1="20" x2={x} y2="42" stroke="#36B1A7" strokeWidth="2" variants={{ hidden: { pathLength: 0 }, visible: { pathLength: 1, transition: { duration: 0.3, delay: 0.8 + i * 0.12 } } }} />
+                      <polygon points={`${x - 5},37 ${x + 5},37 ${x},47`} fill="#36B1A7" />
+                    </motion.g>
+                  ))}
+                </motion.svg>
+              </div>
+
+              {/* Platform logos */}
+              <div className="grid grid-cols-4 gap-4 w-full">
+                {[
+                  { name: "AEM (Adobe)", logo: "/images/logos/aem.png" },
+                  { name: "Salesforce", logo: "/images/logos/salesforce.png" },
+                  { name: "Shopify", logo: "/images/logos/shopify.png" },
+                  { name: "Cafe24", logo: "/images/logos/cafe24.png" },
+                ].map((platform, i) => (
+                  <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.8 + i * 0.1 }} className="flex flex-col items-center gap-2 p-4 rounded-xl bg-[#F2FDFB] border border-[#CCFFFC] shadow-sm">
+                    <div className="h-16 flex items-center justify-center">
+                      <Image src={platform.logo} alt={platform.name} width={140} height={56} className="object-contain max-h-16" />
+                    </div>
+                    <span className="text-xs font-medium text-[#626166]">{platform.name}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </FadeInOnScroll>
+        </div>
+      </section>
+
       {/* ─── 6. AX 솔루션 ─── */}
       <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-6">
