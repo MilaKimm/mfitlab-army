@@ -65,7 +65,7 @@ const processSteps = [
   { icon: <Target size={24} />, title: "목표 설정", desc: "리드 수집 목표와 타겟 정의" },
   { icon: <Pencil size={24} />, title: "도구 기획", desc: "질문 플로우, 결과 로직 설계" },
   { icon: <Sparkles size={24} />, title: "자동 생성", desc: "브랜드 가이드 반영 후 빌드" },
-  { icon: <Rocket size={24} />, title: "배포", desc: "랜딩페이지 즉시 배포" },
+  { icon: <Rocket size={24} />, title: "배포", desc: "프리뷰 확인 후 즉시 배포" },
   { icon: <BarChart3 size={24} />, title: "리드 수집", desc: "참여 데이터 자동 수집·연동" },
 ];
 
@@ -239,28 +239,25 @@ export default function LeadMagnetDetailPage({ agent }: Props) {
             <p className="text-xs text-gray-400 text-center mt-1 mb-10">* 커스텀 구축 기능</p>
           </FadeInOnScroll>
 
-          <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }} className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
-            {[
-              { name: "AEM (Adobe)", desc: "엔터프라이즈 CMS" },
-              { name: "Salesforce", desc: "CRM / Marketing Cloud" },
-              { name: "Shopify", desc: "글로벌 커머스" },
-              { name: "Cafe24", desc: "국내 커머스" },
-            ].map((platform, i) => (
-              <motion.div key={i} variants={item} className="text-center p-5 rounded-xl bg-white border border-gray-100 shadow-sm">
-                <h3 className="text-sm font-bold text-gray-900">{platform.name}</h3>
-                <p className="text-xs text-gray-500 mt-1">{platform.desc}</p>
-              </motion.div>
-            ))}
-          </motion.div>
+          <FadeInOnScroll delay={0.1}>
+            <div className="flex items-center justify-center gap-4 md:gap-6 max-w-2xl mx-auto">
+              {/* Lead Magnet Agent */}
+              <div className="flex-shrink-0 px-5 py-3 rounded-xl text-sm font-bold text-white" style={{ backgroundColor: agent.color }}>
+                Lead Magnet Agent
+              </div>
 
-          <FadeInOnScroll delay={0.2}>
-            <div className="mt-8 max-w-2xl mx-auto">
-              <div className="flex items-center gap-3 justify-center">
-                {["웹앱 생성", "플랫폼 연동", "Draft 세팅", "담당자 승인 → 배포"].map((step, i) => (
-                  <div key={i} className="flex items-center gap-3">
-                    <span className="text-xs font-medium text-gray-600 bg-gray-100 px-3 py-1.5 rounded-full whitespace-nowrap">{step}</span>
-                    {i < 3 && <ArrowRight size={12} className="text-gray-300 flex-shrink-0" />}
-                  </div>
+              {/* Arrow */}
+              <div className="flex flex-col items-center gap-1">
+                <ArrowRight size={20} className="text-gray-400" />
+                <span className="text-[10px] text-gray-400 font-medium">Draft 세팅</span>
+              </div>
+
+              {/* Platforms */}
+              <div className="flex flex-col gap-2">
+                {["AEM (Adobe)", "Salesforce", "Shopify", "Cafe24"].map((name, i) => (
+                  <motion.div key={i} initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.1 }} className="px-4 py-2 rounded-lg bg-white border border-gray-200 text-sm font-semibold text-gray-700 text-center">
+                    {name}
+                  </motion.div>
                 ))}
               </div>
             </div>
