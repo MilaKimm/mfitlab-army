@@ -246,18 +246,21 @@ export default function LeadMagnetDetailPage({ agent }: Props) {
                 Lead Magnet Agent
               </motion.div>
 
-              {/* Connecting lines */}
+              {/* Connecting lines with animation */}
               <div className="relative w-full h-12 flex items-end justify-center">
-                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 600 48" fill="none" preserveAspectRatio="xMidYMid meet">
-                  <line x1="300" y1="0" x2="300" y2="20" stroke="#D1D5DB" strokeWidth="2" />
-                  <line x1="75" y1="20" x2="525" y2="20" stroke="#D1D5DB" strokeWidth="2" />
+                <motion.svg className="absolute inset-0 w-full h-full" viewBox="0 0 600 48" fill="none" preserveAspectRatio="xMidYMid meet" initial="hidden" whileInView="visible" viewport={{ once: true }}>
+                  {/* Vertical line down from agent */}
+                  <motion.line x1="300" y1="0" x2="300" y2="20" stroke={agent.color} strokeWidth="2" variants={{ hidden: { pathLength: 0, opacity: 0 }, visible: { pathLength: 1, opacity: 1, transition: { duration: 0.4, delay: 0.2 } } }} />
+                  {/* Horizontal line */}
+                  <motion.line x1="75" y1="20" x2="525" y2="20" stroke={agent.color} strokeWidth="2" variants={{ hidden: { pathLength: 0, opacity: 0 }, visible: { pathLength: 1, opacity: 1, transition: { duration: 0.5, delay: 0.5 } } }} />
+                  {/* Vertical lines down to each platform + arrows */}
                   {[75, 225, 375, 525].map((x, i) => (
-                    <g key={i}>
-                      <line x1={x} y1="20" x2={x} y2="42" stroke="#D1D5DB" strokeWidth="2" />
-                      <polygon points={`${x - 5},37 ${x + 5},37 ${x},47`} fill="#D1D5DB" />
-                    </g>
+                    <motion.g key={i} variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.3, delay: 0.8 + i * 0.12 } } }}>
+                      <motion.line x1={x} y1="20" x2={x} y2="42" stroke={agent.color} strokeWidth="2" variants={{ hidden: { pathLength: 0 }, visible: { pathLength: 1, transition: { duration: 0.3, delay: 0.8 + i * 0.12 } } }} />
+                      <polygon points={`${x - 5},37 ${x + 5},37 ${x},47`} fill={agent.color} />
+                    </motion.g>
                   ))}
-                </svg>
+                </motion.svg>
               </div>
 
               {/* Platform logos */}
@@ -269,8 +272,8 @@ export default function LeadMagnetDetailPage({ agent }: Props) {
                   { name: "Cafe24", logo: "/images/logos/cafe24.png" },
                 ].map((platform, i) => (
                   <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.1 }} className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white border border-gray-100 shadow-sm">
-                    <div className="h-10 flex items-center justify-center">
-                      <Image src={platform.logo} alt={platform.name} width={120} height={40} className="object-contain max-h-10" />
+                    <div className="h-20 flex items-center justify-center">
+                      <Image src={platform.logo} alt={platform.name} width={160} height={80} className="object-contain max-h-20" />
                     </div>
                     <span className="text-xs font-medium text-gray-500">{platform.name}</span>
                   </motion.div>
