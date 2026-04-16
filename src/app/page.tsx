@@ -168,7 +168,7 @@ export default function Home() {
             </div>
             <div className="flex justify-center mt-8">
               <a href="https://www.mfitlab.com/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-6 py-3 text-sm font-semibold text-[#36B1A7] border border-[#36B1A7] rounded-full hover:bg-[#F2FDFB] transition-colors">
-                마켓핏랩 소개 <ArrowUpRight size={14} />
+                마켓핏랩 홈페이지 <ArrowUpRight size={14} />
               </a>
             </div>
           </FadeInOnScroll>
@@ -341,7 +341,7 @@ export default function Home() {
       </section>
 
       {/* ─── 6. AX 솔루션 ─── */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-[#F4F4F4]">
         <div className="max-w-5xl mx-auto px-6">
           <FadeInOnScroll>
             <p className="text-xs font-semibold tracking-widest uppercase text-[#36B1A7] mb-3">AI Transformation</p>
@@ -355,7 +355,7 @@ export default function Home() {
               <FadeInOnScroll key={sol.id} delay={i * 0.1}>
                 <div className="flex flex-col items-center">
                   {/* 고민 박스 */}
-                  <div className="rounded-2xl bg-[#F4F4F4] border border-[#E9E9E9] px-6 py-5 text-center w-full">
+                  <div className="rounded-2xl bg-white border border-[#E9E9E9] px-6 py-5 text-center w-full">
                     <p className="text-[15px] font-semibold text-[#1B1B1B]">&ldquo;{sol.question}&rdquo;</p>
                   </div>
 
@@ -389,13 +389,13 @@ export default function Home() {
           </div>
 
           <FadeInOnScroll>
-            <p className="text-center text-xs text-[#9B9B9B] mt-8">Replit, Articul8은 독립적인 전문 파트너와 함께 운영됩니다.</p>
+            <p className="text-center text-xs text-[#9B9B9B] mt-8">마켓핏랩은 Replit, Articul8의 공식 파트너사입니다.</p>
           </FadeInOnScroll>
         </div>
       </section>
 
       {/* ─── 7. Adoption ─── */}
-      <section className="py-24 bg-[#F4F4F4]">
+      <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-6">
           <FadeInOnScroll>
             <p className="text-xs font-semibold tracking-widest uppercase text-[#36B1A7] mb-3">Adoption</p>
@@ -501,7 +501,7 @@ function ContactSection() {
   ];
 
   return (
-    <section id="contact" className="relative py-24 overflow-hidden bg-white">
+    <section id="contact" className="relative py-24 overflow-hidden bg-[#F4F4F4]">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full opacity-15 blur-[120px] bg-[#CCFFFC]" />
       </div>

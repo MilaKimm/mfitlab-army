@@ -34,22 +34,19 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* AX */}
+          {/* 바로가기 */}
           <div>
-            <p className="text-sm font-semibold text-white/80 mb-3">AX 솔루션</p>
+            <p className="text-sm font-semibold text-white/80 mb-3">바로가기</p>
             <div className="space-y-2">
-              <Link
-                href="/solutions/replit"
-                className="block text-sm text-white/40 hover:text-white/70 transition"
-              >
-                Replit 바이브 코딩
-              </Link>
-              <Link
-                href="/solutions/articul8"
-                className="block text-sm text-white/40 hover:text-white/70 transition"
-              >
+              <a href="https://replit.mfitlab.com/" target="_blank" rel="noopener noreferrer" className="block text-sm text-white/40 hover:text-white/70 transition">
+                Replit
+              </a>
+              <a href="https://www.mfitlab.com/articul8/articul8" target="_blank" rel="noopener noreferrer" className="block text-sm text-white/40 hover:text-white/70 transition">
                 Articul8
-              </Link>
+              </a>
+              <a href="https://www.mfitlab.com/" target="_blank" rel="noopener noreferrer" className="block text-sm text-white/40 hover:text-white/70 transition">
+                마켓핏랩
+              </a>
             </div>
           </div>
 
@@ -58,29 +55,30 @@ export default function Footer() {
             <p className="text-sm font-semibold text-white/80 mb-3">문의</p>
             <div className="space-y-2">
               <a
-                href="https://www.mfitlab.com"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="mailto:hello@mfitlab.com"
                 className="block text-sm text-white/40 hover:text-white/70 transition"
               >
-                mfitlab.com
+                hello@mfitlab.com
               </a>
-              <Link
-                href="#contact"
+              <a
+                href="https://army.mfitlab.com/#contact"
                 className="block text-sm text-white/40 hover:text-white/70 transition"
               >
                 도입 상담
-              </Link>
+              </a>
             </div>
           </div>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-2">
+        <div className="mt-12 pt-6 border-t border-white/10 space-y-2 text-center">
           <p className="text-xs text-white/30">
-            &copy; {new Date().getFullYear()} MarketFitLab Inc. All rights reserved.
+            (주)마켓핏랩 | 대표이사 정성영 | 서울시 강남구 테헤란로 113, 1503
           </p>
           <p className="text-xs text-white/30">
-            서울시 강남구 테헤란로 113, 1503
+            <a href="https://www.mfitlab.com/terms" target="_blank" rel="noopener noreferrer" className="hover:text-white/50 transition">이용약관</a>
+            {" | "}
+            <a href="https://www.mfitlab.com/privacy" target="_blank" rel="noopener noreferrer" className="hover:text-white/50 transition">개인정보처리방침</a>
+            {" | "}&copy; 2024 MarketFitLab Inc. All rights reserved.
           </p>
         </div>
       </div>

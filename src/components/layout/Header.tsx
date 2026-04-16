@@ -82,12 +82,12 @@ export default function Header() {
             마켓핏랩 <ArrowUpRight size={12} className="text-[#9B9B9B]" />
           </a>
 
-          <Link
-            href="#contact"
+          <a
+            href="https://army.mfitlab.com/#contact"
             className="h-10 px-5 flex items-center rounded-full bg-[#36B1A7] text-white text-sm font-semibold hover:bg-[#15867E] transition"
           >
             도입 상담
-          </Link>
+          </a>
         </nav>
 
         <button className="md:hidden p-2" onClick={() => setMobileOpen(!mobileOpen)}>
@@ -116,9 +116,9 @@ export default function Header() {
               마켓핏랩 <ArrowUpRight size={12} className="text-[#9B9B9B]" />
             </a>
           </div>
-          <Link href="#contact" className="block text-center h-10 flex items-center justify-center rounded-full bg-[#36B1A7] text-white text-sm font-semibold" onClick={() => setMobileOpen(false)}>
+          <a href="https://army.mfitlab.com/#contact" className="block text-center h-10 flex items-center justify-center rounded-full bg-[#36B1A7] text-white text-sm font-semibold" onClick={() => setMobileOpen(false)}>
             도입 상담
-          </Link>
+          </a>
         </div>
       )}
     </header>
