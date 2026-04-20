@@ -216,20 +216,17 @@ export default function Home() {
             </p>
           </FadeInOnScroll>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
-            className="grid md:grid-cols-2 gap-6"
-          >
+          <div className="grid md:grid-cols-2 gap-6">
             {agents.map((agent) => (
               <motion.div
                 key={agent.id}
-                variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               >
                 <Link href={`/army/${agent.id}`} className="block group">
-                  <div className={`rounded-2xl border border-white/60 bg-gradient-to-br ${gradientMap[agent.id]} p-0 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-[260px] flex overflow-hidden`}>
+                  <div className={`rounded-2xl border border-[#E9E9E9] bg-gradient-to-br ${gradientMap[agent.id]} p-0 shadow-[0_8px_24px_-8px_rgba(27,27,27,0.12)] md:shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-[#36B1A7]/40 transition-all duration-300 h-[260px] flex overflow-hidden`}>
                     <div className="flex flex-col justify-between p-6 w-[55%]">
                       <div>
                         <div className="flex items-center gap-2 mb-3">
@@ -241,14 +238,12 @@ export default function Home() {
                         <h3 className="text-lg font-semibold text-[#1B1B1B] mb-1 group-hover:text-[#36B1A7] transition-colors">{agent.name}</h3>
                         <p className="text-sm text-[#626166] leading-relaxed line-clamp-2">{agent.tagline}</p>
                       </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs text-[#9B9B9B]">{agent.expertise}</span>
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm font-semibold" style={{ color: agent.color }}>{agent.impactValue}</span>
-                          <span className="w-6 h-6 rounded-full bg-black/5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <ArrowRight size={12} className="text-[#626166]" />
-                          </span>
-                        </div>
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="inline-flex items-center gap-1 text-xs font-semibold text-[#36B1A7] group-hover:gap-2 transition-all">
+                          자세히 보기
+                          <ArrowRight size={12} className="transition-transform group-hover:translate-x-0.5" />
+                        </span>
+                        <span className="text-sm font-semibold" style={{ color: agent.color }}>{agent.impactValue}</span>
                       </div>
                     </div>
                     <div className="w-[45%] relative">{graphicMap[agent.id]}</div>
@@ -256,7 +251,7 @@ export default function Home() {
                 </Link>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 

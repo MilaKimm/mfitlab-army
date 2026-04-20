@@ -26,9 +26,25 @@ const clashDisplay = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://army.mfitlab.com"),
   title: "ARMY | Growth Marketing AI Agent — MarketFitLab",
   description:
     "그로스 마케팅을 AI 군단이 대신 돌립니다. 7년 3,000번의 실험이 학습된 마켓핏랩의 에이전트 군단, ARMY.",
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    url: "https://army.mfitlab.com",
+    siteName: "MFL ARMY",
+    title: "ARMY | Growth Marketing AI Agent — MarketFitLab",
+    description:
+      "그로스 마케팅을 AI 군단이 대신 돌립니다. 7년 3,000번의 실험이 학습된 마켓핏랩의 에이전트 군단, ARMY.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ARMY | Growth Marketing AI Agent — MarketFitLab",
+    description:
+      "그로스 마케팅을 AI 군단이 대신 돌립니다. 7년 3,000번의 실험이 학습된 마켓핏랩의 에이전트 군단, ARMY.",
+  },
 };
 
 export default function RootLayout({
