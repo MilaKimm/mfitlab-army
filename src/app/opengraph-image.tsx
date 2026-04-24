@@ -22,7 +22,7 @@ async function loadGoogleFont(family: string, weight: number, text: string) {
 
 export default async function Image() {
   const koreanText =
-    "마켓핏랩 그로스 마케팅 에이전트 군단이제 실험은 에이전트가, 판단은 사람이.도입 상담하기2분 진단 시작";
+    "마켓핏랩 그로스 마케팅 에이전트 군단이제 실험은 에이전트가, 판단은 사람이.";
 
   const [notoKR900, notoKR700, notoKR500] = await Promise.all([
     loadGoogleFont("Noto Sans KR", 900, koreanText + "MFLARMY"),
@@ -80,7 +80,6 @@ export default async function Image() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              marginBottom: 48,
             }}
           >
             <div
@@ -103,46 +102,6 @@ export default async function Image() {
               }}
             >
               이제 실험은 에이전트가, 판단은 사람이.
-            </div>
-          </div>
-
-          {/* CTA buttons */}
-          <div
-            style={{
-              display: "flex",
-              gap: 12,
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                background: "#36B1A7",
-                color: "white",
-                padding: "16px 32px",
-                borderRadius: 999,
-                fontSize: 18,
-                fontWeight: 700,
-              }}
-            >
-              도입 상담하기
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                background: "rgba(255,255,255,0.75)",
-                color: "#1B1B1B",
-                padding: "16px 32px",
-                borderRadius: 999,
-                fontSize: 18,
-                fontWeight: 700,
-                border: "1px solid rgba(255,255,255,0.6)",
-              }}
-            >
-              2분 진단 시작
             </div>
           </div>
         </div>

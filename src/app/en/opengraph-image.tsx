@@ -22,7 +22,7 @@ async function loadGoogleFont(family: string, weight: number, text: string) {
 
 export default async function Image() {
   const englishText =
-    "MFLARMYMarketFit Lab's growth marketing agent armyAgents run the experiments. Humans make the calls.Get in Touch2-Min Diagnostic";
+    "MFLARMYMarketFit Lab's growth marketing agent armyAgents run the experiments. Humans make the calls.";
 
   const [inter900, inter700] = await Promise.all([
     loadGoogleFont("Inter", 900, englishText),
@@ -77,7 +77,6 @@ export default async function Image() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              marginBottom: 48,
             }}
           >
             <div
@@ -100,46 +99,6 @@ export default async function Image() {
               }}
             >
               Agents run the experiments. Humans make the calls.
-            </div>
-          </div>
-
-          {/* CTA buttons */}
-          <div
-            style={{
-              display: "flex",
-              gap: 12,
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                background: "#36B1A7",
-                color: "white",
-                padding: "16px 32px",
-                borderRadius: 999,
-                fontSize: 18,
-                fontWeight: 700,
-              }}
-            >
-              Get in Touch
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                background: "rgba(255,255,255,0.75)",
-                color: "#1B1B1B",
-                padding: "16px 32px",
-                borderRadius: 999,
-                fontSize: 18,
-                fontWeight: 700,
-                border: "1px solid rgba(255,255,255,0.6)",
-              }}
-            >
-              2-Min Diagnostic
             </div>
           </div>
         </div>
