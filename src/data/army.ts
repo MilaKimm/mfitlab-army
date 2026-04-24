@@ -70,7 +70,7 @@ export const agents: Agent[] = [
       name: "GEO Agent",
       category: "AI Search Optimization",
       funnelPhase: "Discovery",
-      tagline: "Be the brand AI search cites first.",
+      tagline: "Be the brand AI search cites first",
       description: "Optimize brand citation in ChatGPT, Perplexity, and Gemini.",
       expertise: "250+ consulting projects",
       impactMetric: "AI referral conversion",
@@ -149,7 +149,7 @@ export const agents: Agent[] = [
       name: "LMF Agent",
       category: "Ad Marketing Automation",
       funnelPhase: "Acquisition",
-      tagline: "Creative, campaign, optimization — fully automated.",
+      tagline: "Creative, campaign, optimization — in one system.",
       description: "A field-tested Language Market-Fit playbook, packed into an agent.",
       expertise: "Proven LMF playbook",
       impactMetric: "CTR / ROAS",
@@ -230,7 +230,7 @@ export const agents: Agent[] = [
       name: "CRO Agent",
       category: "Conversion Rate Optimization",
       funnelPhase: "Conversion",
-      tagline: "Self-driving CRO — from hypothesis to setup.",
+      tagline: "Self-driving CRO — from hypothesis to launch.",
       description: "An autonomous CRO machine trained on 7 years and 3,000+ A/B tests.",
       expertise: "7 years, 3,000+ A/B experiments",
       impactMetric: "Experiment velocity",
@@ -321,8 +321,8 @@ export const agents: Agent[] = [
         "SNS viral optimization",
       ],
       heroLabel: "ARMY Lead Magnet Agent — Engagement",
-      heroH1: "Visitors engage. Leads fill your pipeline.",
-      heroSub: "Product catalogs, calculators, diagnostic tools — built in a single conversation.",
+      heroH1: "Visitors engage. Qualified leads fill your pipeline.",
+      heroSub: "Calculators, quizzes, and tools — built in one conversation.",
       trustCopy:
         "A lead magnet is something visitors actually use — calculators, quizzes, finders. Data gets captured through engagement, not forms. The conversion design proven in our CRO and LMF projects is built into the agent.",
       problems: [
@@ -386,8 +386,8 @@ export const agents: Agent[] = [
       name: "Voice Agent",
       category: "AI Voice Agent",
       funnelPhase: "Retention",
-      tagline: "New lead? AI calls in under 2 minutes.",
-      description: "Instant outbound call within 2 minutes of a new lead. 24/7 AI call center.",
+      tagline: "New lead? AI follows up in under 2 minutes.",
+      description: "Instant follow-up call within 2 minutes of a new lead. 24/7 AI call center.",
       expertise: "Production-grade (HMCA and others)",
       impactMetric: "Pickup rate",
       impactValue: "6.9×",
@@ -398,7 +398,7 @@ export const agents: Agent[] = [
         "Zero-retention security",
       ],
       heroLabel: "ARMY Voice Agent — Retention",
-      heroH1: "New lead? AI calls within 2 minutes. 24/7.",
+      heroH1: "New lead? AI follows up within 2 minutes. 24/7.",
       heroSub:
         "The moment a form is submitted, AI calls the lead. It reads context, qualifies, and routes to the right rep. Pickup and conversion climb together.",
       trustCopy:
@@ -476,9 +476,9 @@ export const agents: Agent[] = [
         "Real-time dashboard",
       ],
       heroLabel: "ARMY MMM Agent — Optimization",
-      heroH1: "Allocate budget with data, not instinct",
+      heroH1: "Allocate budget with data, not guesswork",
       heroSub:
-        "Measure contribution across Meta, Google, TikTok and more with modern open-source MMM (Google Meridian, Meta Robyn). Simulate optimal allocation scenarios.",
+        "Measure channel contribution beyond last-click with modern open-source MMM (Google Meridian, Meta Robyn). Simulate optimal allocation scenarios.",
       trustCopy:
         "Go beyond last-click. Measure upper-funnel channel contribution with precision. We combine channel expertise from 250+ projects with the latest open-source MMM (Google Meridian, Meta Robyn).",
       problems: [
@@ -505,17 +505,17 @@ export const armyOverviewEn = {
   differentiators: [
     {
       number: "01",
-      title: "5 people's execution, from one agent fleet",
-      body: "Creative production, experiment setup, data wrangling — the repetitive work humans used to do. Agents handle it. Small teams keep shipping tests.",
+      title: "The execution power of five, in one agent team",
+      body: "Creative production, experiment setup, data wrangling — the repetitive work humans used to do. Agents handle it. Small teams keep launching tests.",
     },
     {
       number: "02",
-      title: "Responsible for\nhypotheses, not just execution",
+      title: "Built for strategy,\nnot just execution",
       body: "Give it a URL. It diagnoses, forms data-driven hypotheses, and prioritizes. An agent that answers what to do first.",
     },
     {
       number: "03",
-      title: "Know-how accumulates in the system, not in people",
+      title: "What works stays in the system, not in people",
       body: "Judgment criteria and context live in the agent as skills. When people leave, team capability stays.",
     },
   ],
@@ -732,7 +732,7 @@ export const axSolutions: AxSolution[] = [
     en: {
       name: "Replit Vibe Coding",
       question: "We want our team to build their own tools.",
-      description: "Non-engineers ship a web app in 4 hours. Build your team's AI muscle.",
+      description: "Non-engineers launch a web app in 4 hours. Build your team's AI muscle.",
       metric: "100% MVP completion",
       target: "Every non-engineering role",
       subtitle: "Vibe coding for non-engineers",

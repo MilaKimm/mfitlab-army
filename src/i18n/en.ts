@@ -8,14 +8,14 @@ export const en: typeof ko = {
     contactFull: "Get in Touch",
   },
   hero: {
-    tagline1: "MarketFit Lab's growth marketing agent army",
-    tagline2: "Agents run the experiments. Humans make the calls.",
+    tagline1: "MarketFit Lab's growth marketing agent team",
+    tagline2: "Agents run execution. Humans make the calls.",
     primaryCta: "Get in Touch",
     secondaryCta: "2-Min Diagnostic",
   },
   heritage: {
     kicker: "Heritage",
-    title: "Agents built on 7 years of growth work",
+    title: "Agents built on 7 years of growth execution",
     subtitle: "Real-world experiment data sharpens the agent's judgment.",
     siteCta: "MarketFit Lab Home",
     stats: {
@@ -26,13 +26,13 @@ export const en: typeof ko = {
   },
   why: {
     kicker: "Why MFL ARMY",
-    title: "More than automation. A different way of working.",
+    title: "More than automation. A scalable way to work.",
     subtitle:
       "ARMY agents don't just execute. They form hypotheses, accumulate know-how, and raise your team's experimentation capacity.",
   },
   agentGrid: {
     kicker: "MFL ARMY Agents",
-    title: "Agents for every funnel stage",
+    title: "Agents for every stage of the funnel",
     subtitleLine1: "Each agent is trained on MarketFit Lab's frameworks and field-tested data.",
     subtitleLine2: "Run them standalone or in combination.",
     detailCta: "Learn more",
@@ -102,7 +102,7 @@ export const en: typeof ko = {
     howItWorks: "How it works",
     impactMetrics: "Key impact",
     problems: "Sound familiar?",
-    coreCapabilities: "Core capabilities",
+    coreCapabilities: "What it helps you do",
     integrations: "Plugs into your stack",
     integrationsSub:
       "Connects to your tools and sets it up to a ready-to-deploy draft.",

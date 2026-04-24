@@ -60,12 +60,12 @@ export default function LMFDetailPage({ agent: rawAgent, locale = "ko" }: Props)
 
   const t = {
     heroCategory: en ? "Language-Market Fit" : "Language-Market Fit",
-    heroH1: en ? "One marketer runs the entire ad pipeline" : "마케터 1명이 광고 전 과정을 자동화합니다",
+    heroH1: en ? "One marketer runs the full ad pipeline" : "마케터 1명이 광고 전 과정을 자동화합니다",
     heroSub: en
-      ? "LMF (Language-Market Fit) — find the language your market responds to, backed by data"
+      ? "LMF — find the language your market responds to"
       : "LMF(Language-Market Fit) — 시장이 반응하는 언어를 데이터로 찾는 프레임워크",
     heroCta: en ? "Get in Touch" : "도입 문의",
-    slackTitle: en ? "Chat with the agent, ship a campaign" : "AI 에이전트와 대화하면 캠페인이 완성됩니다",
+    slackTitle: en ? "Chat with the agent, launch a campaign" : "AI 에이전트와 대화하면 캠페인이 완성됩니다",
     slackSub: en
       ? "Use it from Slack, Teams, or the dedicated web interface"
       : "Slack, Teams 등 협업 툴은 물론 전용 웹 인터페이스에서도 바로 사용할 수 있습니다",
@@ -117,9 +117,9 @@ export default function LMFDetailPage({ agent: rawAgent, locale = "ko" }: Props)
     features: en
       ? [
           { title: "Run experiments via Slack", desc: "Say \"do research\" and a 12-step process kicks off. Native in Slack (Teams integration on the roadmap)." },
-          { title: "Auto-generate images and copy", desc: "Generate and grade ad images, copy, and video against your brand guidelines." },
-          { title: "Meta campaign automation", desc: "Set target, budget, and duration — campaigns generate and go live automatically. Autopilot mode ships instantly." },
-          { title: "Success formula extraction", desc: "Codify repeatable winners and losers from the data. Get next-experiment recommendations automatically." },
+          { title: "Generate images and copy for testing", desc: "Generate and grade ad images, copy, and video against your brand guidelines." },
+          { title: "Meta campaign automation", desc: "Set target, budget, and duration — campaigns generate and go live automatically. Autopilot mode launches instantly." },
+          { title: "Winning pattern extraction", desc: "Codify repeatable winners and losers from the data. Get next-experiment recommendations automatically." },
           { title: "Multilingual creative", desc: "Generate Korean and Japanese ads in one pass (English and Chinese coming). One marketer runs your global campaigns." },
         ]
       : [
@@ -131,7 +131,7 @@ export default function LMFDetailPage({ agent: rawAgent, locale = "ko" }: Props)
         ],
     integrationTitle: en ? "Plugs into your stack" : "기존 스택에 바로 연동됩니다",
     integrationSub: en
-      ? "Hooks into your existing stack and auto-builds everything up to a ready-to-ship draft"
+      ? "Hooks into your existing stack and auto-builds everything up to a ready-to-launch draft"
       : "고객사 기존 스택에 연동하여, 배포 직전 초안(Draft) 단계까지 자동으로 세팅합니다",
     relatedTitle: en ? "Pairs well with" : "함께 사용하면 효과적입니다",
     relatedSub: en ? "Combine with other ARMY agents to cover the full funnel" : "ARMY의 다른 에이전트와 조합하면 퍼널 전체를 커버합니다",

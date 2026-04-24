@@ -105,15 +105,30 @@ export default function Header() {
             {dict.nav.mfitlab} <ArrowUpRight size={12} className="text-[#9B9B9B]" />
           </a>
 
-          {/* Locale toggle — before CTA so the colored button anchors the right edge */}
+          {/* Locale toggle (switch-style) */}
           <Link
             href={altPath}
             aria-label="Switch language"
-            className="text-xs font-semibold tracking-widest text-[#626166] hover:text-[#1B1B1B] transition pl-3 border-l border-[#E9E9E9]"
+            className="flex items-center gap-0 rounded-full bg-[#F4F4F4] p-0.5 text-xs font-semibold transition hover:bg-[#ECECEC]"
           >
-            <span className={locale === "ko" ? "text-[#1B1B1B]" : "text-[#BDBDBD]"}>KO</span>
-            <span className="mx-1.5 text-[#BDBDBD]">/</span>
-            <span className={locale === "en" ? "text-[#1B1B1B]" : "text-[#BDBDBD]"}>EN</span>
+            <span
+              className={`px-2.5 py-1 rounded-full transition ${
+                locale === "ko"
+                  ? "bg-white text-[#1B1B1B] shadow-sm"
+                  : "text-[#9B9B9B]"
+              }`}
+            >
+              KO
+            </span>
+            <span
+              className={`px-2.5 py-1 rounded-full transition ${
+                locale === "en"
+                  ? "bg-white text-[#1B1B1B] shadow-sm"
+                  : "text-[#9B9B9B]"
+              }`}
+            >
+              EN
+            </span>
           </Link>
 
           <a
@@ -131,15 +146,30 @@ export default function Header() {
 
       {mobileOpen && (
         <div className="md:hidden bg-white border-t border-[#E9E9E9] px-6 py-4 space-y-4">
-          {/* Locale toggle (mobile top) */}
+          {/* Locale toggle (mobile top, switch-style) */}
           <Link
             href={altPath}
-            className="inline-block text-xs font-semibold tracking-widest text-[#626166]"
+            className="inline-flex items-center gap-0 rounded-full bg-[#F4F4F4] p-0.5 text-xs font-semibold"
             onClick={() => setMobileOpen(false)}
           >
-            <span className={locale === "ko" ? "text-[#1B1B1B]" : "text-[#BDBDBD]"}>KO</span>
-            <span className="mx-1.5 text-[#BDBDBD]">/</span>
-            <span className={locale === "en" ? "text-[#1B1B1B]" : "text-[#BDBDBD]"}>EN</span>
+            <span
+              className={`px-2.5 py-1 rounded-full transition ${
+                locale === "ko"
+                  ? "bg-white text-[#1B1B1B] shadow-sm"
+                  : "text-[#9B9B9B]"
+              }`}
+            >
+              KO
+            </span>
+            <span
+              className={`px-2.5 py-1 rounded-full transition ${
+                locale === "en"
+                  ? "bg-white text-[#1B1B1B] shadow-sm"
+                  : "text-[#9B9B9B]"
+              }`}
+            >
+              EN
+            </span>
           </Link>
           <div>
             <p className="text-xs font-semibold text-[#9B9B9B] uppercase tracking-widest mb-2">{dict.nav.armyAgent}</p>

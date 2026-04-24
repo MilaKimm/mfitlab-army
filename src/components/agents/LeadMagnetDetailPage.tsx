@@ -75,7 +75,7 @@ export default function LeadMagnetDetailPage({ agent: rawAgent, locale = "ko" }:
   const t = {
     heroCta: en ? "Get in Touch" : "도입 문의",
     demoCta: en ? "View Demo" : "데모 보기",
-    slackTitle: en ? "Chat with the agent, ship a web app" : "AI 에이전트와 대화하면 웹앱이 완성됩니다",
+    slackTitle: en ? "Chat with the agent, launch a web app" : "AI 에이전트와 대화하면 웹앱이 완성됩니다",
     slackSub: en
       ? "Use it from Slack, Teams, or the dedicated web interface"
       : "Slack, Teams 등 협업 툴은 물론 전용 웹 인터페이스에서도 바로 사용할 수 있습니다",
@@ -84,7 +84,7 @@ export default function LeadMagnetDetailPage({ agent: rawAgent, locale = "ko" }:
           { sender: "PM Kim", time: "10:02", isAgent: false, text: "Build a Product Finder for e-commerce — ask about workout type and fit, then recommend matching products." },
           { sender: "Lead Magnet Agent", time: "10:05", isAgent: true, text: "Planning complete. Designed a 4-step question flow.", list: ["Q1. Which sports do you play? (5 options)", "Q2. Preferred fit? (3 options)", "Q3. Preferred colors? (4 options)", "→ Recommend 6 matching products"] },
           { sender: "PM Kim", time: "10:06", isAgent: false, text: "Good — apply our brand guide and build it." },
-          { sender: "Lead Magnet Agent", time: "10:35", isAgent: true, text: "Done. Product Finder ready to ship.", links: ["View preview", "Deploy"] },
+          { sender: "Lead Magnet Agent", time: "10:35", isAgent: true, text: "Done. Product Finder ready to launch.", links: ["View preview", "Deploy"] },
         ]
       : [
           { sender: "PM Kim", time: "10:02", isAgent: false, text: "이커머스 고객 대상 Product Finder 만들어줘. 운동 종류, 착용감 질문하고 맞춤 상품 추천하는 형태로." },
@@ -92,7 +92,7 @@ export default function LeadMagnetDetailPage({ agent: rawAgent, locale = "ko" }:
           { sender: "PM Kim", time: "10:06", isAgent: false, text: "좋아, 브랜드 가이드 반영해서 바로 만들어줘" },
           { sender: "Lead Magnet Agent", time: "10:35", isAgent: true, text: "완료! Product Finder 배포 준비됐습니다.", links: ["프리뷰 보기", "배포하기"] },
         ],
-    showcaseTitle: en ? "Here's how it ships" : "이렇게 만들어집니다",
+    showcaseTitle: en ? "Here's how it launches" : "이렇게 만들어집니다",
     showcaseSub: en ? "Question-based recommendations drive conversion and capture first-party data at the same time" : "질문 기반 맞춤 추천으로 구매 전환과 데이터 수집을 동시에 합니다",
     showcaseImages: en
       ? [
@@ -107,7 +107,7 @@ export default function LeadMagnetDetailPage({ agent: rawAgent, locale = "ko" }:
           { src: "/cases/lm-pfinder-q2.png", label: "질문 2 — 착용감", w: 430, h: 932 },
           { src: "/cases/lm-pfinder-result.png", label: "맞춤 추천 결과", w: 430, h: 932 },
         ],
-    typeTitle: en ? "Generates many web-app formats" : "다양한 형태의 웹앱을 자동 생성합니다",
+    typeTitle: en ? "Generates web apps for every funnel" : "다양한 형태의 웹앱을 자동 생성합니다",
     typeSub: en ? "Pick the format that fits your industry and goal" : "업종과 목적에 맞는 웹앱 유형을 지원합니다",
     typeCards: en
       ? [
@@ -133,7 +133,7 @@ export default function LeadMagnetDetailPage({ agent: rawAgent, locale = "ko" }:
           { title: "Set goals", desc: "Define lead targets and audience" },
           { title: "Plan the tool", desc: "Design question flow and result logic" },
           { title: "Auto-generate", desc: "Build to your brand guidelines" },
-          { title: "Deploy", desc: "Preview, then ship instantly" },
+          { title: "Deploy", desc: "Preview, then launch instantly" },
           { title: "Capture leads", desc: "Auto-collect and sync engagement data" },
         ]
       : [
@@ -145,7 +145,7 @@ export default function LeadMagnetDetailPage({ agent: rawAgent, locale = "ko" }:
         ],
     integrationTitle: en ? "Plugs into your stack" : "기존 스택에 바로 연동됩니다",
     integrationSub: en
-      ? "Hooks into your existing stack and auto-builds everything up to a ready-to-ship draft"
+      ? "Hooks into your existing stack and auto-builds everything up to a ready-to-launch draft"
       : "고객사 기존 스택에 연동하여, 배포 직전 초안(Draft) 단계까지 자동으로 세팅합니다",
     cycleTitleLeft: en ? "Web-app build: 2–3 weeks → " : "웹앱 제작 2~3주 → ",
     cycleTitleRight: en ? "30 min" : "30분",

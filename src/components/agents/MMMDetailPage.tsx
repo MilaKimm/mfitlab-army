@@ -84,7 +84,7 @@ export default function MMMDetailPage({ agent: rawAgent, locale = "ko" }: Props)
   const en = locale === "en";
   const t = {
     heroCta: en ? "Get in Touch" : "도입 문의",
-    comparisonTitle: en ? "Last-click captures only the tail of the funnel" : "Last-click은 성과를 끝단에만 돌립니다",
+    comparisonTitle: en ? "Last-click captures only the tail end of the funnel" : "Last-click은 성과를 끝단에만 돌립니다",
     comparisonSub: en ? "MMM models the full funnel to reclaim true contribution" : "MMM은 전체 퍼널을 모델링해 실제 기여도를 되찾습니다",
     thTraditional: en ? "Legacy attribution" : "기존 어트리뷰션",
     thMmm: en ? "Modern MMM (Meridian · Robyn)" : "최신 MMM (Meridian · Robyn)",
@@ -98,7 +98,7 @@ export default function MMMDetailPage({ agent: rawAgent, locale = "ko" }: Props)
       ? ["Full-funnel contribution", "Channel interactions included", "Simulation-based optimization", "Brand · CTV contribution measured"]
       : ["전체 퍼널 기여도 분석", "채널 간 상호작용 포함", "시뮬레이션 기반 최적화", "브랜드·CTV 기여도까지 측정"],
     legacyShort: en ? "Legacy" : "기존",
-    impactTitle: en ? "What reallocation unlocks" : "예산 재배분의 효과",
+    impactTitle: en ? "What reallocation improves" : "예산 재배분의 효과",
     impactSub: en ? "Accurate attribution drives more revenue from the same spend" : "정확한 기여도가 측정되면, 같은 예산으로 더 많은 매출을 만듭니다",
     impactMetrics: en
       ? [
@@ -114,7 +114,7 @@ export default function MMMDetailPage({ agent: rawAgent, locale = "ko" }: Props)
     impactFootnote: en
       ? "* Based on MarketFit Lab growth-project averages. Results vary by environment."
       : "* 마켓핏랩 그로스 프로젝트 평균 기준. 고객사 환경에 따라 차이 있음.",
-    coreTitle: en ? "MMM Agent capabilities" : "MMM Agent의 핵심 기능",
+    coreTitle: en ? "What MMM Agent helps you do" : "MMM Agent의 핵심 기능",
     coreSub: en ? "From modern MMM (Meridian · Robyn) to budget simulation" : "최신 MMM 모델(Meridian·Robyn) 기반 모델링부터 예산 시뮬레이션까지",
     capabilities: en
       ? [
@@ -123,7 +123,7 @@ export default function MMMDetailPage({ agent: rawAgent, locale = "ko" }: Props)
           { title: "Budget simulation", desc: "Simulate allocation scenarios and surface the optimal mix." },
           { title: "Cross-channel analysis", desc: "Go beyond last-click — measure upper-funnel channel contribution." },
           { title: "Real-time dashboard", desc: "Monitor channel performance and optimal allocation continuously." },
-          { title: "Global ROAS optimization", desc: "Maximize return across your full marketing asset, not a single campaign." },
+          { title: "Cross-channel ROAS optimization", desc: "Maximize return across your full marketing asset, not a single campaign." },
         ]
       : [
           { title: "채널 통합 데이터 수집", desc: "Meta, Google, TikTok 등 채널별 지출·성과 데이터를 자동 통합합니다" },

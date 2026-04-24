@@ -79,7 +79,7 @@ export default function CRODetailPage({ agent: rawAgent, locale = "ko" }: Props)
   const prefix = locale === "en" ? "/en" : "";
 
   const t = {
-    heroSub: en ? "From A/B test design to launch, automated" : "A/B 테스트 설계부터 런칭까지 자동화",
+    heroSub: en ? "From A/B test design to launch, streamlined" : "A/B 테스트 설계부터 런칭까지 자동화",
     heroCta: en ? "Get in Touch" : "도입 문의",
     slackTitle: en ? "Design and launch A/B tests through chat" : "대화로 A/B 테스트를 설계하고 런칭합니다",
     slackSub: en
@@ -134,10 +134,10 @@ export default function CRODetailPage({ agent: rawAgent, locale = "ko" }: Props)
     features: en
       ? [
           { title: "Run experiments via Slack", desc: "Design and launch experiments through chat in Slack. Also installable on Teams and other tools." },
-          { title: "Browser-based autonomous audit", desc: "Each agent opens a real browser to see, diagnose, and verify the page itself." },
-          { title: "Production-safe", desc: "Every experiment runs in VWO. Your production code stays untouched." },
+          { title: "Browser-based conversion audit", desc: "Each agent opens a real browser to see, diagnose, and verify the page itself." },
+          { title: "Safe for production", desc: "Every experiment runs in VWO. Your production code stays untouched." },
           { title: "Experiment spec, written for you", desc: "Problem validation, solution rationale, variants, targeting, metrics, duration — all drafted automatically." },
-          { title: "Level 4 velocity", desc: "8+ concurrent experiments a week. What used to take 3 people three weeks, 1 person now ships in a day." },
+          { title: "High-velocity testing", desc: "8+ concurrent experiments a week. What used to take 3 people three weeks, 1 person now launches in a day." },
           { title: "Follow-up experiments suggested", desc: "After launch: analyze, propose next hypothesis, loop back into a new experiment — automated." },
         ]
       : [
@@ -167,7 +167,7 @@ export default function CRODetailPage({ agent: rawAgent, locale = "ko" }: Props)
         ],
     integrationTitle: en ? "Plugs into your stack" : "기존 스택에 바로 연동됩니다",
     integrationSub: en
-      ? "Hooks into your existing stack and auto-builds everything up to a ready-to-ship draft"
+      ? "Hooks into your existing stack and auto-builds everything up to a ready-to-launch draft"
       : "고객사 기존 스택에 연동하여, 배포 직전 초안(Draft) 단계까지 자동으로 세팅합니다",
     cycleTitleLeft: en ? "CRO experiment cycle: 2 weeks → " : "CRO 실험 사이클 2주 → ",
     cycleTitleRight: en ? "1 hour" : "1시간",

@@ -8,11 +8,11 @@ export default function ReplitSolutionPage({ locale = "ko" }: { locale?: Locale 
   const t = {
     kicker: "AI Transformation > Replit",
     pullQuote: en
-      ? "“When your team needs to ship it themselves.”"
+      ? "“When your team needs to launch it themselves.”"
       : "“우리 팀도 직접 만들 수 있게 하고 싶다면”",
     heroTitle: en ? "Replit Vibe Coding Workshop" : "Replit 바이브 코딩 워크샵",
     heroSub: en
-      ? "Non-technical teams ship an MVP in 4 hours. Build in natural language, deploy in one click."
+      ? "Non-technical teams launch an MVP in 4 hours. Build in natural language, deploy in one click."
       : "비개발 조직이 4시간 만에 MVP를 만드는 바이브 코딩 워크샵. 자연어로 대화하듯 개발하고, 원클릭으로 배포합니다.",
     primaryCta: en ? "Get in Touch" : "도입 문의",
     whyTitle: en ? "Why Vibe Coding" : "왜 바이브 코딩인가",

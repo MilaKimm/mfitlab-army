@@ -74,9 +74,9 @@ export default function GEODetailPage({ agent: rawAgent, locale = "ko" }: Props)
   const prefix = locale === "en" ? "/en" : "";
 
   const t = {
-    heroSub: en ? "Optimize so AI recommends your brand" : "AI가 추천하는 브랜드가 되도록 최적화합니다",
+    heroSub: en ? "Optimize so AI can recommend your brand" : "AI가 추천하는 브랜드가 되도록 최적화합니다",
     heroCta: en ? "Get in Touch" : "도입 문의",
-    comparisonTitle: en ? "SEO competes for rank. GEO competes for citation." : "SEO는 순위 경쟁, GEO는 인용 경쟁입니다",
+    comparisonTitle: en ? "SEO competes for rank. GEO competes for inclusion in AI answers." : "SEO는 순위 경쟁, GEO는 인용 경쟁입니다",
     comparisonSub: en
       ? "SEO helps search engines find you. GEO makes AI remember and recommend you."
       : "SEO가 검색 결과에서 발견되는 기술이라면, GEO는 AI가 기억하고 추천하는 기술입니다",
@@ -124,13 +124,13 @@ export default function GEODetailPage({ agent: rawAgent, locale = "ko" }: Props)
           { value: "+47%", label: "AI 인용 콘텐츠 Organic 트래픽" },
           { value: "+58%", label: "AI 답변 내 브랜드 신뢰도" },
         ],
-    coreTitle: en ? "GEO Agent capabilities" : "GEO Agent의 핵심 기능",
+    coreTitle: en ? "What GEO Agent helps you do" : "GEO Agent의 핵심 기능",
     coreSub: en ? "Make AI remember and recommend your brand" : "AI가 브랜드를 기억하고 추천하게 만듭니다",
     capabilities: en
       ? [
-          { title: "AI readability audit", desc: "Score content readability from an LLM's perspective (pass/fail)." },
+          { title: "AI visibility audit", desc: "Score content readability from an LLM's perspective (pass/fail)." },
           { title: "Automatic schema structuring", desc: "Convert FAQs and product info to JSON-LD machines can parse." },
-          { title: "Citation-ready sentence generation", desc: "Auto-generate stats and definitions AI is likely to cite." },
+          { title: "Citation-ready content generation", desc: "Auto-generate stats and definitions AI is likely to cite." },
           { title: "Self-healing system", desc: "Detect and repair broken links and missing metadata automatically." },
           { title: "Site structure optimization", desc: "Fix internal links and orphan pages to improve AI crawlability." },
           { title: "Citation tracking", desc: "Monitor brand citations across major LLMs 24/7 and alert on changes." },
@@ -143,7 +143,7 @@ export default function GEODetailPage({ agent: rawAgent, locale = "ko" }: Props)
           { title: "사이트 구조 최적화", desc: "내부 링크와 고립 페이지를 해결하여 AI 크롤링 접근성을 높입니다" },
           { title: "인용 추적 모니터링", desc: "주요 LLM에서 브랜드 인용 현황을 24/7 추적하고 변화를 알립니다" },
         ],
-    cdnTitle: en ? "Ship without touching your CMS" : "CMS를 건드리지 않고 배포합니다",
+    cdnTitle: en ? "Launch without touching your CMS" : "CMS를 건드리지 않고 배포합니다",
     cdnSub: en
       ? "CDN-based delivery serves optimized content without modifying your site"
       : "CDN 기반 딜리버리로 기존 사이트 수정 없이 최적화된 콘텐츠를 제공합니다",
@@ -152,7 +152,7 @@ export default function GEODetailPage({ agent: rawAgent, locale = "ko" }: Props)
       ? [
           { label: "Detect", title: "Spot change", desc: "Auto-detect search-rank shifts" },
           { label: "Generate", title: "Draft content", desc: "GEO Agent writes optimized content" },
-          { label: "Review", title: "Queue for QA", desc: "Verify quality and approve to ship" },
+          { label: "Review", title: "Queue for QA", desc: "Verify quality and approve to launch" },
           { label: "Deploy", title: "CDN push", desc: "Publish instantly without CMS edits" },
           { label: "Reach", title: "Serve to users", desc: "Optimized content goes live" },
         ]

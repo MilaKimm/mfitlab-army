@@ -88,9 +88,9 @@ export default function VoiceAgentDetailPage({ agent: rawAgent, locale = "ko" }:
   const prefix = locale === "en" ? "/en" : "";
 
   const t = {
-    heroSub: en ? "Call leads the moment they come in — 24/7, fully automated" : "리드 유입 즉시 전화 연결, 24/7 자동 응대",
+    heroSub: en ? "Follow up with leads instantly — 24/7" : "리드 유입 즉시 전화 연결, 24/7 자동 응대",
     heroCta: en ? "Get in Touch" : "도입 문의",
-    demoCta: en ? "Try the Demo" : "데모 체험하기",
+    demoCta: en ? "Try the demo" : "데모 체험하기",
     demoPhone: en ? "Mobile" : "휴대전화",
     slideToAnswer: en ? "slide to answer" : "밀어서 통화하기",
     experienceCta: en ? "Try it yourself" : "직접 체험해보세요",
@@ -112,9 +112,9 @@ export default function VoiceAgentDetailPage({ agent: rawAgent, locale = "ko" }:
     processSteps: en
       ? [
           { title: "Immediate Call", desc: "Outbound within 2 minutes" },
-          { title: "Smart Routing", desc: "Location-based rep assignment" },
-          { title: "Qualification", desc: "Confirm purchase intent (BANT)" },
-          { title: "CRM Sync", desc: "Auto-sync to your CRM" },
+          { title: "Smart routing", desc: "Location-based rep assignment" },
+          { title: "Lead qualification", desc: "Confirm purchase intent (BANT)" },
+          { title: "CRM sync", desc: "Auto-sync to your CRM" },
           { title: "Admin Console", desc: "Monitor and tune" },
         ]
       : [
