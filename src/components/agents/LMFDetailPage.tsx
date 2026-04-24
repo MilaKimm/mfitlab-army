@@ -285,11 +285,8 @@ export default function LMFDetailPage({ agent }: Props) {
                   { name: "TikTok Ads", logo: "/images/logos/tiktok-ads.png" },
                   { name: "Figma", logo: "/images/logos/figma.png" },
                 ].map((platform, i) => (
-                  <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.8 + i * 0.1 }} className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white border border-gray-100 shadow-sm">
-                    <div className="h-16 flex items-center justify-center">
-                      <Image src={platform.logo} alt={platform.name} width={140} height={56} className="object-contain max-h-16" />
-                    </div>
-                    <span className="text-xs font-medium text-gray-500">{platform.name}</span>
+                  <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.8 + i * 0.1 }} className="flex items-center justify-center p-5 rounded-xl bg-white border border-gray-100 shadow-sm h-24">
+                    <Image src={platform.logo} alt={platform.name} width={140} height={56} className="object-contain max-h-14" />
                   </motion.div>
                 ))}
               </div>
