@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { agent: agentId } = await params;
   const agent = agents.find((a) => a.id === agentId);
   if (!agent) return {};
-  const a = localizeAgent(agent, "ko");
+  const a = localizeAgent(agent, "en");
   return {
     title: `${a.name} — MFL ARMY`,
     description: a.tagline,
@@ -37,17 +37,17 @@ export default async function Page({ params }: Props) {
 
   switch (agentId) {
     case "cro-agent":
-      return <CRODetailPage agent={agent} locale="ko" />;
+      return <CRODetailPage agent={agent} locale="en" />;
     case "lmf-agent":
-      return <LMFDetailPage agent={agent} locale="ko" />;
+      return <LMFDetailPage agent={agent} locale="en" />;
     case "voice-agent":
-      return <VoiceAgentDetailPage agent={agent} locale="ko" />;
+      return <VoiceAgentDetailPage agent={agent} locale="en" />;
     case "geo-agent":
-      return <GEODetailPage agent={agent} locale="ko" />;
+      return <GEODetailPage agent={agent} locale="en" />;
     case "lead-magnet-agent":
-      return <LeadMagnetDetailPage agent={agent} locale="ko" />;
+      return <LeadMagnetDetailPage agent={agent} locale="en" />;
     case "mmm-agent":
-      return <MMMDetailPage agent={agent} locale="ko" />;
+      return <MMMDetailPage agent={agent} locale="en" />;
     default:
       notFound();
   }

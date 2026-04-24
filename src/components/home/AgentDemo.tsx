@@ -3,13 +3,21 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
 import { FlaskConical } from "lucide-react";
 
-const slackMessages = [
+const slackMessagesKo = [
   { sender: "PM Kim", isAgent: false, text: "이 페이지 실험 가설 뽑아줘: https://brand-a.com/product/detail" },
   { sender: "CRO Agent", isAgent: true, text: "페이지 분석 완료! 5개 가설을 도출했습니다.\n• [8.3] 할인 금액 강조 배지 추가\n• [7.8] CTA 버튼 색상 대비 강화\n• [7.5] 리뷰 섹션 상단 이동" },
   { sender: "PM Kim", isAgent: false, text: "1번으로 실험 설계하고 VWO에 세팅까지 해줘" },
   { sender: "CRO Agent", isAgent: true, text: "완료! VWO에 3개 Variant 세팅 + QA 통과했습니다." },
+];
+
+const slackMessagesEn = [
+  { sender: "PM Kim", isAgent: false, text: "Pull experiment hypotheses for this page: https://brand-a.com/product/detail" },
+  { sender: "CRO Agent", isAgent: true, text: "Page analyzed. 5 hypotheses ranked by ICE:\n• [8.3] Add discount amount badge\n• [7.8] Boost CTA color contrast\n• [7.5] Move reviews above the fold" },
+  { sender: "PM Kim", isAgent: false, text: "Go with #1. Design the test and set it up in VWO." },
+  { sender: "CRO Agent", isAgent: true, text: "Done. 3 variants configured in VWO, QA passed." },
 ];
 
 const mobileScreens = [
@@ -19,6 +27,9 @@ const mobileScreens = [
 ];
 
 export default function AgentDemo() {
+  const pathname = usePathname() || "/";
+  const en = pathname === "/en" || pathname.startsWith("/en/");
+  const slackMessages = en ? slackMessagesEn : slackMessagesKo;
   const [phase, setPhase] = useState<"slack" | "mobile">("slack");
   const [visibleMessages, setVisibleMessages] = useState(0);
 

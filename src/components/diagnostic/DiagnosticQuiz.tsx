@@ -6,8 +6,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, RotateCcw } from "lucide-react";
 import type { Choice, SolutionKey } from "@/data/diagnostic-quiz";
-import { questions, resultCopyTemplates, SOLUTION_KEY_TO_ID } from "@/data/diagnostic-quiz";
-import { agents } from "@/data/army";
+import { questions, resultCopyTemplates, resultCopyTemplatesEn } from "@/data/diagnostic-quiz";
+import { agents, localizeAgent } from "@/data/army";
+import type { Locale } from "@/i18n/dictionaries";
+import { localePrefix } from "@/i18n/dictionaries";
 import {
   calculateRawScores,
   normalizeScores,
@@ -96,7 +98,23 @@ function getBadgeStyle(label: string) {
 }
 
 /* ── Main Component ── */
-export default function DiagnosticQuiz() {
+export default function DiagnosticQuiz({ locale = "ko" }: { locale?: Locale } = {}) {
+  const en = locale === "en";
+  const t = {
+    heroBadge: en ? "2 minutes" : "소요시간 2분",
+    heroTitle: en ? ["Find the ARMY agent", "that fits your team"] : ["우리 팀에 맞는", "ARMY 에이전트 찾기"],
+    heroSubtitle: en ? ["5 questions, 2 minutes.", "We'll recommend the fit."] : ["5개 질문, 2분이면 끝.", "맞춤 에이전트를 추천합니다."],
+    heroCta: en ? "Start Diagnostic" : "진단 시작하기",
+    backLabel: en ? "Back" : "이전",
+    qPrefix: "Q",
+    resultsKicker: en ? "Diagnostic Result" : "진단 결과",
+    resultsTitle: en ? "Recommended ARMY Agents" : "추천 ARMY 에이전트",
+    fullFunnelLabel: en ? "Full-Funnel Package — recommended" : "Full-Funnel Package 추천",
+    detailCta: en ? "Learn more" : "자세히 보기",
+    allScoresLabel: en ? "All agent scores" : "전체 에이전트 점수",
+    contactCta: en ? "Get in Touch" : "도입 상담 받기",
+    resetCta: en ? "Restart diagnostic" : "다시 진단하기",
+  };
   const [state, dispatch] = useReducer(reducer, initialState);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -131,16 +149,16 @@ export default function DiagnosticQuiz() {
         </div>
         <div className="relative z-10">
           <motion.span initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="inline-block px-3 py-1 text-xs font-medium text-[#626166] bg-white/60 backdrop-blur-sm rounded-full mb-6">
-            소요시간 2분
+            {t.heroBadge}
           </motion.span>
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }} className="text-3xl md:text-5xl font-semibold text-[#1B1B1B] tracking-tight">
-            우리 팀에 맞는<br />ARMY 에이전트 찾기
+            {t.heroTitle[0]}<br />{t.heroTitle[1]}
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="mt-4 text-lg text-[#626166] max-w-md mx-auto">
-            5개 질문, 2분이면 끝.<br />맞춤 에이전트를 추천합니다.
+            {t.heroSubtitle[0]}<br />{t.heroSubtitle[1]}
           </motion.p>
           <motion.button initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.35 }} whileTap={{ scale: 0.97 }} onClick={() => dispatch({ type: "START" })} className="mt-10 px-8 py-3.5 text-base font-semibold text-white bg-[#36B1A7] rounded-full hover:bg-[#15867E] transition-colors shadow-lg shadow-[#36B1A7]/20">
-            진단 시작하기
+            {t.heroCta}
           </motion.button>
         </div>
       </div>
@@ -149,11 +167,13 @@ export default function DiagnosticQuiz() {
 
   /* ── RESULTS ── */
   if (state.phase === "results" && state.recommendations && state.allScores) {
-    return <QuizResultsView recommendations={state.recommendations} allScores={state.allScores} isFullFunnel={state.isFullFunnel} onReset={() => dispatch({ type: "RESET" })} />;
+    return <QuizResultsView locale={locale} recommendations={state.recommendations} allScores={state.allScores} isFullFunnel={state.isFullFunnel} onReset={() => dispatch({ type: "RESET" })} />;
   }
 
   /* ── QUESTION ── */
   const currentQ = questions[state.currentQuestion];
+  const qTitle = en && currentQ.en ? currentQ.en.title : currentQ.title;
+  const qSubtitle = en && currentQ.en ? currentQ.en.subtitle : currentQ.subtitle;
   const progress = ((state.currentQuestion + 1) / questions.length) * 100;
 
   return (
@@ -172,20 +192,21 @@ export default function DiagnosticQuiz() {
       <div className="w-full max-w-lg mx-auto px-6">
         {state.currentQuestion > 0 && (
           <button onClick={handleBack} className="flex items-center gap-1 text-sm text-[#9B9B9B] hover:text-[#626166] transition-colors mb-6">
-            <ArrowLeft size={14} /> 이전
+            <ArrowLeft size={14} /> {t.backLabel}
           </button>
         )}
         <AnimatePresence mode="wait" custom={state.direction}>
           <motion.div key={currentQ.id} custom={state.direction} variants={slideVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.3, ease: "easeOut" }}>
-            <p className="text-xs font-medium text-[#9B9B9B] uppercase tracking-widest mb-2">Q{currentQ.id}. {currentQ.title}</p>
-            <h2 className="text-xl md:text-2xl font-semibold text-[#1B1B1B] mb-8">{currentQ.subtitle}</h2>
+            <p className="text-xs font-medium text-[#9B9B9B] uppercase tracking-widest mb-2">{t.qPrefix}{currentQ.id}. {qTitle}</p>
+            <h2 className="text-xl md:text-2xl font-semibold text-[#1B1B1B] mb-8">{qSubtitle}</h2>
             <div className="space-y-3">
               {currentQ.choices.map((choice) => {
                 const isSelected = state.answers[state.currentQuestion]?.id === choice.id;
+                const choiceText = en && choice.en ? choice.en.text : choice.text;
                 return (
                   <motion.button key={choice.id} whileTap={{ scale: 0.98 }} onClick={() => handleSelect(choice)}
                     className={`w-full text-left px-5 py-4 rounded-xl border-2 transition-all duration-200 ${isSelected ? "border-[#36B1A7] bg-[#36B1A7] text-white" : "border-[#E9E9E9] bg-white text-[#626166] hover:border-[#36B1A7]/40 hover:bg-[#F2FDFB]"}`}>
-                    <span className="text-sm font-medium">{choice.text}</span>
+                    <span className="text-sm font-medium">{choiceText}</span>
                   </motion.button>
                 );
               })}
@@ -198,27 +219,38 @@ export default function DiagnosticQuiz() {
 }
 
 /* ── Results View ── */
-function QuizResultsView({ recommendations, allScores, isFullFunnel, onReset }: {
+function QuizResultsView({ locale, recommendations, allScores, isFullFunnel, onReset }: {
+  locale: Locale;
   recommendations: Recommendation[];
   allScores: { solutionKey: SolutionKey; solutionId: string; score: number }[];
   isFullFunnel: boolean;
   onReset: () => void;
 }) {
-  const breakdownOpen = true;
+  const en = locale === "en";
+  const templates = en ? resultCopyTemplatesEn : resultCopyTemplates;
+  const rt = {
+    kicker: en ? "Diagnostic Result" : "진단 결과",
+    title: en ? "Recommended ARMY Agents" : "추천 ARMY 에이전트",
+    fullFunnel: en ? "Full-Funnel Package — recommended" : "Full-Funnel Package 추천",
+    detailCta: en ? "Learn more" : "자세히 보기",
+    allScores: en ? "All agent scores" : "전체 에이전트 점수",
+    contact: en ? "Get in Touch" : "도입 상담 받기",
+    reset: en ? "Restart diagnostic" : "다시 진단하기",
+  };
 
   return (
     <div className="max-w-2xl mx-auto px-6 py-16">
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="text-center mb-10">
-        <p className="text-xs font-semibold tracking-widest uppercase text-[#36B1A7] mb-3">진단 결과</p>
-        <h2 className="text-2xl md:text-3xl font-semibold text-[#1B1B1B]">추천 ARMY 에이전트</h2>
+        <p className="text-xs font-semibold tracking-widest uppercase text-[#36B1A7] mb-3">{rt.kicker}</p>
+        <h2 className="text-2xl md:text-3xl font-semibold text-[#1B1B1B]">{rt.title}</h2>
       </motion.div>
 
       {/* Full-Funnel badge */}
       {isFullFunnel && (
         <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.4, delay: 0.1 }} className="text-center mb-8">
           <span className="inline-flex items-center px-4 py-2 text-sm font-semibold rounded-full bg-[#CCFFFC]/50 text-[#15867E] border border-[#A0EBE6]">
-            Full-Funnel Package 추천
+            {rt.fullFunnel}
           </span>
         </motion.div>
       )}
@@ -226,23 +258,24 @@ function QuizResultsView({ recommendations, allScores, isFullFunnel, onReset }: 
       {/* Recommendation cards */}
       <div className="space-y-4 mb-8">
         {recommendations.map((rec, i) => {
-          const agent = agents.find((a) => a.id === rec.solutionId);
-          if (!agent) return null;
+          const rawAgent = agents.find((a) => a.id === rec.solutionId);
+          if (!rawAgent) return null;
+          const agent = localizeAgent(rawAgent, locale);
           return (
             <motion.div key={rec.solutionKey} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: i * 0.12, ease: "easeOut" }} className="rounded-2xl border border-[#E9E9E9] bg-white p-6 shadow-sm">
               <div className="flex items-center justify-between mb-4">
                 <span className={`inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full border ${getBadgeStyle(rec.matchLabel)}`}>
                   {rec.matchLabel} — {rec.normalizedScore}%
                 </span>
-                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: agent.color }}>
+                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: rawAgent.color }}>
                   {agent.funnelPhase}
                 </span>
               </div>
               <h3 className="text-lg font-semibold text-[#1B1B1B] mb-1">{agent.name}</h3>
               <p className="text-xs text-[#9B9B9B] mb-3">{agent.category}</p>
-              <p className="text-sm text-[#626166] leading-relaxed mb-4">{resultCopyTemplates[rec.solutionKey]}</p>
-              <Link href={`/army/${agent.id}`} className="inline-flex items-center gap-1 text-sm font-semibold text-[#36B1A7] hover:text-[#15867E] transition-colors">
-                자세히 보기 <ArrowRight size={14} />
+              <p className="text-sm text-[#626166] leading-relaxed mb-4">{templates[rec.solutionKey]}</p>
+              <Link href={localePrefix(`/army/${rawAgent.id}`, locale)} className="inline-flex items-center gap-1 text-sm font-semibold text-[#36B1A7] hover:text-[#15867E] transition-colors">
+                {rt.detailCta} <ArrowRight size={14} />
               </Link>
             </motion.div>
           );
@@ -251,16 +284,17 @@ function QuizResultsView({ recommendations, allScores, isFullFunnel, onReset }: 
 
       {/* Score breakdown */}
       <div className="mt-8">
-        <p className="text-sm font-medium text-[#9B9B9B] text-center">전체 에이전트 점수</p>
+        <p className="text-sm font-medium text-[#9B9B9B] text-center">{rt.allScores}</p>
         <div className="mt-4 space-y-3 max-w-lg mx-auto">
           {allScores.map((item) => {
-            const agent = agents.find((a) => a.id === item.solutionId);
-            if (!agent) return null;
+            const rawAgent = agents.find((a) => a.id === item.solutionId);
+            if (!rawAgent) return null;
+            const agent = localizeAgent(rawAgent, locale);
             return (
               <div key={item.solutionKey} className="flex items-center gap-3">
                 <span className="text-xs font-semibold text-[#626166] w-28 text-right shrink-0">{agent.name}</span>
                 <div className="flex-1 h-2 bg-[#F4F4F4] rounded-full overflow-hidden">
-                  <motion.div className="h-full rounded-full" style={{ backgroundColor: agent.color }} initial={{ width: 0 }} animate={{ width: `${item.score}%` }} transition={{ duration: 0.6, delay: 0.1 }} />
+                  <motion.div className="h-full rounded-full" style={{ backgroundColor: rawAgent.color }} initial={{ width: 0 }} animate={{ width: `${item.score}%` }} transition={{ duration: 0.6, delay: 0.1 }} />
                 </div>
                 <span className="text-xs text-[#9B9B9B] w-10">{item.score}%</span>
               </div>
@@ -272,10 +306,10 @@ function QuizResultsView({ recommendations, allScores, isFullFunnel, onReset }: 
       {/* CTAs */}
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.5 }} className="flex flex-col sm:flex-row gap-3 justify-center mt-10">
         <Link href="#contact" className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white bg-[#36B1A7] rounded-full hover:bg-[#15867E] transition-colors shadow-lg shadow-[#36B1A7]/20">
-          도입 상담 받기
+          {rt.contact}
         </Link>
         <button onClick={onReset} className="inline-flex items-center justify-center gap-1.5 px-6 py-3 text-sm font-semibold text-[#626166] border border-[#E9E9E9] rounded-full hover:bg-[#F4F4F4] transition-colors">
-          <RotateCcw size={14} /> 다시 진단하기
+          <RotateCcw size={14} /> {rt.reset}
         </button>
       </motion.div>
     </div>

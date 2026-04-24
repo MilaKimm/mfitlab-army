@@ -28,8 +28,9 @@ import {
   ExternalLink,
 } from "lucide-react";
 import type { Agent } from "@/data/army";
-import { agents } from "@/data/army";
+import { agents, localizeAgent } from "@/data/army";
 import FadeInOnScroll from "@/components/motion/FadeInOnScroll";
+import type { Locale } from "@/i18n/dictionaries";
 
 const smallIconMap: Record<string, React.ReactNode> = {
   Globe: <Globe size={18} />,
@@ -41,6 +42,7 @@ const smallIconMap: Record<string, React.ReactNode> = {
 
 interface Props {
   agent: Agent;
+  locale?: Locale;
 }
 
 const container = {
@@ -53,47 +55,168 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
 };
 
-const agentTeam = [
-  { icon: <Brain size={20} />, name: "PM 에이전트", role: "오케스트레이션, 업무 분배, 품질 관리" },
-  { icon: <Search size={20} />, name: "분석 에이전트", role: "브라우저로 페이지를 직접 보고 문제점 진단" },
-  { icon: <Paintbrush size={20} />, name: "디자인 에이전트", role: "실험 시안 자동 생성" },
-  { icon: <Code size={20} />, name: "코딩 에이전트", role: "JavaScript 코드 생성 → VWO에 등록" },
-  { icon: <Eye size={20} />, name: "리뷰 에이전트", role: "Preview를 열어 의도대로 구현됐는지 검증" },
+const agentTeamIcons = [
+  <Brain key="0" size={20} />,
+  <Search key="1" size={20} />,
+  <Paintbrush key="2" size={20} />,
+  <Code key="3" size={20} />,
+  <Eye key="4" size={20} />,
 ];
 
-const features = [
-  { icon: <MessageSquare size={20} />, title: "Slack에서 대화로 실험", desc: "슬랙 채널에서 에이전트와 대화하며 실험을 설계하고 런칭합니다. Teams 등 다른 도구에도 설치 가능." },
-  { icon: <Monitor size={20} />, title: "브라우저 기반 자율 진단", desc: "각 에이전트가 실제 브라우저를 열어 화면을 직접 보고 진단하고 검증합니다." },
-  { icon: <Shield size={20} />, title: "프로덕션 안전", desc: "모든 실험은 VWO 런타임에서 실행됩니다. 프로덕션 사이트의 코드를 건드리지 않습니다." },
-  { icon: <FileText size={20} />, title: "실험 설계서 자동 작성", desc: "Problem Validation, Solution Rationale, Variant 기획, 타겟/트리거, 지표, 기간까지 자동 작성." },
-  { icon: <Zap size={20} />, title: "Level 4 Velocity", desc: "주 8개 이상 실험 동시 운영. 3명이 3주 걸리던 실험을 1명이 하루 만에." },
-  { icon: <Users size={20} />, title: "후속 실험 자동 제안", desc: "런칭 후 데이터 분석 → 후속 가설 도출 → 재실험 사이클까지 자동화." },
+const featureIcons = [
+  <MessageSquare key="0" size={20} />,
+  <Monitor key="1" size={20} />,
+  <Shield key="2" size={20} />,
+  <FileText key="3" size={20} />,
+  <Zap key="4" size={20} />,
+  <Users key="5" size={20} />,
 ];
 
-const slackMessages = [
-  { sender: "PM Kim", time: "10:02", isAgent: false, text: "이 페이지 실험 가설 뽑아줘: https://brand-a.com/product/detail" },
-  { sender: "CRO Agent", time: "10:08", isAgent: true, text: "페이지 분석 완료! 5개 가설을 도출했습니다.", list: [{ score: "8.3", text: "할인 금액 강조 배지 추가" }, { score: "7.8", text: "CTA 버튼 색상 대비 강화" }, { score: "7.5", text: "리뷰 섹션 상단 이동" }] },
-  { sender: "PM Kim", time: "10:10", isAgent: false, text: "1번으로 실험 설계하고 VWO에 세팅까지 해줘" },
-  { sender: "CRO Agent", time: "10:42", isAgent: true, text: "완료! VWO에 3개 Variant 세팅 + QA 통과했습니다.", links: ["실험 설계서 보기", "VWO Preview 열기"] },
-];
+export default function CRODetailPage({ agent: rawAgent, locale = "ko" }: Props) {
+  const agent = localizeAgent(rawAgent, locale);
+  const relatedAgents = agents.filter((a) => agent.relatedAgents.includes(a.id)).map((a) => localizeAgent(a, locale));
+  const en = locale === "en";
+  const prefix = locale === "en" ? "/en" : "";
 
-const experiments = [
-  {
-    tag: "모바일 PDP",
-    tagColor: "bg-purple-50 text-purple-600",
-    title: "상품 상세페이지 절약금액 배지 실험",
-    images: [
-      { src: "/cases/cro-mobile-control.png", label: "Control", w: 375, h: 812 },
-      { src: "/cases/cro-mobile-variation.jpg", label: "Var 1: 절약 텍스트", w: 375, h: 812 },
-      { src: "/cases/cro-mobile-variation2.jpg", label: "Var 2: 할인율 배지", w: 375, h: 812 },
-    ],
-    maxW: 280,
-    mobile: true,
-  },
-];
+  const t = {
+    heroSub: en ? "From A/B test design to launch, automated" : "A/B 테스트 설계부터 런칭까지 자동화",
+    heroCta: en ? "Get in Touch" : "도입 문의",
+    slackTitle: en ? "Design and launch A/B tests through chat" : "대화로 A/B 테스트를 설계하고 런칭합니다",
+    slackSub: en
+      ? "Use it from Slack, Teams, or the dedicated web interface"
+      : "Slack, Teams 등 협업 툴은 물론 전용 웹 인터페이스에서도 바로 사용할 수 있습니다",
+    slackMessages: en
+      ? [
+          { sender: "PM Kim", time: "10:02", isAgent: false, text: "Give me hypotheses for this page: https://brand-a.com/product/detail" },
+          { sender: "CRO Agent", time: "10:08", isAgent: true, text: "Page analysis complete. 5 hypotheses surfaced.", list: [{ score: "8.3", text: "Add discount-amount badge" }, { score: "7.8", text: "Strengthen CTA button contrast" }, { score: "7.5", text: "Move reviews above the fold" }] },
+          { sender: "PM Kim", time: "10:10", isAgent: false, text: "Design the experiment for #1 and set it up in VWO" },
+          { sender: "CRO Agent", time: "10:42", isAgent: true, text: "Done. Three variants set up in VWO, QA passed.", links: ["View experiment spec", "Open VWO preview"] },
+        ]
+      : [
+          { sender: "PM Kim", time: "10:02", isAgent: false, text: "이 페이지 실험 가설 뽑아줘: https://brand-a.com/product/detail" },
+          { sender: "CRO Agent", time: "10:08", isAgent: true, text: "페이지 분석 완료! 5개 가설을 도출했습니다.", list: [{ score: "8.3", text: "할인 금액 강조 배지 추가" }, { score: "7.8", text: "CTA 버튼 색상 대비 강화" }, { score: "7.5", text: "리뷰 섹션 상단 이동" }] },
+          { sender: "PM Kim", time: "10:10", isAgent: false, text: "1번으로 실험 설계하고 VWO에 세팅까지 해줘" },
+          { sender: "CRO Agent", time: "10:42", isAgent: true, text: "완료! VWO에 3개 Variant 세팅 + QA 통과했습니다.", links: ["실험 설계서 보기", "VWO Preview 열기"] },
+        ],
+    experimentsTitle: en ? "How an experiment comes together" : "이렇게 실험이 만들어집니다",
+    experimentsSub: en ? "E-commerce Brand A — A/B test designed and launched by CRO Agent" : "이커머스 A사 — CRO Agent가 설계하고 실행한 A/B 테스트",
+    experiments: en
+      ? [
+          {
+            tag: "Mobile PDP",
+            tagColor: "bg-purple-50 text-purple-600",
+            title: "Product detail — savings badge experiment",
+            images: [
+              { src: "/cases/cro-mobile-control.png", label: "Control", w: 375, h: 812 },
+              { src: "/cases/cro-mobile-variation.jpg", label: "Var 1: savings text", w: 375, h: 812 },
+              { src: "/cases/cro-mobile-variation2.jpg", label: "Var 2: discount badge", w: 375, h: 812 },
+            ],
+            maxW: 280,
+            mobile: true,
+          },
+        ]
+      : [
+          {
+            tag: "모바일 PDP",
+            tagColor: "bg-purple-50 text-purple-600",
+            title: "상품 상세페이지 절약금액 배지 실험",
+            images: [
+              { src: "/cases/cro-mobile-control.png", label: "Control", w: 375, h: 812 },
+              { src: "/cases/cro-mobile-variation.jpg", label: "Var 1: 절약 텍스트", w: 375, h: 812 },
+              { src: "/cases/cro-mobile-variation2.jpg", label: "Var 2: 할인율 배지", w: 375, h: 812 },
+            ],
+            maxW: 280,
+            mobile: true,
+          },
+        ],
+    featuresTitle: en ? "What makes it different" : "이런 점이 다릅니다",
+    featuresSub: en ? "Not a code generator — an agent that owns experiment strategy" : "코드 생성기가 아닌, 실험 전략까지 책임지는 에이전트입니다",
+    features: en
+      ? [
+          { title: "Run experiments via Slack", desc: "Design and launch experiments through chat in Slack. Also installable on Teams and other tools." },
+          { title: "Browser-based autonomous audit", desc: "Each agent opens a real browser to see, diagnose, and verify the page itself." },
+          { title: "Production-safe", desc: "Every experiment runs in VWO. Your production code stays untouched." },
+          { title: "Experiment spec, written for you", desc: "Problem validation, solution rationale, variants, targeting, metrics, duration — all drafted automatically." },
+          { title: "Level 4 velocity", desc: "8+ concurrent experiments a week. What used to take 3 people three weeks, 1 person now ships in a day." },
+          { title: "Follow-up experiments suggested", desc: "After launch: analyze, propose next hypothesis, loop back into a new experiment — automated." },
+        ]
+      : [
+          { title: "Slack에서 대화로 실험", desc: "슬랙 채널에서 에이전트와 대화하며 실험을 설계하고 런칭합니다. Teams 등 다른 도구에도 설치 가능." },
+          { title: "브라우저 기반 자율 진단", desc: "각 에이전트가 실제 브라우저를 열어 화면을 직접 보고 진단하고 검증합니다." },
+          { title: "프로덕션 안전", desc: "모든 실험은 VWO 런타임에서 실행됩니다. 프로덕션 사이트의 코드를 건드리지 않습니다." },
+          { title: "실험 설계서 자동 작성", desc: "Problem Validation, Solution Rationale, Variant 기획, 타겟/트리거, 지표, 기간까지 자동 작성." },
+          { title: "Level 4 Velocity", desc: "주 8개 이상 실험 동시 운영. 3명이 3주 걸리던 실험을 1명이 하루 만에." },
+          { title: "후속 실험 자동 제안", desc: "런칭 후 데이터 분석 → 후속 가설 도출 → 재실험 사이클까지 자동화." },
+        ],
+    agentsTitle: en ? "Five agents working together" : "5개 에이전트가 협업합니다",
+    agentsSub: en ? "Every agent opens a real browser to see the screen and do the work" : "각 에이전트는 실제 브라우저를 열어 화면을 보고 작업합니다",
+    agentTeam: en
+      ? [
+          { name: "PM Agent", role: "Orchestration, task routing, quality control" },
+          { name: "Analysis Agent", role: "Inspects pages in the browser to diagnose issues" },
+          { name: "Design Agent", role: "Auto-generates experiment mockups" },
+          { name: "Coding Agent", role: "Writes JavaScript → registers it in VWO" },
+          { name: "Review Agent", role: "Opens the preview to verify intent matches build" },
+        ]
+      : [
+          { name: "PM 에이전트", role: "오케스트레이션, 업무 분배, 품질 관리" },
+          { name: "분석 에이전트", role: "브라우저로 페이지를 직접 보고 문제점 진단" },
+          { name: "디자인 에이전트", role: "실험 시안 자동 생성" },
+          { name: "코딩 에이전트", role: "JavaScript 코드 생성 → VWO에 등록" },
+          { name: "리뷰 에이전트", role: "Preview를 열어 의도대로 구현됐는지 검증" },
+        ],
+    integrationTitle: en ? "Plugs into your stack" : "기존 스택에 바로 연동됩니다",
+    integrationSub: en
+      ? "Hooks into your existing stack and auto-builds everything up to a ready-to-ship draft"
+      : "고객사 기존 스택에 연동하여, 배포 직전 초안(Draft) 단계까지 자동으로 세팅합니다",
+    cycleTitleLeft: en ? "CRO experiment cycle: 2 weeks → " : "CRO 실험 사이클 2주 → ",
+    cycleTitleRight: en ? "1 hour" : "1시간",
+    cycleSub: en ? "Same team, same budget — different experiment velocity" : "같은 팀, 같은 예산으로 실험 속도가 달라집니다",
+    legacyLabel: en ? "Legacy manual process (2 weeks)" : "기존 수동 프로세스 (2주 소요)",
+    legacySteps: en
+      ? ["Site research (2–4h)", "Write hypotheses (1–2h)", "Design/spec (2–3h)", "Dev/VWO setup (1–3 days)"]
+      : ["사이트 리서치(2-4h)", "가설 작성(1-2h)", "디자인/설계(2-3h)", "개발/VWO세팅(1-3일)"],
+    agentLabel: en ? "CRO Agent (done within 1 hour)" : "CRO Agent (1시간 이내 완료)",
+    beforeLabel: en ? "Before — legacy CRO squad" : "Before — 기존 CRO 스쿼드",
+    afterLabel: en ? "After — AI Agent squad" : "After — AI Agent 스쿼드",
+    beforeRows: en
+      ? [
+          { label: "Squad", value: "PM + UX + DA + Engineer" },
+          { label: "Headcount", value: "4" },
+          { label: "Sprint cycle", value: "2–4 weeks" },
+          { label: "Launches per sprint", value: "2–4 experiments" },
+          { label: "Weekly equivalent", value: "0.5–2 / week" },
+        ]
+      : [
+          { label: "스쿼드 구성", value: "PM + UX + DA + 엔지니어" },
+          { label: "투입 인원", value: "4명" },
+          { label: "스프린트 사이클", value: "2~4주" },
+          { label: "스프린트당 런칭", value: "2~4개 실험" },
+          { label: "주간 실험 환산", value: "0.5~2개/주" },
+        ],
+    afterRows: en
+      ? [
+          { label: "Squad", value: "PM + Agent" },
+          { label: "Headcount", value: "1" },
+          { label: "Sprint cycle", value: "2 weeks" },
+          { label: "Launches per sprint", value: "6–10 experiments" },
+          { label: "Velocity delta", value: "1.5–6× faster", highlight: true as const },
+        ]
+      : [
+          { label: "스쿼드 구성", value: "PM + Agent" },
+          { label: "투입 인원", value: "1명" },
+          { label: "스프린트 사이클", value: "2주" },
+          { label: "스프린트당 런칭", value: "6~10개 실험" },
+          { label: "Velocity 변화", value: "1.5~6x 향상", highlight: true as const },
+        ],
+    relatedTitle: en ? "Pairs well with" : "함께 사용하면 효과적입니다",
+    relatedSub: en ? "Combine with other ARMY agents to cover the full funnel" : "ARMY의 다른 에이전트와 조합하면 퍼널 전체를 커버합니다",
+    ctaTitle: en ? "Deploy CRO Agent" : "CRO Agent를 도입해보세요",
+    ctaSub: en ? "MarketFit Lab partners with you from deployment through operations" : "마켓핏랩이 도입부터 운영까지 함께합니다.",
+  };
 
-export default function CRODetailPage({ agent }: Props) {
-  const relatedAgents = agents.filter((a) => agent.relatedAgents.includes(a.id));
+  const agentTeamLocal = t.agentTeam.map((a, i) => ({ ...a, icon: agentTeamIcons[i] }));
+  const featuresLocal = t.features.map((f, i) => ({ ...f, icon: featureIcons[i] }));
 
   return (
     <div className="pt-20">
@@ -108,11 +231,11 @@ export default function CRODetailPage({ agent }: Props) {
             <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: agent.color }}>{agent.category}</span>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mt-2">{agent.name}</h1>
             <p className="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">{agent.tagline}</p>
-            <p className="text-sm text-gray-500 mt-3 max-w-xl mx-auto">A/B 테스트 설계부터 런칭까지 자동화</p>
+            <p className="text-sm text-gray-500 mt-3 max-w-xl mx-auto">{t.heroSub}</p>
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.25 }} className="mt-8">
             <Link href="#contact" className="inline-flex items-center px-6 py-3 text-sm font-semibold text-white rounded-lg hover:opacity-90 transition-colors" style={{ backgroundColor: agent.color }}>
-              도입 문의
+              {t.heroCta}
             </Link>
           </motion.div>
         </div>
@@ -122,8 +245,8 @@ export default function CRODetailPage({ agent }: Props) {
       <section className="py-16 bg-gray-50">
         <div className="max-w-5xl mx-auto px-6">
           <FadeInOnScroll>
-            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">대화로 A/B 테스트를 설계하고 런칭합니다</h2>
-            <p className="text-sm text-gray-500 text-center mb-10">Slack, Teams 등 협업 툴은 물론 전용 웹 인터페이스에서도 바로 사용할 수 있습니다</p>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">{t.slackTitle}</h2>
+            <p className="text-sm text-gray-500 text-center mb-10">{t.slackSub}</p>
           </FadeInOnScroll>
 
           <FadeInOnScroll>
@@ -135,7 +258,7 @@ export default function CRODetailPage({ agent }: Props) {
                 <span className="text-white text-xs font-medium ml-3"># cro-experiments</span>
               </div>
               <div className="bg-white p-5 space-y-4">
-                {slackMessages.map((msg, i) => (
+                {t.slackMessages.map((msg, i) => (
                   <motion.div key={i} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.15 }}>
                     <div className="flex items-start gap-2.5">
                       <div className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-bold ${msg.isAgent ? "" : "bg-gray-500"}`} style={msg.isAgent ? { backgroundColor: agent.color } : undefined}>
@@ -178,12 +301,12 @@ export default function CRODetailPage({ agent }: Props) {
       <section className="py-16">
         <div className="max-w-5xl mx-auto px-6">
           <FadeInOnScroll>
-            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">이렇게 실험이 만들어집니다</h2>
-            <p className="text-sm text-gray-500 text-center mb-10">이커머스 A사 — CRO Agent가 설계하고 실행한 A/B 테스트</p>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">{t.experimentsTitle}</h2>
+            <p className="text-sm text-gray-500 text-center mb-10">{t.experimentsSub}</p>
           </FadeInOnScroll>
 
           <div className="space-y-8">
-            {experiments.map((exp, expIdx) => (
+            {t.experiments.map((exp, expIdx) => (
               <FadeInOnScroll key={expIdx}>
                 <div className="rounded-2xl border border-gray-100 bg-white p-6 md:p-8">
                   <div className="flex items-center justify-center gap-2 mb-6">
@@ -214,11 +337,11 @@ export default function CRODetailPage({ agent }: Props) {
       <section className="py-16 bg-gray-50">
         <div className="max-w-5xl mx-auto px-6">
           <FadeInOnScroll>
-            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">이런 점이 다릅니다</h2>
-            <p className="text-sm text-gray-500 text-center mb-10">코드 생성기가 아닌, 실험 전략까지 책임지는 에이전트입니다</p>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">{t.featuresTitle}</h2>
+            <p className="text-sm text-gray-500 text-center mb-10">{t.featuresSub}</p>
           </FadeInOnScroll>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {features.map((feature, i) => (
+            {featuresLocal.map((feature, i) => (
               <FadeInOnScroll key={i} delay={i * 0.06}>
                 <div className="flex items-start gap-3 p-5 rounded-xl bg-white border border-gray-100">
                   <div className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${agent.color}15`, color: agent.color }}>{feature.icon}</div>
@@ -237,22 +360,22 @@ export default function CRODetailPage({ agent }: Props) {
       <section className="py-16">
         <div className="max-w-5xl mx-auto px-6">
           <FadeInOnScroll>
-            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">5개 에이전트가 협업합니다</h2>
-            <p className="text-sm text-gray-500 text-center mb-10">각 에이전트는 실제 브라우저를 열어 화면을 보고 작업합니다</p>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">{t.agentsTitle}</h2>
+            <p className="text-sm text-gray-500 text-center mb-10">{t.agentsSub}</p>
           </FadeInOnScroll>
 
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="max-w-xs mx-auto mb-4">
             <div className="text-center p-5 rounded-xl bg-gray-50 border-2 shadow-sm" style={{ borderColor: agent.color }}>
-              <div className="w-10 h-10 rounded-lg mx-auto flex items-center justify-center text-white mb-2" style={{ backgroundColor: agent.color }}>{agentTeam[0].icon}</div>
-              <h3 className="text-sm font-bold text-gray-900">{agentTeam[0].name}</h3>
-              <p className="text-xs text-gray-500 mt-0.5">{agentTeam[0].role}</p>
+              <div className="w-10 h-10 rounded-lg mx-auto flex items-center justify-center text-white mb-2" style={{ backgroundColor: agent.color }}>{agentTeamLocal[0].icon}</div>
+              <h3 className="text-sm font-bold text-gray-900">{agentTeamLocal[0].name}</h3>
+              <p className="text-xs text-gray-500 mt-0.5">{agentTeamLocal[0].role}</p>
             </div>
           </motion.div>
           <div className="flex justify-center mb-4"><div className="w-px h-6 bg-gray-300" /></div>
           <div className="hidden md:flex justify-center mb-4 max-w-3xl mx-auto"><div className="flex-1 border-t-2 border-gray-200" /></div>
 
           <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }} className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
-            {agentTeam.slice(1).map((a, i) => (
+            {agentTeamLocal.slice(1).map((a, i) => (
               <motion.div key={i} variants={item}>
                 <div className="text-center p-5 rounded-xl bg-gray-50 border border-gray-100 h-full">
                   <div className="w-10 h-10 rounded-lg mx-auto flex items-center justify-center text-white mb-2" style={{ backgroundColor: agent.color }}>{a.icon}</div>
@@ -269,8 +392,8 @@ export default function CRODetailPage({ agent }: Props) {
       <section className="py-16 bg-gray-50">
         <div className="max-w-5xl mx-auto px-6">
           <FadeInOnScroll>
-            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">기존 스택에 바로 연동됩니다</h2>
-            <p className="text-sm text-gray-500 text-center mb-10">고객사 기존 스택에 연동하여, 배포 직전 초안(Draft) 단계까지 자동으로 세팅합니다</p>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">{t.integrationTitle}</h2>
+            <p className="text-sm text-gray-500 text-center mb-10">{t.integrationSub}</p>
           </FadeInOnScroll>
 
           <FadeInOnScroll delay={0.1}>
@@ -313,17 +436,17 @@ export default function CRODetailPage({ agent }: Props) {
         <div className="max-w-5xl mx-auto px-6">
           <FadeInOnScroll>
             <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">
-              CRO 실험 사이클 2주 → <span style={{ color: agent.color }}>1시간</span>
+              {t.cycleTitleLeft}<span style={{ color: agent.color }}>{t.cycleTitleRight}</span>
             </h2>
-            <p className="text-sm text-gray-500 text-center mb-10">같은 팀, 같은 예산으로 실험 속도가 달라집니다</p>
+            <p className="text-sm text-gray-500 text-center mb-10">{t.cycleSub}</p>
           </FadeInOnScroll>
 
           <div className="max-w-4xl mx-auto space-y-4 mb-10">
             <FadeInOnScroll>
               <div>
-                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">기존 수동 프로세스 (2주 소요)</p>
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">{t.legacyLabel}</p>
                 <div className="flex items-center gap-1.5">
-                  {["사이트 리서치(2-4h)", "가설 작성(1-2h)", "디자인/설계(2-3h)", "개발/VWO세팅(1-3일)"].map((label, i) => (
+                  {t.legacySteps.map((label, i) => (
                     <div key={i} className="flex items-center gap-1.5 flex-1">
                       <div className="bg-gray-200 text-gray-600 text-[11px] font-medium px-3 py-2.5 rounded-lg whitespace-nowrap w-full text-center">{label}</div>
                       {i < 3 && <ArrowRight size={12} className="text-gray-300 flex-shrink-0" />}
@@ -334,7 +457,7 @@ export default function CRODetailPage({ agent }: Props) {
             </FadeInOnScroll>
             <FadeInOnScroll delay={0.15}>
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: agent.color }}>CRO Agent (1시간 이내 완료)</p>
+                <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: agent.color }}>{t.agentLabel}</p>
                 <div className="relative h-11 rounded-xl overflow-hidden">
                   <div className="absolute inset-0 bg-gray-100 rounded-xl" />
                   <motion.div initial={{ width: 0 }} whileInView={{ width: "100%" }} viewport={{ once: true }} transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }} className="absolute inset-y-0 left-0 rounded-xl flex items-center" style={{ background: `linear-gradient(90deg, ${agent.color} 0%, ${agent.color}CC 60%, ${agent.color}88 100%)` }}>
@@ -354,15 +477,9 @@ export default function CRODetailPage({ agent }: Props) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             <FadeInOnScroll>
               <div className="rounded-2xl border border-gray-200 bg-white p-6">
-                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-5">Before — 기존 CRO 스쿼드</p>
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-5">{t.beforeLabel}</p>
                 <div className="space-y-4">
-                  {[
-                    { label: "스쿼드 구성", value: "PM + UX + DA + 엔지니어" },
-                    { label: "투입 인원", value: "4명" },
-                    { label: "스프린트 사이클", value: "2~4주" },
-                    { label: "스프린트당 런칭", value: "2~4개 실험" },
-                    { label: "주간 실험 환산", value: "0.5~2개/주" },
-                  ].map((row, i) => (
+                  {t.beforeRows.map((row, i) => (
                     <div key={i} className="flex items-center justify-between">
                       <span className="text-sm text-gray-500">{row.label}</span>
                       <span className="text-sm font-bold text-gray-900">{row.value}</span>
@@ -373,15 +490,9 @@ export default function CRODetailPage({ agent }: Props) {
             </FadeInOnScroll>
             <FadeInOnScroll delay={0.1}>
               <div className="rounded-2xl border-2 bg-white p-6" style={{ borderColor: `${agent.color}40` }}>
-                <p className="text-xs font-semibold uppercase tracking-wide mb-5" style={{ color: agent.color }}>After — AI Agent 스쿼드</p>
+                <p className="text-xs font-semibold uppercase tracking-wide mb-5" style={{ color: agent.color }}>{t.afterLabel}</p>
                 <div className="space-y-4">
-                  {[
-                    { label: "스쿼드 구성", value: "PM + Agent" },
-                    { label: "투입 인원", value: "1명" },
-                    { label: "스프린트 사이클", value: "2주" },
-                    { label: "스프린트당 런칭", value: "6~10개 실험" },
-                    { label: "Velocity 변화", value: "1.5~6x 향상", highlight: true },
-                  ].map((row, i) => (
+                  {t.afterRows.map((row, i) => (
                     <div key={i} className="flex items-center justify-between">
                       <span className="text-sm text-gray-500">{row.label}</span>
                       <span className="text-sm font-bold" style={{ color: row.highlight ? agent.color : "#111827" }}>{row.value}</span>
@@ -399,13 +510,13 @@ export default function CRODetailPage({ agent }: Props) {
         <section className="py-16">
           <div className="max-w-5xl mx-auto px-6">
             <FadeInOnScroll>
-              <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">함께 사용하면 효과적입니다</h2>
-              <p className="text-sm text-gray-500 text-center mb-10">ARMY의 다른 에이전트와 조합하면 퍼널 전체를 커버합니다</p>
+              <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">{t.relatedTitle}</h2>
+              <p className="text-sm text-gray-500 text-center mb-10">{t.relatedSub}</p>
             </FadeInOnScroll>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {relatedAgents.map((rel) => (
                 <FadeInOnScroll key={rel.id}>
-                  <Link href={`/army/${rel.id}`} className="flex items-center gap-4 p-5 bg-white rounded-xl border border-gray-100 hover:shadow-md transition-shadow">
+                  <Link href={`${prefix}/army/${rel.id}`} className="flex items-center gap-4 p-5 bg-white rounded-xl border border-gray-100 hover:shadow-md transition-shadow">
                     <div className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${rel.color}15`, color: rel.color }}>{smallIconMap[rel.lucideIcon]}</div>
                     <div className="flex-1 min-w-0">
                       <h3 className="text-sm font-semibold text-gray-900">{rel.name}</h3>
@@ -424,10 +535,10 @@ export default function CRODetailPage({ agent }: Props) {
       <section className="py-20 bg-gray-50">
         <div className="max-w-2xl mx-auto px-6 text-center">
           <FadeInOnScroll>
-            <h2 className="text-2xl font-bold text-gray-900">CRO Agent를 도입해보세요</h2>
-            <p className="text-sm text-gray-500 mt-3">마켓핏랩이 도입부터 운영까지 함께합니다.</p>
+            <h2 className="text-2xl font-bold text-gray-900">{t.ctaTitle}</h2>
+            <p className="text-sm text-gray-500 mt-3">{t.ctaSub}</p>
             <div className="mt-8">
-              <Link href="#contact" className="inline-flex items-center px-6 py-3 text-sm font-semibold text-white rounded-lg hover:opacity-90 transition-colors" style={{ backgroundColor: agent.color }}>도입 문의</Link>
+              <Link href="#contact" className="inline-flex items-center px-6 py-3 text-sm font-semibold text-white rounded-lg hover:opacity-90 transition-colors" style={{ backgroundColor: agent.color }}>{t.heroCta}</Link>
             </div>
           </FadeInOnScroll>
         </div>

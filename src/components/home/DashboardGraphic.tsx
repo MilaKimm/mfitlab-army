@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 const kpiCards = [
   { label: "AI Search Visibility", value: "19.6%", before: "11.8%", change: "+66%", color: "#36B1A7" },
@@ -11,11 +12,18 @@ const kpiCards = [
   { label: "90-day ROAS", value: "3.4", before: "2.1", change: "+62%", color: "#EC4899" },
 ];
 
-const briefingItems = [
+const briefingItemsKo = [
   "브랜드 검색 가시성 +18% (14일 기준)",
   "캠페인 메시지 분석: CAC 상승 신호",
   "랜딩 실험 Variant C: +21.4% 전환 우위",
   "무료 전환 리드 → 콜 연결 전 이탈 31%",
+];
+
+const briefingItemsEn = [
+  "Brand search visibility +18% (14-day)",
+  "Campaign message read: CAC climbing",
+  "Landing test Variant C: +21.4% lift",
+  "Free-tier lead drop-off before call: 31%",
 ];
 
 const barData = [
@@ -27,6 +35,14 @@ const barData = [
 ];
 
 export default function DashboardGraphic() {
+  const pathname = usePathname() || "/";
+  const en = pathname === "/en" || pathname.startsWith("/en/");
+  const briefingItems = en ? briefingItemsEn : briefingItemsKo;
+  const briefingTitle = en ? "Today's Growth Briefing" : "오늘의 Growth Briefing";
+  const briefingDate = en ? "Apr 4, 2026" : "2026년 4월 4일";
+  const perfLabel = en ? "Agent Performance (4 weeks)" : "Agent Performance (4주)";
+  const lmfStat = en ? "JP CAC ↓ review" : "JP CAC ↓ 리뷰";
+  const voiceStat = en ? "Hit rate 31%" : "Hit율 31%";
   return (
     <div className="rounded-2xl border border-[#E9E9E9] bg-white shadow-xl overflow-hidden">
       {/* Title bar */}
@@ -53,10 +69,10 @@ export default function DashboardGraphic() {
           <div className="text-[9px] font-semibold text-[#9B9B9B] uppercase tracking-wider mb-2 px-2">Growth Agents</div>
           {[
             { name: "GEO", color: "#06B6D4", stat: "Visibility 19.6%" },
-            { name: "LMF", color: "#EC4899", stat: "JP CAC ↓ 리뷰" },
+            { name: "LMF", color: "#EC4899", stat: lmfStat },
             { name: "CRO", color: "#7C3AED", stat: "CVR +23.2%" },
             { name: "Lead Mag…", color: "#F59E0B", stat: "CPR ₩16,400" },
-            { name: "Voice", color: "#4361EE", stat: "Hit율 31%" },
+            { name: "Voice", color: "#4361EE", stat: voiceStat },
           ].map((agent) => (
             <div key={agent.name} className="flex items-center gap-1.5 px-2 py-1">
               <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: agent.color }} />
@@ -73,9 +89,9 @@ export default function DashboardGraphic() {
             <div className="flex items-center justify-between mb-2">
               <div>
                 <p className="text-[9px] text-[#36B1A7] font-semibold uppercase tracking-wider">Daily Briefing</p>
-                <p className="text-sm font-semibold text-[#1B1B1B]">오늘의 Growth Briefing</p>
+                <p className="text-sm font-semibold text-[#1B1B1B]">{briefingTitle}</p>
               </div>
-              <span className="text-[10px] text-[#C0C0C0]">2026년 4월 4일</span>
+              <span className="text-[10px] text-[#C0C0C0]">{briefingDate}</span>
             </div>
             <div className="space-y-1">
               {briefingItems.map((item, i) => (
@@ -127,7 +143,7 @@ export default function DashboardGraphic() {
 
           {/* Bar Chart — Agent Performance */}
           <div className="bg-[#FAFAFA] rounded-lg p-3 border border-[#E9E9E9]">
-            <p className="text-[9px] font-semibold text-[#9B9B9B] uppercase tracking-wider mb-3">Agent Performance (4주)</p>
+            <p className="text-[9px] font-semibold text-[#9B9B9B] uppercase tracking-wider mb-3">{perfLabel}</p>
             <div className="flex items-end justify-around gap-3 h-[80px]">
               {barData.map((agent, ai) => (
                 <div key={ai} className="flex flex-col items-center gap-1 flex-1">

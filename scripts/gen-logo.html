@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  @font-face {
+    font-family: 'ClashDisplay';
+    src: url('../src/fonts/ClashDisplay-Bold.woff2') format('woff2');
+    font-weight: 700;
+  }
+  body { margin: 0; background: transparent; }
+  .logo {
+    font-family: 'ClashDisplay', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    display: inline-block;
+    padding: 16px;
+  }
+  .mfl { color: #15867E; }
+  .army { color: #1B1B1B; }
+
+  /* 가로형 */
+  #horizontal .logo { font-size: 48px; }
+  #horizontal .spacer { display: inline-block; width: 0.2em; }
+
+  /* 두줄형 */
+  #vertical .logo { font-size: 48px; line-height: 0.9; text-align: center; }
+  #vertical .mfl, #vertical .army { display: block; }
+</style>
+</head>
+<body>
+  <div id="horizontal">
+    <span class="logo">
+      <span class="mfl">MFL</span><span class="spacer"></span><span class="army">ARMY</span>
+    </span>
+  </div>
+  <div style="height: 40px;"></div>
+  <div id="vertical">
+    <span class="logo">
+      <span class="mfl">MFL</span><span class="army">ARMY</span>
+    </span>
+  </div>
+</body>
+</html>

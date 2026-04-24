@@ -1,5 +1,4 @@
-export interface Agent {
-  id: string;
+export interface AgentLocalized {
   name: string;
   category: string;
   funnelPhase: string;
@@ -8,8 +7,6 @@ export interface Agent {
   expertise: string;
   impactMetric: string;
   impactValue: string;
-  color: string;
-  lucideIcon: string;
   features: string[];
   heroLabel: string;
   heroH1: string;
@@ -18,8 +15,16 @@ export interface Agent {
   problems: { title: string; body: string }[];
   steps: { title: string; description: string }[];
   results: { metric: string; before: string; after: string }[];
+}
+
+export interface Agent extends AgentLocalized {
+  id: string;
+  color: string;
+  lucideIcon: string;
   relatedAgents: string[];
   demoUrl?: string;
+  /** Optional English overrides. When locale is "en", these replace the Korean fields. */
+  en?: AgentLocalized;
 }
 
 export const agents: Agent[] = [
@@ -61,6 +66,43 @@ export const agents: Agent[] = [
       { metric: "페이지 분석 속도", before: "수동 작업", after: "자동화" },
     ],
     relatedAgents: ["lmf-agent", "cro-agent"],
+    en: {
+      name: "GEO Agent",
+      category: "AI Search Optimization",
+      funnelPhase: "Discovery",
+      tagline: "Be the brand AI search cites first.",
+      description: "Optimize brand citation in ChatGPT, Perplexity, and Gemini.",
+      expertise: "250+ consulting projects",
+      impactMetric: "AI referral conversion",
+      impactValue: "3.2×",
+      features: [
+        "Auto schema transforms",
+        "Maximize LLM citations",
+        "Scales to tens of thousands of pages",
+        "CDN-based delivery",
+      ],
+      heroLabel: "ARMY GEO Agent — Discovery",
+      heroH1: "Get cited first in AI search",
+      heroSub:
+        "Systematically optimize brand visibility across ChatGPT, Perplexity, Gemini, and other AI search engines. Handles tens of thousands of pages automatically.",
+      trustCopy:
+        "SEO is becoming GEO — the search paradigm is shifting. We've redesigned the search optimization playbook from 250+ digital marketing projects for the AI search era.",
+      problems: [
+        { title: "SEO alone isn't enough", body: "AI search engines follow different rules. Keyword optimization won't get you picked by AI." },
+        { title: "Can't optimize thousands of pages by hand", body: "Large sites need automation to make every page AI-search ready." },
+        { title: "Algorithms keep shifting", body: "AI search models evolve constantly. Real-time tracking and response keeps you competitive." },
+      ],
+      steps: [
+        { title: "Diagnose", description: "Automatically audit current AI search visibility." },
+        { title: "Generate", description: "Create structured content optimized for AI search." },
+        { title: "Optimize", description: "Auto-update schema and metadata." },
+        { title: "Deploy & monitor", description: "Push via CDN and track performance in real time." },
+      ],
+      results: [
+        { metric: "AI referral conversion", before: "Baseline", after: "3.2× lift" },
+        { metric: "Page analysis speed", before: "Manual", after: "Automated" },
+      ],
+    },
   },
   {
     id: "lmf-agent",
@@ -103,6 +145,46 @@ export const agents: Agent[] = [
       { metric: "소재 제작 시간", before: "10시간+", after: "1시간 이내" },
     ],
     relatedAgents: ["cro-agent", "geo-agent"],
+    en: {
+      name: "LMF Agent",
+      category: "Ad Marketing Automation",
+      funnelPhase: "Acquisition",
+      tagline: "Creative, campaign, optimization — fully automated.",
+      description: "A field-tested Language Market-Fit playbook, packed into an agent.",
+      expertise: "Proven LMF playbook",
+      impactMetric: "CTR / ROAS",
+      impactValue: "+87% / 3×",
+      features: [
+        "Slack-native conversation",
+        "AI image & copy generation",
+        "Meta campaign automation",
+        "Success formula discovery",
+      ],
+      heroLabel: "ARMY LMF Agent — Acquisition",
+      heroH1: "Ads that run and tune themselves",
+      heroSub:
+        "Persona research, value proposition, creative generation, Meta launch — our proven LMF playbook lives inside the agent.",
+      trustCopy:
+        "The LMF playbook, validated across dozens of projects, is the agent's foundation. From value prop to campaign optimization, MarketFit Lab's playbook runs in the background.",
+      problems: [
+        { title: "Running on gut feel", body: "Creative built on instinct. No systematic value-prop validation framework." },
+        { title: "Needs 3 people minimum", body: "Planning, design, media buying — at least 3 roles. A bottleneck for small teams." },
+        { title: "10+ hours to go live", body: "Idea to launch takes too long. Competitors are already live." },
+      ],
+      steps: [
+        { title: "Brand research", description: "Auto-analyze product, market, and competitors." },
+        { title: "Persona", description: "Build data-driven target personas." },
+        { title: "Value proposition", description: "Derive the Value Promise via LMF framework." },
+        { title: "Creative", description: "Generate AI copy and images automatically." },
+        { title: "Launch", description: "Auto-configure and launch Meta campaigns." },
+        { title: "Analyze", description: "Track performance and optimize in real time." },
+      ],
+      results: [
+        { metric: "Ad CTR", before: "Baseline", after: "+87% lift" },
+        { metric: "ROAS", before: "Baseline", after: "Up to 3×" },
+        { metric: "Creative production", before: "10+ hrs", after: "Under 1 hr" },
+      ],
+    },
   },
   {
     id: "cro-agent",
@@ -144,6 +226,45 @@ export const agents: Agent[] = [
       { metric: "가설 도출", before: "수동 브레인스토밍", after: "ICE 기반 10개/1초" },
     ],
     relatedAgents: ["lmf-agent", "lead-magnet-agent"],
+    en: {
+      name: "CRO Agent",
+      category: "Conversion Rate Optimization",
+      funnelPhase: "Conversion",
+      tagline: "Self-driving CRO — from hypothesis to setup.",
+      description: "An autonomous CRO machine trained on 7 years and 3,000+ A/B tests.",
+      expertise: "7 years, 3,000+ A/B experiments",
+      impactMetric: "Experiment velocity",
+      impactValue: "Up to 21×",
+      features: [
+        "5-agent multi-agent workflow",
+        "Browser-based autonomous audit",
+        "Auto VWO setup",
+        "Auto-generated test specs",
+      ],
+      heroLabel: "ARMY CRO Agent — Conversion",
+      heroH1: "Self-driving CRO experiments, end to end",
+      heroSub:
+        "Give it a URL. It diagnoses, generates hypotheses, designs the test, and sets it up in VWO. Your team just makes the calls.",
+      trustCopy:
+        "Not an A/B test code generator. An agent that answers what to test and why, on its own.",
+      problems: [
+        { title: "No dedicated CRO team", body: "You want to run A/B tests but don't have the headcount. Marketers do everything from planning to setup." },
+        { title: "Stuck behind engineering", body: "Waiting 2–3 weeks on dev to set up each test. Your experiment speed is shaped by your org chart." },
+        { title: "1–3 weeks per test", body: "Hypothesis to launch takes 1–3 weeks. Cap of 2–3 tests per month." },
+      ],
+      steps: [
+        { title: "Drop URL", description: "Paste the page URL you want to test." },
+        { title: "Auto-audit", description: "The agent analyzes the page and diagnoses friction." },
+        { title: "Hypotheses", description: "Generates 10 ICE-scored hypotheses." },
+        { title: "Test spec", description: "Auto-writes the test spec for your selected hypothesis." },
+        { title: "Setup & QA", description: "Configures the test in VWO and QAs it." },
+        { title: "Launch", description: "You approve. The test goes live." },
+      ],
+      results: [
+        { metric: "Experiment speed", before: "1–3 weeks", after: "1 day" },
+        { metric: "Hypothesis generation", before: "Manual brainstorm", after: "10 ICE-scored in 1 second" },
+      ],
+    },
   },
   {
     id: "lead-magnet-agent",
@@ -184,6 +305,42 @@ export const agents: Agent[] = [
     ],
     relatedAgents: ["cro-agent", "lmf-agent"],
     demoUrl: "https://pfinder.aicantalk.com/",
+    en: {
+      name: "Lead Magnet Agent",
+      category: "Viral Loop",
+      funnelPhase: "Engagement",
+      tagline: "Calculators, quizzes, finders — interactive web apps that capture leads.",
+      description: "Interactive lead-capture tools built from a single conversation.",
+      expertise: "Viral loop design",
+      impactMetric: "Content production",
+      impactValue: "5× faster",
+      features: [
+        "Product Finder",
+        "Fan trivia & quizzes",
+        "Auto-generated promotions",
+        "SNS viral optimization",
+      ],
+      heroLabel: "ARMY Lead Magnet Agent — Engagement",
+      heroH1: "Visitors engage. Leads fill your pipeline.",
+      heroSub: "Product catalogs, calculators, diagnostic tools — built in a single conversation.",
+      trustCopy:
+        "A lead magnet is something visitors actually use — calculators, quizzes, finders. Data gets captured through engagement, not forms. The conversion design proven in our CRO and LMF projects is built into the agent.",
+      problems: [
+        { title: "No planning or dev capacity", body: "Interactive content needs design, planning, and engineering — all at once." },
+        { title: "Organic ceiling", body: "Heavy reliance on paid ads. No real playbook for organic traffic." },
+        { title: "Can't capture visitor data", body: "No natural touchpoint to collect visitor information." },
+      ],
+      steps: [
+        { title: "Define", description: "Set lead capture goals and target audience." },
+        { title: "Design", description: "Plan content with viral mechanics built in." },
+        { title: "Generate", description: "Auto-build quizzes, finders, and interactive tools." },
+        { title: "Launch", description: "Social-optimized distribution forms the viral loop." },
+      ],
+      results: [
+        { metric: "Content production", before: "2–3 weeks", after: "5× faster" },
+        { metric: "Lead conversion", before: "Static landing", after: "Viral loop" },
+      ],
+    },
   },
   {
     id: "voice-agent",
@@ -225,6 +382,44 @@ export const agents: Agent[] = [
     ],
     relatedAgents: ["lmf-agent", "cro-agent"],
     demoUrl: "https://demo.bringtalk.ai/",
+    en: {
+      name: "Voice Agent",
+      category: "AI Voice Agent",
+      funnelPhase: "Retention",
+      tagline: "New lead? AI calls in under 2 minutes.",
+      description: "Instant outbound call within 2 minutes of a new lead. 24/7 AI call center.",
+      expertise: "Production-grade (HMCA and others)",
+      impactMetric: "Pickup rate",
+      impactValue: "6.9×",
+      features: [
+        "Under-2-min outbound",
+        "LQA + FUA automation",
+        "Context injection",
+        "Zero-retention security",
+      ],
+      heroLabel: "ARMY Voice Agent — Retention",
+      heroH1: "New lead? AI calls within 2 minutes. 24/7.",
+      heroSub:
+        "The moment a form is submitted, AI calls the lead. It reads context, qualifies, and routes to the right rep. Pickup and conversion climb together.",
+      trustCopy:
+        "We've built and run an AI call center for a global auto OEM. Not a voice bot — an agent that understands customer context and drives business outcomes.",
+      problems: [
+        { title: "8% pickup rate", body: "Leads arrive but phones don't connect. Most drop out from response delay." },
+        { title: "1% lead-to-sales", body: "Conversion from lead to actual sale is extremely low." },
+        { title: "Hours-long response delay", body: "Hours pass between lead submission and first contact. The golden hour is gone." },
+      ],
+      steps: [
+        { title: "Instant call", description: "AI calls within 2 minutes of form submission." },
+        { title: "Smart routing", description: "Reads context and routes to the right rep." },
+        { title: "Lead qualification", description: "LQA auto-verifies lead quality." },
+        { title: "CRM sync", description: "Call outcomes logged to CRM automatically." },
+        { title: "Admin console", description: "Monitor every call in real time." },
+      ],
+      results: [
+        { metric: "Pickup rate", before: "8%", after: "54.8% (6.9×)" },
+        { metric: "Lead-to-sales", before: "Baseline", after: "3.6×" },
+      ],
+    },
   },
   {
     id: "mmm-agent",
@@ -265,8 +460,81 @@ export const agents: Agent[] = [
       { metric: "Global ROAS", before: "채널별 분산", after: "통합 최적화" },
     ],
     relatedAgents: ["lmf-agent", "voice-agent"],
+    en: {
+      name: "MMM Agent",
+      category: "Marketing Budget Optimization",
+      funnelPhase: "Optimization",
+      tagline: "Measure channel contribution. Allocate budget with precision.",
+      description: "Channel contribution analysis + budget simulation on modern open-source MMM.",
+      expertise: "Modern MMM modeling",
+      impactMetric: "Global ROAS",
+      impactValue: "Maximized",
+      features: [
+        "Meridian + Robyn",
+        "Budget simulation",
+        "Cross-channel analysis",
+        "Real-time dashboard",
+      ],
+      heroLabel: "ARMY MMM Agent — Optimization",
+      heroH1: "Allocate budget with data, not instinct",
+      heroSub:
+        "Measure contribution across Meta, Google, TikTok and more with modern open-source MMM (Google Meridian, Meta Robyn). Simulate optimal allocation scenarios.",
+      trustCopy:
+        "Go beyond last-click. Measure upper-funnel channel contribution with precision. We combine channel expertise from 250+ projects with the latest open-source MMM (Google Meridian, Meta Robyn).",
+      problems: [
+        { title: "Channel contribution is opaque", body: "You run Meta, Google, TikTok — but don't really know what's driving revenue." },
+        { title: "Gut-feel budgeting", body: "Allocation runs on experience and intuition. Decisions lack scientific basis." },
+        { title: "Cross-channel blind spots", body: "Last-click attribution underweights upper-funnel channels." },
+      ],
+      steps: [
+        { title: "Ingest", description: "Consolidate spend and performance data across channels." },
+        { title: "Model", description: "Run Marketing Mix Modeling with Meridian and Robyn." },
+        { title: "Attribute", description: "Precisely measure each channel's revenue contribution." },
+        { title: "Optimize", description: "Simulate the optimal mix and allocation scenarios." },
+      ],
+      results: [
+        { metric: "Allocation", before: "Gut-feel", after: "Data-driven" },
+        { metric: "Channel contribution", before: "Last-click", after: "Full-funnel" },
+        { metric: "Global ROAS", before: "Siloed", after: "Integrated" },
+      ],
+    },
   },
 ];
+
+export const armyOverviewEn = {
+  differentiators: [
+    {
+      number: "01",
+      title: "5 people's execution, from one agent fleet",
+      body: "Creative production, experiment setup, data wrangling — the repetitive work humans used to do. Agents handle it. Small teams keep shipping tests.",
+    },
+    {
+      number: "02",
+      title: "Responsible for\nhypotheses, not just execution",
+      body: "Give it a URL. It diagnoses, forms data-driven hypotheses, and prioritizes. An agent that answers what to do first.",
+    },
+    {
+      number: "03",
+      title: "Know-how accumulates in the system, not in people",
+      body: "Judgment criteria and context live in the agent as skills. When people leave, team capability stays.",
+    },
+  ],
+  heritage: {
+    stats: [
+      { value: "7 yrs", label: "Running growth" },
+      { value: "3,000+", label: "A/B experiments" },
+      { value: "250+", label: "Consulting projects" },
+    ],
+  },
+  adoption: {
+    steps: [
+      { title: "Consult & diagnose", description: "We map the bottleneck in your funnel and scope the rollout together." },
+      { title: "Design agent", description: "Start where impact is highest. Agents designed for your context." },
+      { title: "Build & integrate", description: "Deploy to a dedicated workspace and connect to your existing stack." },
+      { title: "Operate & improve", description: "We monitor performance and keep improving prompts and skills." },
+    ],
+  },
+};
 
 export const armyOverview = {
   heroLabel: "Agents Running Marketing for You",
@@ -393,7 +661,34 @@ export const armyOverview = {
   },
 };
 
-export const axSolutions = [
+export interface AxSolution {
+  id: string;
+  name: string;
+  question: string;
+  description: string;
+  metric: string;
+  href: string;
+  color: string;
+  highlight: boolean;
+  target: string;
+  subtitle: string;
+  useCase: string;
+  delivery: string;
+  timeline: string;
+  en?: {
+    name: string;
+    question: string;
+    description: string;
+    metric: string;
+    target: string;
+    subtitle: string;
+    useCase: string;
+    delivery: string;
+    timeline: string;
+  };
+}
+
+export const axSolutions: AxSolution[] = [
   {
     id: "army",
     name: "MFL ARMY",
@@ -408,6 +703,17 @@ export const axSolutions = [
     useCase: "AB 실험, 광고 최적화, 리드 전환",
     delivery: "Slack 기반 에이전트 파견",
     timeline: "2~4주 세팅",
+    en: {
+      name: "MFL ARMY",
+      question: "We want to run marketing experiments faster.",
+      description: "Growth marketing, automated. Six agents across the full funnel.",
+      metric: "Up to 21× experiment velocity",
+      target: "Growth marketing teams",
+      subtitle: "MarketFit Lab's growth agent army",
+      useCase: "A/B experiments, ad optimization, lead conversion",
+      delivery: "Agents deployed in Slack",
+      timeline: "2–4 weeks to set up",
+    },
   },
   {
     id: "replit",
@@ -423,6 +729,17 @@ export const axSolutions = [
     useCase: "4시간 해커톤, 엔터프라이즈 도입",
     delivery: "워크샵 (4시간~1일)",
     timeline: "당일 완성",
+    en: {
+      name: "Replit Vibe Coding",
+      question: "We want our team to build their own tools.",
+      description: "Non-engineers ship a web app in 4 hours. Build your team's AI muscle.",
+      metric: "100% MVP completion",
+      target: "Every non-engineering role",
+      subtitle: "Vibe coding for non-engineers",
+      useCase: "4-hour hackathons, enterprise rollouts",
+      delivery: "Workshops (4 hours to 1 day)",
+      timeline: "Ship the same day",
+    },
   },
   {
     id: "articul8",
@@ -438,8 +755,31 @@ export const axSolutions = [
     useCase: "사내 문서 AI, 도메인 특화 모델",
     delivery: "온프레미스/클라우드 구축",
     timeline: "4~8주 구축",
+    en: {
+      name: "Articul8",
+      question: "We want AI that runs on our own data.",
+      description: "Enterprise GenAI platform — domain-specialized AI infrastructure.",
+      metric: "5× lower TCO",
+      target: "IT, data teams, C-level",
+      subtitle: "Enterprise AI that runs on your data",
+      useCase: "Internal-document AI, domain-specific models",
+      delivery: "On-prem or cloud deployment",
+      timeline: "4–8 weeks to build",
+    },
   },
 ];
+
+/** Localize an agent for the given locale. Falls back to Korean. */
+export function localizeAgent(agent: Agent, locale: "ko" | "en"): Agent {
+  if (locale === "ko" || !agent.en) return agent;
+  return { ...agent, ...agent.en };
+}
+
+/** Localize an axSolution. Returns a solution with translated fields. */
+export function localizeSolution(sol: AxSolution, locale: "ko" | "en"): AxSolution {
+  if (locale === "ko" || !sol.en) return sol;
+  return { ...sol, ...sol.en };
+}
 
 export const partners = [
   { name: "Mixpanel", description: "프로덕트 데이터 분석" },
