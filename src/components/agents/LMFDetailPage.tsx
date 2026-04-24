@@ -280,10 +280,10 @@ export default function LMFDetailPage({ agent }: Props) {
 
               <div className="grid grid-cols-4 gap-4 w-full">
                 {[
-                  { name: "AEM (Adobe)", logo: "/images/logos/aem.png" },
-                  { name: "Salesforce", logo: "/images/logos/salesforce.png" },
-                  { name: "Shopify", logo: "/images/logos/shopify.png" },
-                  { name: "Cafe24", logo: "/images/logos/cafe24.png" },
+                  { name: "Meta Ads", logo: "/images/logos/meta-ads.png" },
+                  { name: "Google Ads", logo: "/images/logos/google-ads.png" },
+                  { name: "TikTok Ads", logo: "/images/logos/tiktok-ads.png" },
+                  { name: "Figma", logo: "/images/logos/figma.png" },
                 ].map((platform, i) => (
                   <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.8 + i * 0.1 }} className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white border border-gray-100 shadow-sm">
                     <div className="h-16 flex items-center justify-center">
@@ -300,7 +300,7 @@ export default function LMFDetailPage({ agent }: Props) {
 
       {/* ━━ Related Agents ━━ */}
       {relatedAgents.length > 0 && (
-        <section className="py-16 bg-gray-50">
+        <section className="py-16">
           <div className="max-w-5xl mx-auto px-6">
             <FadeInOnScroll>
               <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">함께 사용하면 효과적입니다</h2>
@@ -325,7 +325,7 @@ export default function LMFDetailPage({ agent }: Props) {
       )}
 
       {/* ━━ CTA ━━ */}
-      <section className="py-20">
+      <section className="py-20 bg-gray-50">
         <div className="max-w-2xl mx-auto px-6 text-center">
           <FadeInOnScroll>
             <h2 className="text-2xl font-bold text-gray-900">LMF Agent를 도입해보세요</h2>

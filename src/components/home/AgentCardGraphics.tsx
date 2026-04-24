@@ -157,3 +157,60 @@ export function VoiceGraphic() {
     </div>
   );
 }
+
+export function MmmGraphic() {
+  // Donut segments — cumulative stroke-dashoffset mimics channel allocation
+  const segments = [
+    { color: "#10B981", value: 42, label: "Meta" },
+    { color: "#34D399", value: 28, label: "Google" },
+    { color: "#6EE7B7", value: 18, label: "TikTok" },
+    { color: "#A7F3D0", value: 12, label: "Etc" },
+  ];
+  const circumference = 2 * Math.PI * 28;
+  let offset = 0;
+
+  return (
+    <div className="w-full h-full flex items-end justify-center p-3 overflow-hidden">
+      <div className="w-full max-w-[140px] space-y-2">
+        <div className="bg-white/80 rounded-lg p-2 shadow-sm border border-emerald-100 flex items-center gap-2">
+          {/* Donut */}
+          <svg width="56" height="56" viewBox="0 0 64 64" className="-rotate-90 flex-shrink-0">
+            <circle cx="32" cy="32" r="28" fill="none" stroke="#ECFDF5" strokeWidth="8" />
+            {segments.map((seg, i) => {
+              const dash = (seg.value / 100) * circumference;
+              const el = (
+                <circle
+                  key={i}
+                  cx="32"
+                  cy="32"
+                  r="28"
+                  fill="none"
+                  stroke={seg.color}
+                  strokeWidth="8"
+                  strokeDasharray={`${dash} ${circumference - dash}`}
+                  strokeDashoffset={-offset}
+                />
+              );
+              offset += dash;
+              return el;
+            })}
+          </svg>
+          {/* Legend */}
+          <div className="flex-1 space-y-0.5">
+            {segments.map((seg) => (
+              <div key={seg.label} className="flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: seg.color }} />
+                <span className="text-[7px] font-medium text-emerald-900/70 flex-1">{seg.label}</span>
+                <span className="text-[7px] font-bold text-emerald-800">{seg.value}%</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="bg-emerald-50 rounded-lg p-2 border border-emerald-100 flex items-center justify-between">
+          <span className="text-[7px] font-semibold text-emerald-700">ROAS</span>
+          <span className="text-[8px] font-bold text-emerald-700">+34%</span>
+        </div>
+      </div>
+    </div>
+  );
+}

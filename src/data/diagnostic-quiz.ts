@@ -1,4 +1,4 @@
-export type SolutionKey = "geo" | "lmf" | "cro" | "lead-magnet" | "voice";
+export type SolutionKey = "geo" | "lmf" | "cro" | "lead-magnet" | "voice" | "mmm";
 
 export interface ScoreWeight {
   solution: SolutionKey;
@@ -24,6 +24,7 @@ export const SOLUTION_KEY_TO_ID: Record<SolutionKey, string> = {
   cro: "cro-agent",
   "lead-magnet": "lead-magnet-agent",
   voice: "voice-agent",
+  mmm: "mmm-agent",
 };
 
 export const THEORETICAL_MAX: Record<SolutionKey, number> = {
@@ -32,6 +33,7 @@ export const THEORETICAL_MAX: Record<SolutionKey, number> = {
   cro: 24,
   "lead-magnet": 13,
   voice: 20,
+  mmm: 16,
 };
 
 export const questions: Question[] = [
@@ -51,7 +53,7 @@ export const questions: Question[] = [
     title: "운영 병목",
     subtitle: "마케팅 운영에서 가장 답답한 부분은?",
     choices: [
-      { id: "a", text: "감으로 예산 배분 — 채널별 ROI를 모름", scores: [{ solution: "lmf", points: 5 }, { solution: "cro", points: 2 }] },
+      { id: "a", text: "감으로 예산 배분 — 채널별 ROI를 모름", scores: [{ solution: "mmm", points: 5 }, { solution: "lmf", points: 2 }, { solution: "cro", points: 1 }] },
       { id: "b", text: "개발팀 우선순위에 밀려 실험을 못 돌림", scores: [{ solution: "cro", points: 5 }, { solution: "lead-magnet", points: 1 }] },
       { id: "c", text: "다국어/다시장 콘텐츠 제작이 안 따라감", scores: [{ solution: "lmf", points: 5 }, { solution: "geo", points: 2 }] },
       { id: "d", text: "고객 전화 응대에 인력이 너무 많이 들어감", scores: [{ solution: "voice", points: 5 }] },
@@ -63,7 +65,7 @@ export const questions: Question[] = [
     subtitle: "지금 가장 하고 싶지만 못 하고 있는 건?",
     choices: [
       { id: "a", text: "A/B 테스트를 하고 싶은데 리소스가 없음", scores: [{ solution: "cro", points: 5 }] },
-      { id: "b", text: "채널별 기여도를 정확히 측정하고 싶음", scores: [{ solution: "lmf", points: 5 }] },
+      { id: "b", text: "채널별 기여도를 정확히 측정하고 싶음", scores: [{ solution: "mmm", points: 5 }, { solution: "lmf", points: 2 }] },
       { id: "c", text: "바이럴 콘텐츠를 만들고 싶은데 방법을 모름", scores: [{ solution: "lead-magnet", points: 5 }, { solution: "geo", points: 3 }] },
       { id: "d", text: "리드 응대를 자동화하고 싶음", scores: [{ solution: "voice", points: 5 }, { solution: "cro", points: 1 }] },
     ],
@@ -74,7 +76,7 @@ export const questions: Question[] = [
     subtitle: "AI가 가장 도움이 될 영역은?",
     choices: [
       { id: "a", text: "오가닉 발견 — AI가 우리를 추천하게 만들기", scores: [{ solution: "geo", points: 5 }, { solution: "lead-magnet", points: 2 }] },
-      { id: "b", text: "퍼포먼스 마케팅 — 광고 소재를 빠르게, 많이", scores: [{ solution: "lmf", points: 5 }] },
+      { id: "b", text: "퍼포먼스 마케팅 — 광고 소재를 빠르게, 많이", scores: [{ solution: "lmf", points: 5 }, { solution: "mmm", points: 2 }] },
       { id: "c", text: "온사이트 전환 — 방문자를 고객으로 바꾸기", scores: [{ solution: "cro", points: 5 }, { solution: "lead-magnet", points: 2 }] },
       { id: "d", text: "고객 리텐션 — 콜, 해피콜, 재방문 유도", scores: [{ solution: "voice", points: 5 }] },
     ],
@@ -85,7 +87,7 @@ export const questions: Question[] = [
     subtitle: "팀 구성이 어떻게 되나요?",
     choices: [
       { id: "a", text: "마케팅팀만 있고 전담 개발자 없음", scores: [{ solution: "lead-magnet", points: 3 }, { solution: "lmf", points: 2 }] },
-      { id: "b", text: "그로스팀이 3개+ 채널을 운영 중", scores: [{ solution: "lmf", points: 5 }, { solution: "geo", points: 2 }] },
+      { id: "b", text: "그로스팀이 3개+ 채널을 운영 중", scores: [{ solution: "mmm", points: 4 }, { solution: "lmf", points: 3 }, { solution: "geo", points: 2 }] },
       { id: "c", text: "이커머스팀이 전환 지표에 집중", scores: [{ solution: "cro", points: 5 }, { solution: "lead-magnet", points: 2 }] },
       { id: "d", text: "세일즈/CS팀이 전화 응대 볼륨이 많음", scores: [{ solution: "voice", points: 5 }] },
     ],
@@ -98,4 +100,5 @@ export const resultCopyTemplates: Record<SolutionKey, string> = {
   cro: "전환율 개선이 급하시군요. ARMY의 CRO Agent가 분석→가설→실험→QA까지 자율 실행합니다.",
   "lead-magnet": "오가닉 참여와 바이럴이 필요하시군요. ARMY의 Lead Magnet Agent가 퀴즈, 기획전 등을 자동 생성합니다.",
   voice: "리드 응대 속도가 과제시군요. ARMY의 Voice Agent가 폼 제출 2분 내 즉시 콜, 24/7 대응합니다.",
+  mmm: "채널별 예산 배분이 과제시군요. ARMY의 MMM Agent가 Meridian·Robyn 등 최신 오픈소스 MMM으로 기여도를 정밀 분석하고 최적 배분을 시뮬레이션합니다.",
 };

@@ -1,0 +1,293 @@
+"use client";
+
+import Link from "next/link";
+import { motion } from "framer-motion";
+import {
+  PieChart,
+  ArrowRight,
+  Database,
+  Brain,
+  LineChart,
+  Target,
+  Globe,
+  Megaphone,
+  FlaskConical,
+  Magnet,
+  Phone,
+  Layers,
+  TrendingUp,
+  Activity,
+  Sparkles,
+} from "lucide-react";
+import type { Agent } from "@/data/army";
+import { agents } from "@/data/army";
+import FadeInOnScroll from "@/components/motion/FadeInOnScroll";
+
+const smallIconMap: Record<string, React.ReactNode> = {
+  Globe: <Globe size={18} />,
+  Megaphone: <Megaphone size={18} />,
+  FlaskConical: <FlaskConical size={18} />,
+  Magnet: <Magnet size={18} />,
+  Phone: <Phone size={18} />,
+  PieChart: <PieChart size={18} />,
+};
+
+interface Props {
+  agent: Agent;
+}
+
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08 } },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
+};
+
+const comparisonRows = [
+  { label: "어트리뷰션", traditional: "Last-click 중심", mmm: "전체 퍼널 기여도 분석" },
+  { label: "분석 단위", traditional: "채널별 개별 측정", mmm: "채널 간 상호작용 포함" },
+  { label: "의사결정", traditional: "감 + 경험 기반 배분", mmm: "시뮬레이션 기반 최적화" },
+  { label: "상위 퍼널", traditional: "과소 평가", mmm: "브랜드·CTV 기여도까지 측정" },
+];
+
+const impactMetrics = [
+  { value: "+34%", label: "Global ROAS 개선" },
+  { value: "-22%", label: "낭비성 채널 예산" },
+  { value: "x2.1", label: "채널별 기여도 정확도" },
+];
+
+const capabilities = [
+  { icon: <Database size={20} />, title: "채널 통합 데이터 수집", desc: "Meta, Google, TikTok 등 채널별 지출·성과 데이터를 자동 통합합니다" },
+  { icon: <Brain size={20} />, title: "최신 MMM 엔진 병용", desc: "Google Meridian, Meta Robyn 등 최신 오픈소스 MMM으로 베이지안 기반 기여도를 추정합니다" },
+  { icon: <LineChart size={20} />, title: "예산 시뮬레이션", desc: "다양한 예산 배분 시나리오를 시뮬레이션하여 최적 조합을 도출합니다" },
+  { icon: <Layers size={20} />, title: "크로스 채널 분석", desc: "Last-click을 넘어 상위 퍼널 채널의 기여도까지 정밀 측정합니다" },
+  { icon: <Activity size={20} />, title: "실시간 대시보드", desc: "채널별 성과와 최적 예산 배분을 상시 모니터링합니다" },
+  { icon: <TrendingUp size={20} />, title: "Global ROAS 최적화", desc: "단일 캠페인이 아닌 전체 마케팅 자산의 수익률을 극대화합니다" },
+];
+
+const mmmSteps = [
+  { icon: <Database size={24} />, label: "수집", title: "데이터 통합", desc: "채널별 지출 및 성과 데이터 자동 수집" },
+  { icon: <Brain size={24} />, label: "모델링", title: "MMM 실행", desc: "Meridian·Robyn 등 최신 MMM으로 기여도 모델 학습" },
+  { icon: <Target size={24} />, label: "분석", title: "기여도 측정", desc: "전체 퍼널에서 채널별 실제 기여 추정" },
+  { icon: <Sparkles size={24} />, label: "최적화", title: "예산 재배분", desc: "시뮬레이션 기반 최적 시나리오 도출" },
+];
+
+export default function MMMDetailPage({ agent }: Props) {
+  const relatedAgents = agents.filter((a) => agent.relatedAgents.includes(a.id));
+
+  return (
+    <div className="pt-20">
+      {/* ━━ 1. Hero ━━ */}
+      <section className="py-20 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5" style={{ background: `radial-gradient(ellipse at center, ${agent.color} 0%, transparent 70%)` }} />
+        <div className="max-w-4xl mx-auto px-6 text-center relative">
+          <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }} className="inline-flex w-16 h-16 rounded-2xl items-center justify-center text-white mb-6" style={{ backgroundColor: agent.color }}>
+            <PieChart size={32} />
+          </motion.div>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}>
+            <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: agent.color }}>{agent.category}</span>
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mt-2">{agent.name}</h1>
+            <p className="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">{agent.heroH1}</p>
+            <p className="text-sm text-gray-500 mt-3 max-w-xl mx-auto">{agent.heroSub}</p>
+          </motion.div>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.25 }} className="mt-8">
+            <Link href="#contact" className="inline-flex items-center px-6 py-3 text-sm font-semibold text-white rounded-lg hover:opacity-90 transition-colors" style={{ backgroundColor: agent.color }}>도입 문의</Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ━━ 2. Last-click vs MMM 비교 ━━ */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-5xl mx-auto px-6">
+          <FadeInOnScroll>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">Last-click은 성과를 끝단에만 돌립니다</h2>
+            <p className="text-sm text-gray-500 text-center mb-10">MMM은 전체 퍼널을 모델링해 실제 기여도를 되찾습니다</p>
+          </FadeInOnScroll>
+
+          <FadeInOnScroll>
+            <div className="hidden md:block max-w-4xl mx-auto">
+              <table className="w-full border-collapse table-fixed">
+                <thead>
+                  <tr>
+                    <th className="w-[18%] text-left text-xs font-semibold text-gray-400 uppercase tracking-wide p-3" />
+                    <th className="text-center text-sm font-bold text-white p-4 rounded-lg bg-gray-500">기존 어트리뷰션</th>
+                    <th className="text-center text-sm font-bold text-white p-4 rounded-lg" style={{ backgroundColor: agent.color }}>최신 MMM (Meridian · Robyn)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {comparisonRows.map((row, ri) => (
+                    <tr key={ri} className={ri % 2 === 0 ? "bg-white" : "bg-gray-50/50"}>
+                      <td className="text-sm font-bold text-gray-900 p-3 whitespace-nowrap">{row.label}</td>
+                      <td className="text-sm text-gray-600 text-center p-3">{row.traditional}</td>
+                      <td className="text-sm text-center p-3 font-medium" style={{ color: agent.color }}>{row.mmm}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="md:hidden space-y-4 max-w-sm mx-auto">
+              {comparisonRows.map((row, ri) => (
+                <div key={ri} className="rounded-xl bg-white border border-gray-100 p-4">
+                  <p className="text-xs font-bold text-gray-400 uppercase tracking-wide mb-3">{row.label}</p>
+                  <div className="space-y-2">
+                    <div className="flex items-start gap-2">
+                      <span className="text-xs font-bold text-gray-400 w-16 flex-shrink-0">기존</span>
+                      <span className="text-sm text-gray-600">{row.traditional}</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-xs font-bold flex-shrink-0 w-16" style={{ color: agent.color }}>MMM</span>
+                      <span className="text-sm font-medium" style={{ color: agent.color }}>{row.mmm}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </FadeInOnScroll>
+        </div>
+      </section>
+
+      {/* ━━ 3. Impact Metrics ━━ */}
+      <section className="py-16">
+        <div className="max-w-5xl mx-auto px-6">
+          <FadeInOnScroll>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">예산 재배분의 효과</h2>
+            <p className="text-sm text-gray-500 text-center mb-10">정확한 기여도가 측정되면, 같은 예산으로 더 많은 매출을 만듭니다</p>
+          </FadeInOnScroll>
+          <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }} className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            {impactMetrics.map((m, i) => (
+              <motion.div key={i} variants={item}>
+                <div className="text-center p-6 rounded-xl bg-gray-50 border border-gray-100">
+                  <p className="text-2xl md:text-3xl font-bold" style={{ color: agent.color }}>{m.value}</p>
+                  <p className="text-xs font-semibold text-gray-900 mt-2">{m.label}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+          <p className="text-[11px] text-gray-400 text-center mt-4">* 마켓핏랩 그로스 프로젝트 평균 기준. 고객사 환경에 따라 차이 있음.</p>
+        </div>
+      </section>
+
+      {/* ━━ 4. Core Capabilities ━━ */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-5xl mx-auto px-6">
+          <FadeInOnScroll>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">MMM Agent의 핵심 기능</h2>
+            <p className="text-sm text-gray-500 text-center mb-10">최신 MMM 모델(Meridian·Robyn) 기반 모델링부터 예산 시뮬레이션까지</p>
+          </FadeInOnScroll>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {capabilities.map((cap, i) => (
+              <FadeInOnScroll key={i} delay={i * 0.06}>
+                <div className="flex items-start gap-3 p-5 rounded-xl bg-white border border-gray-100">
+                  <div className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${agent.color}15`, color: agent.color }}>{cap.icon}</div>
+                  <div>
+                    <h3 className="text-sm font-bold text-gray-900">{cap.title}</h3>
+                    <p className="text-sm text-gray-600 mt-0.5">{cap.desc}</p>
+                  </div>
+                </div>
+              </FadeInOnScroll>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ━━ 5. 작동 순서 ━━ */}
+      <section className="py-16">
+        <div className="max-w-5xl mx-auto px-6">
+          <FadeInOnScroll>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">이렇게 작동합니다</h2>
+            <p className="text-sm text-gray-500 text-center mb-10">데이터 수집부터 예산 재배분까지 4단계</p>
+          </FadeInOnScroll>
+
+          <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }} className="flex flex-col md:flex-row items-stretch gap-3">
+            {mmmSteps.map((step, i) => (
+              <motion.div key={i} variants={item} className="flex items-center gap-3 flex-1">
+                <div className="flex-1 text-center p-5 rounded-xl bg-gray-50 border border-gray-100 h-full flex flex-col items-center">
+                  <div className="w-11 h-11 rounded-lg flex items-center justify-center mb-3" style={{ backgroundColor: `${agent.color}15`, color: agent.color }}>{step.icon}</div>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">{step.label}</p>
+                  <h3 className="text-sm font-bold text-gray-900">{step.title}</h3>
+                  <p className="text-sm text-gray-600 mt-1">{step.desc}</p>
+                </div>
+                {i < mmmSteps.length - 1 && <ArrowRight size={16} className="text-gray-300 flex-shrink-0 hidden md:block" />}
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ━━ Trust ━━ */}
+      <section className="py-16 bg-gray-50 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ background: `radial-gradient(ellipse at center, ${agent.color} 0%, transparent 60%)` }} />
+        <div className="max-w-5xl mx-auto px-6 relative">
+          <FadeInOnScroll>
+            <p className="text-xs font-semibold tracking-widest uppercase mb-3 text-center" style={{ color: agent.color }}>Why MFL ARMY</p>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">
+              Last-click의 한계를 넘어,
+              <br className="hidden md:block" />
+              <span style={{ color: agent.color }}>전체 퍼널의 기여도</span>를 되찾습니다
+            </h2>
+            <p className="text-sm text-gray-500 text-center mb-10">마켓핏랩의 채널 분석 노하우와 최신 오픈소스 MMM을 결합했습니다</p>
+          </FadeInOnScroll>
+
+          <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }} className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+            <motion.div variants={item}>
+              <div className="h-full p-6 rounded-xl bg-white border border-gray-100 text-center">
+                <p className="text-xl md:text-2xl font-bold" style={{ color: agent.color }}>250+</p>
+                <p className="text-sm font-semibold text-gray-900 mt-2">그로스 프로젝트 경험</p>
+                <p className="text-xs text-gray-500 mt-1 leading-relaxed">마켓핏랩이 7년간 쌓은 채널 분석·ROAS 개선 노하우</p>
+              </div>
+            </motion.div>
+            <motion.div variants={item}>
+              <div className="h-full p-6 rounded-xl bg-white border border-gray-100 text-center">
+                <p className="text-xl md:text-2xl font-bold" style={{ color: agent.color }}>Meridian · Robyn</p>
+                <p className="text-sm font-semibold text-gray-900 mt-2">최신 오픈소스 MMM 병용</p>
+                <p className="text-xs text-gray-500 mt-1 leading-relaxed">Google·Meta의 베이지안 기반 MMM으로 과학적 기여도 추정</p>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ━━ Related Agents ━━ */}
+      {relatedAgents.length > 0 && (
+        <section className="py-16">
+          <div className="max-w-5xl mx-auto px-6">
+            <FadeInOnScroll>
+              <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">함께 사용하면 효과적입니다</h2>
+              <p className="text-sm text-gray-500 text-center mb-10">ARMY의 다른 에이전트와 조합하면 퍼널 전체를 커버합니다</p>
+            </FadeInOnScroll>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {relatedAgents.map((rel) => (
+                <FadeInOnScroll key={rel.id}>
+                  <Link href={`/army/${rel.id}`} className="flex items-center gap-4 p-5 bg-white rounded-xl border border-gray-100 hover:shadow-md transition-shadow">
+                    <div className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${rel.color}15`, color: rel.color }}>{smallIconMap[rel.lucideIcon]}</div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-sm font-semibold text-gray-900">{rel.name}</h3>
+                      <p className="text-xs text-gray-500 line-clamp-1">{rel.tagline}</p>
+                    </div>
+                    <ArrowRight size={16} className="text-gray-400" />
+                  </Link>
+                </FadeInOnScroll>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ━━ CTA ━━ */}
+      <section className="py-20">
+        <div className="max-w-2xl mx-auto px-6 text-center">
+          <FadeInOnScroll>
+            <h2 className="text-2xl font-bold text-gray-900">MMM Agent를 도입해보세요</h2>
+            <p className="text-sm text-gray-500 mt-3">최신 MMM 모델 기반의 과학적 예산 최적화, 함께 설계합니다.</p>
+            <div className="mt-8">
+              <Link href="#contact" className="inline-flex items-center px-6 py-3 text-sm font-semibold text-white rounded-lg hover:opacity-90 transition-colors" style={{ backgroundColor: agent.color }}>도입 문의</Link>
+            </div>
+          </FadeInOnScroll>
+        </div>
+      </section>
+    </div>
+  );
+}

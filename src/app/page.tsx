@@ -10,6 +10,7 @@ import {
   FlaskConical,
   Magnet,
   Phone,
+  PieChart,
   ArrowRight,
   ArrowUpRight,
   Check,
@@ -29,6 +30,7 @@ import {
   CroGraphic,
   LeadMagnetGraphic,
   VoiceGraphic,
+  MmmGraphic,
 } from "@/components/home/AgentCardGraphics";
 import AgentDemo from "@/components/home/AgentDemo";
 import DashboardGraphic from "@/components/home/DashboardGraphic";
@@ -40,6 +42,7 @@ const iconMap: Record<string, React.ReactNode> = {
   FlaskConical: <FlaskConical size={20} />,
   Magnet: <Magnet size={20} />,
   Phone: <Phone size={20} />,
+  PieChart: <PieChart size={20} />,
 };
 const graphicMap: Record<string, React.ReactNode> = {
   "geo-agent": <GeoGraphic />,
@@ -47,6 +50,7 @@ const graphicMap: Record<string, React.ReactNode> = {
   "cro-agent": <CroGraphic />,
   "lead-magnet-agent": <LeadMagnetGraphic />,
   "voice-agent": <VoiceGraphic />,
+  "mmm-agent": <MmmGraphic />,
 };
 const gradientMap: Record<string, string> = {
   "geo-agent": "from-cyan-50 via-cyan-50/40 to-white",
@@ -54,6 +58,7 @@ const gradientMap: Record<string, string> = {
   "cro-agent": "from-purple-50 via-purple-50/40 to-white",
   "lead-magnet-agent": "from-amber-50 via-amber-50/40 to-white",
   "voice-agent": "from-indigo-50 via-indigo-50/40 to-white",
+  "mmm-agent": "from-emerald-50 via-emerald-50/40 to-white",
 };
 const solutionIcons = [<Zap key="z" size={24} />, <Target key="t" size={24} />, <Database key="d" size={24} />];
 const adoptionIcons = [<Search key="s" size={20} />, <PenTool key="p" size={20} />, <Rocket key="r" size={20} />, <BarChart3 key="b" size={20} />];

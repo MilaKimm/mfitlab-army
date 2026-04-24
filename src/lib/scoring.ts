@@ -9,10 +9,10 @@ export interface Recommendation {
   matchLabel: "Strong Match" | "Good Match" | "Potential Fit";
 }
 
-const ALL_KEYS: SolutionKey[] = ["geo", "lmf", "cro", "lead-magnet", "voice"];
+const ALL_KEYS: SolutionKey[] = ["geo", "lmf", "cro", "lead-magnet", "voice", "mmm"];
 
 export function calculateRawScores(answers: Choice[]): Record<SolutionKey, number> {
-  const raw: Record<SolutionKey, number> = { geo: 0, lmf: 0, cro: 0, "lead-magnet": 0, voice: 0 };
+  const raw: Record<SolutionKey, number> = { geo: 0, lmf: 0, cro: 0, "lead-magnet": 0, voice: 0, mmm: 0 };
   for (const answer of answers) {
     for (const sw of answer.scores) {
       raw[sw.solution] += sw.points;

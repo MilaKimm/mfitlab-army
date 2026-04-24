@@ -226,6 +226,46 @@ export const agents: Agent[] = [
     relatedAgents: ["lmf-agent", "cro-agent"],
     demoUrl: "https://demo.bringtalk.ai/",
   },
+  {
+    id: "mmm-agent",
+    name: "MMM Agent",
+    category: "마케팅 예산 최적화",
+    funnelPhase: "Optimization",
+    tagline: "채널별 기여도를 정밀 분석, 예산 배분 최적화",
+    description: "최신 오픈소스 MMM 기반 채널 기여도 분석 + 예산 배분 시뮬레이션",
+    expertise: "최신 MMM 모델 기반",
+    impactMetric: "Global ROAS",
+    impactValue: "극대화",
+    color: "#10B981",
+    lucideIcon: "PieChart",
+    features: [
+      "Meridian · Robyn 병용",
+      "예산 시뮬레이션",
+      "크로스 채널 분석",
+      "실시간 대시보드",
+    ],
+    heroLabel: "ARMY의 MMM Agent — Optimization",
+    heroH1: "예산, 감이 아니라 데이터로 배분합니다",
+    heroSub: "Meta, Google, TikTok 등 채널별 기여도를 Google Meridian·Meta Robyn 등 최신 오픈소스 MMM으로 과학적으로 분석하고, 최적 예산 배분 시나리오를 시뮬레이션합니다.",
+    trustCopy: "Last-click 어트리뷰션의 한계를 넘어, 상위 퍼널 채널의 기여도까지 정밀 분석합니다. 마켓핏랩이 250개 이상 프로젝트에서 쌓은 채널 분석 노하우와 Google Meridian·Meta Robyn 등 최신 오픈소스 MMM 기술을 결합했습니다.",
+    problems: [
+      { title: "채널별 기여도 불투명", body: "Meta, Google, TikTok 등 다채널 운영 중이지만 어떤 채널이 실제로 매출에 기여하는지 모릅니다." },
+      { title: "감 기반 예산 배분", body: "마케팅 예산을 경험과 직감으로 배분하고, 과학적 근거 없는 의사결정이 반복됩니다." },
+      { title: "크로스 채널 분석 한계", body: "Last-click 어트리뷰션에 의존하여 상위 퍼널 채널의 기여도가 과소 평가됩니다." },
+    ],
+    steps: [
+      { title: "데이터 수집", description: "채널별 마케팅 지출 및 성과 데이터를 통합합니다." },
+      { title: "모델링", description: "Meridian·Robyn 등 최신 MMM으로 Marketing Mix Modeling을 실행합니다." },
+      { title: "기여도 분석", description: "채널별 실제 매출 기여도(Attribution)를 정밀 분석합니다." },
+      { title: "예산 최적화", description: "최적 매체 조합과 예산 배분 시나리오를 시뮬레이션합니다." },
+    ],
+    results: [
+      { metric: "예산 배분", before: "감 기반", after: "데이터 기반" },
+      { metric: "채널 기여도", before: "Last-click", after: "전체 퍼널 분석" },
+      { metric: "Global ROAS", before: "채널별 분산", after: "통합 최적화" },
+    ],
+    relatedAgents: ["lmf-agent", "voice-agent"],
+  },
 ];
 
 export const armyOverview = {

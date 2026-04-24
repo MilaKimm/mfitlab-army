@@ -6,6 +6,7 @@ import LMFDetailPage from "@/components/agents/LMFDetailPage";
 import VoiceAgentDetailPage from "@/components/agents/VoiceAgentDetailPage";
 import GEODetailPage from "@/components/agents/GEODetailPage";
 import LeadMagnetDetailPage from "@/components/agents/LeadMagnetDetailPage";
+import MMMDetailPage from "@/components/agents/MMMDetailPage";
 
 interface Props {
   params: Promise<{ agent: string }>;
@@ -45,6 +46,8 @@ export default async function Page({ params }: Props) {
       return <GEODetailPage agent={agent} />;
     case "lead-magnet-agent":
       return <LeadMagnetDetailPage agent={agent} />;
+    case "mmm-agent":
+      return <MMMDetailPage agent={agent} />;
     default:
       notFound();
   }
