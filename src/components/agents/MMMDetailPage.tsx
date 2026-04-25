@@ -381,7 +381,7 @@ export default function MMMDetailPage({ agent: rawAgent, locale = "ko" }: Props)
                   { name: "Google Meridian", logo: "/images/logos/meridian.png" },
                   { name: "Meta Robyn", logo: "/images/logos/meta-robyn.png" },
                   { name: "Google Analytics", logo: "/images/logos/google-analytics.png" },
-                  { name: "Mixpanel", logo: "/images/logos/mixpanel.png" },
+                  { name: "AppsFlyer", logo: "/images/logos/appsflyer.png" },
                 ].map((platform, i) => (
                   <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.8 + i * 0.1 }} className="flex items-center justify-center p-5 rounded-xl bg-white border border-gray-100 shadow-sm h-24">
                     <Image src={platform.logo} alt={platform.name} width={140} height={56} className="object-contain max-h-14" />

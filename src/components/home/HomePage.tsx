@@ -328,7 +328,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
                 { name: "Google Meridian", logo: "/images/logos/meridian.png" },
                 { name: "Meta Robyn", logo: "/images/logos/meta-robyn.png" },
                 { name: "Google Analytics", logo: "/images/logos/google-analytics.png" },
-                { name: "Mixpanel", logo: "/images/logos/mixpanel.png" },
+                { name: "AppsFlyer", logo: "/images/logos/appsflyer.png" },
               ].map((platform, i) => (
                 <motion.div key={platform.name} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.3, delay: Math.min(0.2 + i * 0.03, 0.8) }} className="aspect-[3/2] w-full flex items-center justify-center p-4">
                   <Image src={platform.logo} alt={platform.name} width={180} height={90} className="object-contain max-h-full max-w-full opacity-80 hover:opacity-100 transition-opacity" />
