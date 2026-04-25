@@ -354,11 +354,8 @@ export default function LeadMagnetDetailPage({ agent: rawAgent, locale = "ko" }:
                   { name: "Shopify", logo: "/images/logos/shopify.png" },
                   { name: "Cafe24", logo: "/images/logos/cafe24.png" },
                 ].map((platform, i) => (
-                  <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.1 }} className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white border border-gray-100 shadow-sm">
-                    <div className="h-20 flex items-center justify-center">
-                      <Image src={platform.logo} alt={platform.name} width={160} height={80} className="object-contain max-h-20" />
-                    </div>
-                    <span className="text-xs font-medium text-gray-500">{platform.name}</span>
+                  <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.8 + i * 0.1 }} className="flex items-center justify-center p-5 rounded-xl bg-white border border-gray-100 shadow-sm h-24">
+                    <Image src={platform.logo} alt={platform.name} width={140} height={56} className="object-contain max-h-14" />
                   </motion.div>
                 ))}
               </div>
