@@ -410,8 +410,8 @@ export const agents: Agent[] = [
     tagline: "리드 들어오면 2분 내 AI가 전화합니다",
     description: "리드 유입 2분 내 즉시 콜, 24/7 AI 콜센터",
     expertise: "HMCA 등 실전 운영",
-    impactMetric: "연결률",
-    impactValue: "6.9배",
+    impactMetric: "Sales 전환율",
+    impactValue: "14배",
     color: "#4361EE",
     lucideIcon: "Phone",
     features: [
@@ -437,20 +437,20 @@ export const agents: Agent[] = [
       { title: "관리 콘솔", description: "전체 통화 현황을 실시간 모니터링합니다." },
     ],
     results: [
-      { metric: "전화 연결률", before: "8%", after: "54.8% (6.9배)" },
-      { metric: "리드-세일즈 전환율", before: "기존 대비", after: "3.6배" },
+      { metric: "Sales 전환율", before: "0.7%", after: "10.1% (14배)" },
+      { metric: "주말·야간 신규 Sales", before: "0건", after: "+56건" },
     ],
     caseStudy: {
-      clientLabel: "글로벌 완성차 OEM 호주법인",
+      clientLabel: "글로벌 자동차 OEM H사",
       industry: "자동차 / 모빌리티",
       challenge:
-        "리드가 들어와도 전화 연결률이 8%에 그쳤고, 첫 응답까지 수 시간이 걸려 리드 대부분이 이탈했습니다.",
+        "리드가 들어와도 영업시간 외(주말·야간)에는 응대가 비어 신규 매출이 발생하지 않았고, 리드→세일즈 전환율이 0.7%에 머물렀습니다.",
       approach:
-        "Voice Agent가 리드 유입 2분 내 자동 콜 → 리드 검증(LQA) → 위치 기반 딜러 배정 → CRM 동기화까지 24/7 자동 운영했습니다.",
-      outcome: "연결률 6.9배 · 전환율 3.6배 향상",
+        "Voice Agent가 리드 퀄리피케이션을 자동 수행 — 유입 즉시 콜, 구매 의향 검증(LQA), 적합 리드 선별·인계를 24/7로 운영했습니다. ('24.12~'26.03 · 리드 약 4,000건 기준)",
+      outcome: "Sales 전환율 14배 · 무인 시간대 신규 매출 창출",
       metrics: [
-        { label: "전화 연결률", before: "8%", after: "54.8%", badge: "6.9배" },
-        { label: "Lead → Sales 전환율", before: "~1%", after: "3.56%", badge: "3.6배" },
+        { label: "Sales 전환율", before: "0.7%", after: "10.1%", badge: "14배" },
+        { label: "주말·야간 신규 Sales", before: "0건", after: "+56건", badge: "무인 시간대" },
       ],
     },
     relatedAgents: ["lmf-agent", "cro-agent"],
@@ -462,8 +462,8 @@ export const agents: Agent[] = [
       tagline: "New lead? AI follows up in under 2 minutes.",
       description: "Instant follow-up call within 2 minutes of a new lead. 24/7 AI call center.",
       expertise: "Production-grade (HMCA and others)",
-      impactMetric: "Pickup rate",
-      impactValue: "6.9×",
+      impactMetric: "Sales conversion",
+      impactValue: "14×",
       features: [
         "Under-2-min outbound",
         "LQA + FUA automation",
@@ -489,20 +489,20 @@ export const agents: Agent[] = [
         { title: "Admin console", description: "Monitor every call in real time." },
       ],
       results: [
-        { metric: "Pickup rate", before: "8%", after: "54.8% (6.9×)" },
-        { metric: "Lead-to-sales", before: "Baseline", after: "3.6×" },
+        { metric: "Sales conversion", before: "0.7%", after: "10.1% (14×)" },
+        { metric: "Weekend/after-hours new sales", before: "0", after: "+56" },
       ],
       caseStudy: {
-        clientLabel: "Global auto OEM, Australia",
+        clientLabel: "Global auto OEM (Company H)",
         industry: "Automotive / Mobility",
         challenge:
-          "Even when leads came in, the call-connect rate was just 8%, and first response took hours — so most leads dropped off.",
+          "Even with incoming leads, no one answered outside business hours (weekends/nights), so no new revenue was generated — and lead-to-sales conversion sat at 0.7%.",
         approach:
-          "Voice Agent ran 24/7: outbound within 2 minutes of a lead, LQA qualification, location-based dealer routing, and CRM sync.",
-        outcome: "6.9× pickup rate · 3.6× conversion",
+          "Voice Agent ran lead qualification autonomously — instant outbound on arrival, intent verification (LQA), and routing of qualified leads, 24/7. (Dec '24 – Mar '26, ~4,000 leads)",
+        outcome: "14× sales conversion · revenue created in unattended hours",
         metrics: [
-          { label: "Call-connect rate", before: "8%", after: "54.8%", badge: "6.9×" },
-          { label: "Lead → Sales conversion", before: "~1%", after: "3.56%", badge: "3.6×" },
+          { label: "Sales conversion", before: "0.7%", after: "10.1%", badge: "14×" },
+          { label: "Weekend/after-hours new sales", before: "0", after: "+56", badge: "unattended" },
         ],
       },
     },
