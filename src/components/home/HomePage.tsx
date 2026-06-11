@@ -33,6 +33,7 @@ import {
   MmmGraphic,
 } from "@/components/home/AgentCardGraphics";
 import AgentDemo from "@/components/home/AgentDemo";
+import HeroAgentDemo from "@/components/home/HeroAgentDemo";
 import DashboardGraphic from "@/components/home/DashboardGraphic";
 import {
   agents,
@@ -106,49 +107,53 @@ export default function HomePage({ locale }: { locale: Locale }) {
           <div className="absolute right-[10%] top-[20%] w-[15vw] h-[25vh] rounded-full bg-[#BFE9EF] opacity-15 blur-[100px]" />
         </div>
 
-        <div className="relative z-10 text-center px-6">
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-7xl md:text-9xl font-bold tracking-tight mb-8 leading-[0.9]"
-            style={{ fontFamily: "var(--font-clash)" }}
-          >
-            <span className="block text-[#15867E]">MFL</span>
-            <span className="block text-[#1B1B1B]">ARMY</span>
-          </motion.h1>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="mb-14"
-          >
-            <p className="text-lg md:text-2xl font-bold text-[#36B1A7]">
-              {dict.hero.tagline1}
-            </p>
-            <p className="text-lg md:text-2xl font-bold text-[#1B1B1B]/60">
-              {dict.hero.tagline2}
-            </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="flex flex-col sm:flex-row gap-3 justify-center"
-          >
-            <Link
-              href="#contact"
-              className="h-12 px-8 flex items-center justify-center rounded-full bg-[#36B1A7] text-white font-semibold hover:bg-[#15867E] transition-all duration-300 shadow-lg shadow-[#36B1A7]/20"
+        <div className="relative z-10 w-full max-w-5xl mx-auto px-6 grid md:grid-cols-[1.02fr_0.98fr] gap-10 md:gap-8 items-center">
+          <div className="text-center md:text-left">
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="text-7xl md:text-8xl font-bold tracking-tight mb-7 leading-[0.9]"
+              style={{ fontFamily: "var(--font-clash)" }}
             >
-              {dict.hero.primaryCta}
-            </Link>
-            <Link
-              href={diagnosticHref}
-              className="h-12 px-8 flex items-center justify-center rounded-full bg-white/70 backdrop-blur-sm border border-white/50 text-[#1B1B1B] font-semibold hover:bg-white hover:border-[#36B1A7] hover:text-[#36B1A7] transition-all duration-300"
+              <span className="block text-[#15867E]">MFL</span>
+              <span className="block text-[#1B1B1B]">ARMY</span>
+            </motion.h1>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="mb-9"
             >
-              {dict.hero.secondaryCta}
-            </Link>
-          </motion.div>
+              <p className="text-lg md:text-2xl font-bold text-[#36B1A7]">
+                {dict.hero.tagline1}
+              </p>
+              <p className="text-lg md:text-2xl font-bold text-[#1B1B1B]/60">
+                {dict.hero.tagline2}
+              </p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start"
+            >
+              <Link
+                href="#contact"
+                className="h-12 px-8 flex items-center justify-center rounded-full bg-[#36B1A7] text-white font-semibold hover:bg-[#15867E] transition-all duration-300 shadow-lg shadow-[#36B1A7]/20"
+              >
+                {dict.hero.primaryCta}
+              </Link>
+              <Link
+                href={diagnosticHref}
+                className="h-12 px-8 flex items-center justify-center rounded-full bg-white/70 backdrop-blur-sm border border-white/50 text-[#1B1B1B] font-semibold hover:bg-white hover:border-[#36B1A7] hover:text-[#36B1A7] transition-all duration-300"
+              >
+                {dict.hero.secondaryCta}
+              </Link>
+            </motion.div>
+          </div>
+
+          <HeroAgentDemo />
         </div>
       </section>
 
@@ -230,10 +235,10 @@ export default function HomePage({ locale }: { locale: Locale }) {
               <p className="text-[#626166] mb-12 max-w-2xl">{dict.caseStudies.subtitle}</p>
             </FadeInOnScroll>
 
-            <div className="space-y-8">
+            <div className="space-y-20 md:space-y-28">
               {caseAgents.map((agent, i) => (
                 <FadeInOnScroll key={agent.id} delay={i * 0.05}>
-                  <HomeCaseCard agent={agent} dict={dict} locale={locale} />
+                  <HomeCaseRow agent={agent} dict={dict} locale={locale} />
                 </FadeInOnScroll>
               ))}
             </div>
@@ -490,95 +495,123 @@ function SolutionCardInner({ sol, detailLabel }: { sol: AxSolution; detailLabel:
 }
 
 /* ─── Home Case Study Card ─── */
-function HomeCaseCard({ agent, dict, locale }: { agent: Agent; dict: Dict; locale: Locale }) {
+function HomeCaseRow({ agent, dict, locale, flip }: { agent: Agent; dict: Dict; locale: Locale; flip?: boolean }) {
   const cs = agent.caseStudy;
   if (!cs) return null;
+  const en = locale === "en";
   const detailHref = localePrefix(`/army/${agent.id}`, locale);
-  return (
-    <div className="rounded-3xl border border-[#E9E9E9] bg-white p-7 md:p-9 shadow-[0_8px_30px_-14px_rgba(27,27,27,0.15)] hover:shadow-[0_20px_50px_-20px_rgba(54,177,167,0.35)] hover:border-[#36B1A7]/40 transition-all duration-300">
-      <div className="grid md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] gap-7 md:gap-10 items-center">
-        {/* Left — narrative */}
-        <div>
-          <div className="flex items-center gap-2.5 mb-5">
-            <span className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: agent.color + "15", color: agent.color }}>
-              {iconMap[agent.lucideIcon]}
-            </span>
-            <div className="min-w-0">
-              <p className="text-sm font-semibold text-[#1B1B1B] leading-tight">{agent.name}</p>
-              <p className="text-xs text-[#9B9B9B] leading-tight mt-0.5">{cs.clientLabel} · {cs.industry}</p>
-            </div>
-          </div>
-          {cs.headline && (
-            <h3 className="text-xl md:text-2xl font-semibold text-[#1B1B1B] mb-5 leading-snug">{cs.headline}</h3>
-          )}
-          <div className="space-y-3 mb-6">
-            <CaseLine label={dict.caseStudies.challengeLabel} text={cs.challenge} color="#9B9B9B" />
-            <CaseLine label={dict.caseStudies.approachLabel} text={cs.approach} color={agent.color} />
-          </div>
-          <div className="flex items-center gap-4 flex-wrap">
-            <span className="inline-flex items-center px-3.5 py-1.5 rounded-full text-sm font-semibold" style={{ backgroundColor: agent.color + "15", color: agent.color }}>
-              {cs.outcome}
-            </span>
-            <Link href={detailHref} className="inline-flex items-center gap-1 text-sm font-semibold text-[#36B1A7] hover:gap-2 transition-all">
-              {dict.caseStudies.detailCta}
-              <ArrowRight size={14} />
-            </Link>
-          </div>
-        </div>
+  const problemLabel = en ? "Problem" : "문제";
+  const solutionLabel = en ? "Solution" : "솔루션";
+  const metricsLabel = en ? "Key metrics" : "주요 지표";
 
-        {/* Right — visual: gallery (LMF) or metrics (Voice) */}
-        <div>
-          {cs.gallery ? (
-            <div>
-              <p className="text-xs font-semibold text-[#9B9B9B] mb-3">{dict.caseStudies.galleryLabel}</p>
-              <div className="grid grid-cols-2 gap-3">
-                {cs.gallery.map((g, i) => (
-                  <div key={i} className="group/g rounded-xl overflow-hidden border border-[#EDEDED] bg-[#FAFAFA]">
-                    <div className="relative aspect-square overflow-hidden">
-                      <Image src={g.image} alt={g.angle} fill sizes="(max-width: 768px) 45vw, 240px" className="object-cover transition-transform duration-500 group-hover/g:scale-105" />
-                    </div>
-                    <div className="px-2.5 py-2">
-                      <p className="text-[11px] font-semibold leading-tight" style={{ color: agent.color }}>{g.target}</p>
-                      <p className="text-[11px] text-[#626166] leading-tight mt-0.5 line-clamp-1">{g.angle}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ) : cs.metrics ? (
-            <div className="space-y-3">
-              {cs.metrics.map((m, i) => (
-                <div key={i} className="rounded-xl border border-[#EDEDED] bg-[#FAFAFA] p-4">
-                  <div className="flex items-center justify-between mb-2.5">
-                    <p className="text-sm font-semibold text-[#1B1B1B]">{m.label}</p>
-                    {m.badge && (
-                      <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: agent.color + "15", color: agent.color }}>{m.badge}</span>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-2.5">
-                    <span className="text-sm text-[#9B9B9B] line-through decoration-[#D0D0D0]">{m.before}</span>
-                    <ArrowRight size={14} className="text-[#C0C0C0]" />
-                    <span className="text-lg font-bold" style={{ color: agent.color }}>{m.after}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : null}
-        </div>
+  const text = (
+    <div className={flip ? "md:order-2" : ""}>
+      {/* client label */}
+      <div className="flex items-center gap-2 mb-3">
+        <span className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: agent.color + "15", color: agent.color }}>
+          {iconMap[agent.lucideIcon]}
+        </span>
+        <p className="text-xs font-semibold tracking-wide" style={{ color: agent.color }}>{cs.clientLabel} · {cs.industry}</p>
       </div>
 
-      {cs.assetNote && (
-        <p className="text-xs text-[#9B9B9B] mt-7 pt-5 border-t border-[#F0F0F0]">{cs.assetNote}</p>
+      {/* agent name — biggest */}
+      <h3 className="text-[32px] md:text-[44px] font-bold text-[#1B1B1B] leading-[1.05] mb-6">{agent.name}</h3>
+
+      {/* problems — concise phrases */}
+      {cs.problems && (
+        <div className="mb-5">
+          <p className="text-[11px] font-bold uppercase tracking-widest text-[#9B9B9B] mb-2">{problemLabel}</p>
+          <div className="flex flex-wrap gap-2">
+            {cs.problems.map((p, i) => (
+              <span key={i} className="text-[13px] text-[#626166] px-2.5 py-1 rounded-md bg-[#F4F4F4]">{p}</span>
+            ))}
+          </div>
+        </div>
       )}
+
+      {/* solution — steps (LMF) or points (Voice) */}
+      {(cs.solutionSteps || cs.solutionPoints) && (
+        <div className="mb-6">
+          <p className="text-[11px] font-bold uppercase tracking-widest text-[#9B9B9B] mb-2">{solutionLabel}</p>
+          {cs.solutionSteps ? (
+            <div className="flex flex-wrap items-center gap-x-1.5 gap-y-2">
+              {cs.solutionSteps.map((s, i) => (
+                <span key={i} className="inline-flex items-center gap-1.5">
+                  <span className="text-[13px] font-medium text-[#15867E] px-2.5 py-1 rounded-md bg-[#F2FDFB] border border-[#36B1A7]/20">{s}</span>
+                  {i < cs.solutionSteps!.length - 1 && <ArrowRight size={12} className="text-[#36B1A7]/50" />}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <ul className="grid sm:grid-cols-2 gap-x-5 gap-y-2">
+              {cs.solutionPoints!.map((p, i) => (
+                <li key={i} className="flex items-center gap-2 text-[14px] text-[#3F3F46]">
+                  <Check size={15} className="flex-shrink-0" style={{ color: agent.color }} /> {p}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
+
+      {/* big metrics */}
+      {cs.bigMetrics && (
+        <div className="mb-7">
+          <p className="text-[11px] font-bold uppercase tracking-widest text-[#9B9B9B] mb-3">{metricsLabel}</p>
+          <div className="flex flex-wrap gap-x-10 gap-y-5">
+            {cs.bigMetrics.map((m, i) => (
+              <div key={i}>
+                <p className="text-[32px] md:text-[40px] font-bold leading-none" style={{ color: agent.color }}>{m.value}</p>
+                <p className="text-[13px] text-[#626166] mt-2">{m.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <Link href={detailHref} className="inline-flex items-center gap-1 text-sm font-semibold text-[#36B1A7] hover:gap-2 transition-all">
+        {dict.caseStudies.detailCta}
+        <ArrowRight size={14} />
+      </Link>
     </div>
   );
-}
 
-function CaseLine({ label, text, color }: { label: string; text: string; color: string }) {
+  const visual = (
+    <div className={flip ? "md:order-1" : ""}>
+      {cs.heroImage ? (
+        <div>
+          {cs.heroImageCaption && (
+            <p className="text-xs font-semibold text-[#9B9B9B] mb-3">{cs.heroImageCaption}</p>
+          )}
+          <div className="relative w-full max-w-[400px] aspect-[940/1104] rounded-2xl overflow-hidden shadow-[0_24px_60px_-24px_rgba(27,27,27,0.3)]">
+            <Image src={cs.heroImage} alt={`${agent.name} ${cs.clientLabel}`} fill sizes="(max-width: 768px) 90vw, 400px" className="object-cover" />
+          </div>
+        </div>
+      ) : cs.gallery ? (
+        <div>
+          <p className="text-xs font-semibold text-[#9B9B9B] mb-3">{dict.caseStudies.galleryLabel}</p>
+          <div className="grid grid-cols-2 gap-3">
+            {cs.gallery.map((g, i) => (
+              <div key={i} className="group/g rounded-xl overflow-hidden bg-[#FAFAFA] shadow-[0_8px_24px_-14px_rgba(27,27,27,0.25)]">
+                <div className="relative aspect-square overflow-hidden">
+                  <Image src={g.image} alt={g.angle} fill sizes="(max-width: 768px) 45vw, 240px" className="object-cover transition-transform duration-500 group-hover/g:scale-105" />
+                </div>
+                <div className="px-2.5 py-2">
+                  <p className="text-[11px] font-semibold leading-tight" style={{ color: agent.color }}>{g.target}</p>
+                  <p className="text-[11px] text-[#626166] leading-tight mt-0.5 line-clamp-1">{g.angle}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+
   return (
-    <div className="flex gap-2.5">
-      <span className="flex-shrink-0 text-[11px] font-bold mt-0.5 px-1.5 py-0.5 rounded" style={{ color, backgroundColor: color + "14" }}>{label}</span>
-      <p className="text-[14px] text-[#626166] leading-relaxed">{text}</p>
+    <div className="grid md:grid-cols-2 gap-10 md:gap-14 items-start">
+      {text}
+      {visual}
     </div>
   );
 }
