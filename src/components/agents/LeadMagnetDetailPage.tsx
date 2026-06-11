@@ -161,7 +161,6 @@ export default function LeadMagnetDetailPage({ agent: rawAgent, locale = "ko" }:
     ctaSub: en ? "Ship viral tools that turn traffic into leads — in a single chat" : "트래픽을 리드로 전환하는 바이럴 도구, 대화 한 번으로 완성합니다.",
   };
 
-  const showcaseImagesLocal = t.showcaseImages;
   const typeCardsLocal = t.typeCards.map((c, i) => ({ ...c, icon: typeIcons[i] }));
   const processStepsLocal = t.processSteps.map((s, i) => ({ ...s, icon: processIcons[i] }));
 
@@ -225,53 +224,6 @@ export default function LeadMagnetDetailPage({ agent: rawAgent, locale = "ko" }:
         </div>
       </section>
 
-      {/* ━━ 도구 3종 쇼케이스 ━━ */}
-      <section className="py-16">
-        <div className="max-w-5xl mx-auto px-6">
-          <FadeInOnScroll>
-            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">{toolsTitle}</h2>
-            <p className="text-sm text-gray-500 text-center mb-10">{toolsSub}</p>
-          </FadeInOnScroll>
-          <div className="space-y-14 md:space-y-20">
-            {tools.map((tool, i) => {
-              const flip = i % 2 === 1;
-              return (
-                <motion.div
-                  key={tool.name}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-80px" }}
-                  transition={{ duration: 0.5 }}
-                  className="grid md:grid-cols-2 gap-8 md:gap-12 items-center"
-                >
-                  {/* image */}
-                  <div className={flip ? "md:order-2" : ""}>
-                    <div className="rounded-2xl overflow-hidden border border-gray-100 shadow-[0_18px_50px_-22px_rgba(27,27,27,0.3)]">
-                      <Image src={tool.image} alt={tool.name} width={1474} height={940} className="w-full h-auto" />
-                    </div>
-                  </div>
-                  {/* text */}
-                  <div className={flip ? "md:order-1" : ""}>
-                    <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: agent.color }}>
-                      {en ? `Tool ${i + 1}` : `도구 ${i + 1}`}
-                    </span>
-                    <h3 className="text-2xl md:text-[28px] font-bold text-gray-900 mt-1.5">{tool.name}</h3>
-                    <p className="text-[15px] mt-3 leading-relaxed" style={{ color: agent.color }}>{tool.tagline}</p>
-                    <div className="mt-5 space-y-3 text-sm text-gray-600 leading-relaxed">
-                      <p><span className="font-bold text-gray-400 mr-1">{en ? "Problem" : "문제"}</span>{tool.problem}</p>
-                      <p><span className="font-bold mr-1" style={{ color: agent.color }}>{en ? "Solution" : "해결"}</span>{tool.solution}</p>
-                    </div>
-                    <a href={tool.url} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-1 text-sm font-semibold hover:gap-2 transition-all" style={{ color: agent.color }}>
-                      {en ? "View demo" : "데모 보기"} <ArrowRight size={14} />
-                    </a>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       {/* ━━ Slack/Chat Demo ━━ */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-5xl mx-auto px-6">
@@ -328,23 +280,49 @@ export default function LeadMagnetDetailPage({ agent: rawAgent, locale = "ko" }:
         </div>
       </section>
 
-      {/* ━━ Product Showcase ━━ */}
+      {/* ━━ 도구 3종 쇼케이스 ━━ */}
       <section className="py-16">
         <div className="max-w-5xl mx-auto px-6">
           <FadeInOnScroll>
-            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">{t.showcaseTitle}</h2>
-            <p className="text-sm text-gray-500 text-center mb-10">{t.showcaseSub}</p>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">{toolsTitle}</h2>
+            <p className="text-sm text-gray-500 text-center mb-10">{toolsSub}</p>
           </FadeInOnScroll>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-            {showcaseImagesLocal.map((img, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}>
-                <div className="text-xs font-semibold text-center mb-2" style={{ color: agent.color }}>{img.label}</div>
-                <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-sm" style={{ maxWidth: 200, margin: "0 auto" }}>
-                  <Image src={img.src} alt={img.label} width={img.w} height={img.h} className="w-full h-auto" />
-                </div>
-              </motion.div>
-            ))}
+          <div className="space-y-14 md:space-y-20">
+            {tools.map((tool, i) => {
+              const flip = i % 2 === 1;
+              return (
+                <motion.div
+                  key={tool.name}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.5 }}
+                  className="grid md:grid-cols-2 gap-8 md:gap-12 items-center"
+                >
+                  {/* image */}
+                  <div className={flip ? "md:order-2" : ""}>
+                    <div className="rounded-2xl overflow-hidden border border-gray-100 shadow-[0_18px_50px_-22px_rgba(27,27,27,0.3)]">
+                      <Image src={tool.image} alt={tool.name} width={1474} height={940} className="w-full h-auto" />
+                    </div>
+                  </div>
+                  {/* text */}
+                  <div className={flip ? "md:order-1" : ""}>
+                    <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: agent.color }}>
+                      {en ? `Tool ${i + 1}` : `도구 ${i + 1}`}
+                    </span>
+                    <h3 className="text-2xl md:text-[28px] font-bold text-gray-900 mt-1.5">{tool.name}</h3>
+                    <p className="text-[15px] mt-3 leading-relaxed" style={{ color: agent.color }}>{tool.tagline}</p>
+                    <div className="mt-5 space-y-3 text-sm text-gray-600 leading-relaxed">
+                      <p><span className="font-bold text-gray-400 mr-1">{en ? "Problem" : "문제"}</span>{tool.problem}</p>
+                      <p><span className="font-bold mr-1" style={{ color: agent.color }}>{en ? "Solution" : "해결"}</span>{tool.solution}</p>
+                    </div>
+                    <a href={tool.url} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-1 text-sm font-semibold hover:gap-2 transition-all" style={{ color: agent.color }}>
+                      {en ? "View demo" : "데모 보기"} <ArrowRight size={14} />
+                    </a>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
