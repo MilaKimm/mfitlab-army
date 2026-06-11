@@ -19,6 +19,7 @@ import {
 import type { Agent } from "@/data/army";
 import { agents, localizeAgent } from "@/data/army";
 import FadeInOnScroll from "@/components/motion/FadeInOnScroll";
+import CaseStudyBlock from "@/components/agents/CaseStudyBlock";
 import type { Locale } from "@/i18n/dictionaries";
 
 const smallIconMap: Record<string, React.ReactNode> = {
@@ -162,6 +163,9 @@ export default function LMFDetailPage({ agent: rawAgent, locale = "ko" }: Props)
         </div>
       </section>
 
+      {/* ━━ Case Study (실제 성과 우선) ━━ */}
+      <CaseStudyBlock agent={agent} locale={locale} />
+
       {/* ━━ Slack Demo ━━ */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-5xl mx-auto px-6">
@@ -218,33 +222,6 @@ export default function LMFDetailPage({ agent: rawAgent, locale = "ko" }: Props)
               </div>
             </div>
           </FadeInOnScroll>
-        </div>
-      </section>
-
-      {/* ━━ Creative Examples ━━ */}
-      <section className="py-16">
-        <div className="max-w-5xl mx-auto px-6">
-          <FadeInOnScroll>
-            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">{t.creativeTitle}</h2>
-            <p className="text-sm text-gray-500 text-center mb-10">{t.creativeSub}</p>
-          </FadeInOnScroll>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {t.creativeExamples.map((ex, i) => (
-              <FadeInOnScroll key={i} delay={i * 0.1}>
-                <div className="rounded-2xl border border-gray-100 bg-white overflow-hidden">
-                  <div className="relative">
-                    <Image src={ex.image} alt={ex.tag} width={800} height={600} className="w-full h-auto" />
-                  </div>
-                  <div className="p-5">
-                    <span className="text-xs font-semibold px-2.5 py-1 rounded-full" style={{ backgroundColor: `${agent.color}15`, color: agent.color }}>{ex.tag}</span>
-                    <h3 className="text-sm font-bold text-gray-900 mt-3">{ex.headline}</h3>
-                    <p className="text-sm text-gray-600 mt-1">{ex.body}</p>
-                  </div>
-                </div>
-              </FadeInOnScroll>
-            ))}
-          </div>
         </div>
       </section>
 

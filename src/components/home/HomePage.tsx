@@ -41,9 +41,12 @@ import {
   axSolutions,
   localizeAgent,
   localizeSolution,
+  type Agent,
   type AxSolution,
 } from "@/data/army";
 import { getDictionary, localePrefix, type Locale } from "@/i18n/dictionaries";
+
+type Dict = ReturnType<typeof getDictionary>;
 
 const iconMap: Record<string, React.ReactNode> = {
   Globe: <Globe size={20} />,
@@ -89,6 +92,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
   const heritageStats = overview.heritage.stats;
   const adoptionSteps = overview.adoption.steps;
   const differentiators = overview.differentiators;
+  const caseAgents = agents.map((a) => localizeAgent(a, locale)).filter((a) => a.caseStudy);
 
   return (
     <>
@@ -271,6 +275,27 @@ export default function HomePage({ locale }: { locale: Locale }) {
           </div>
         </div>
       </section>
+
+      {/* ─── 4.5 Case Studies ─── */}
+      {caseAgents.length > 0 && (
+        <section id="cases" className="py-24 bg-gradient-to-b from-[#F2FDFB] to-white">
+          <div className="max-w-5xl mx-auto px-6">
+            <FadeInOnScroll>
+              <p className="text-xs font-semibold tracking-widest uppercase text-[#36B1A7] mb-3">{dict.caseStudies.kicker}</p>
+              <h2 className="text-[28px] md:text-[40px] font-semibold text-[#1B1B1B] leading-[1.5] mb-3">{dict.caseStudies.title}</h2>
+              <p className="text-[#626166] mb-12 max-w-2xl">{dict.caseStudies.subtitle}</p>
+            </FadeInOnScroll>
+
+            <div className="space-y-8">
+              {caseAgents.map((agent, i) => (
+                <FadeInOnScroll key={agent.id} delay={i * 0.05}>
+                  <HomeCaseCard agent={agent} dict={dict} locale={locale} />
+                </FadeInOnScroll>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ─── 5. Showcase ─── */}
       <section id="showcase" className="py-24 bg-[#F4F4F4]">
@@ -460,6 +485,100 @@ function SolutionCardInner({ sol, detailLabel }: { sol: AxSolution; detailLabel:
           {detailLabel} <ArrowRight size={14} />
         </span>
       </div>
+    </div>
+  );
+}
+
+/* ─── Home Case Study Card ─── */
+function HomeCaseCard({ agent, dict, locale }: { agent: Agent; dict: Dict; locale: Locale }) {
+  const cs = agent.caseStudy;
+  if (!cs) return null;
+  const detailHref = localePrefix(`/army/${agent.id}`, locale);
+  return (
+    <div className="rounded-3xl border border-[#E9E9E9] bg-white p-7 md:p-9 shadow-[0_8px_30px_-14px_rgba(27,27,27,0.15)] hover:shadow-[0_20px_50px_-20px_rgba(54,177,167,0.35)] hover:border-[#36B1A7]/40 transition-all duration-300">
+      <div className="grid md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] gap-7 md:gap-10 items-center">
+        {/* Left — narrative */}
+        <div>
+          <div className="flex items-center gap-2.5 mb-5">
+            <span className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: agent.color + "15", color: agent.color }}>
+              {iconMap[agent.lucideIcon]}
+            </span>
+            <div className="min-w-0">
+              <p className="text-sm font-semibold text-[#1B1B1B] leading-tight">{agent.name}</p>
+              <p className="text-xs text-[#9B9B9B] leading-tight mt-0.5">{cs.clientLabel} · {cs.industry}</p>
+            </div>
+          </div>
+          {cs.headline && (
+            <h3 className="text-xl md:text-2xl font-semibold text-[#1B1B1B] mb-5 leading-snug">{cs.headline}</h3>
+          )}
+          <div className="space-y-3 mb-6">
+            <CaseLine label={dict.caseStudies.challengeLabel} text={cs.challenge} color="#9B9B9B" />
+            <CaseLine label={dict.caseStudies.approachLabel} text={cs.approach} color={agent.color} />
+          </div>
+          <div className="flex items-center gap-4 flex-wrap">
+            <span className="inline-flex items-center px-3.5 py-1.5 rounded-full text-sm font-semibold" style={{ backgroundColor: agent.color + "15", color: agent.color }}>
+              {cs.outcome}
+            </span>
+            <Link href={detailHref} className="inline-flex items-center gap-1 text-sm font-semibold text-[#36B1A7] hover:gap-2 transition-all">
+              {dict.caseStudies.detailCta}
+              <ArrowRight size={14} />
+            </Link>
+          </div>
+        </div>
+
+        {/* Right — visual: gallery (LMF) or metrics (Voice) */}
+        <div>
+          {cs.gallery ? (
+            <div>
+              <p className="text-xs font-semibold text-[#9B9B9B] mb-3">{dict.caseStudies.galleryLabel}</p>
+              <div className="grid grid-cols-2 gap-3">
+                {cs.gallery.map((g, i) => (
+                  <div key={i} className="group/g rounded-xl overflow-hidden border border-[#EDEDED] bg-[#FAFAFA]">
+                    <div className="relative aspect-square overflow-hidden">
+                      <Image src={g.image} alt={g.angle} fill sizes="(max-width: 768px) 45vw, 240px" className="object-cover transition-transform duration-500 group-hover/g:scale-105" />
+                    </div>
+                    <div className="px-2.5 py-2">
+                      <p className="text-[11px] font-semibold leading-tight" style={{ color: agent.color }}>{g.target}</p>
+                      <p className="text-[11px] text-[#626166] leading-tight mt-0.5 line-clamp-1">{g.angle}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : cs.metrics ? (
+            <div className="space-y-3">
+              {cs.metrics.map((m, i) => (
+                <div key={i} className="rounded-xl border border-[#EDEDED] bg-[#FAFAFA] p-4">
+                  <div className="flex items-center justify-between mb-2.5">
+                    <p className="text-sm font-semibold text-[#1B1B1B]">{m.label}</p>
+                    {m.badge && (
+                      <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: agent.color + "15", color: agent.color }}>{m.badge}</span>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-2.5">
+                    <span className="text-sm text-[#9B9B9B] line-through decoration-[#D0D0D0]">{m.before}</span>
+                    <ArrowRight size={14} className="text-[#C0C0C0]" />
+                    <span className="text-lg font-bold" style={{ color: agent.color }}>{m.after}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : null}
+        </div>
+      </div>
+
+      {cs.assetNote && (
+        <p className="text-xs text-[#9B9B9B] mt-7 pt-5 border-t border-[#F0F0F0]">{cs.assetNote}</p>
+      )}
+    </div>
+  );
+}
+
+function CaseLine({ label, text, color }: { label: string; text: string; color: string }) {
+  return (
+    <div className="flex gap-2.5">
+      <span className="flex-shrink-0 text-[11px] font-bold mt-0.5 px-1.5 py-0.5 rounded" style={{ color, backgroundColor: color + "14" }}>{label}</span>
+      <p className="text-[14px] text-[#626166] leading-relaxed">{text}</p>
     </div>
   );
 }

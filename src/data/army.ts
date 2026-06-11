@@ -1,3 +1,28 @@
+export interface CaseStudyMetric {
+  label: string;
+  before: string;
+  after: string;
+  badge?: string;
+}
+
+export interface CaseGalleryItem {
+  image: string;
+  target: string; // 타겟 (퍼소나)
+  angle: string; // 소구점 (Value Proposition)
+}
+
+export interface CaseStudy {
+  clientLabel: string; // 익명 라벨 (예: "글로벌 완성차 OEM 호주법인")
+  industry: string;
+  headline?: string; // 케이스 핵심 한 줄 (예: "제품은 하나, 소구점은 여러 개")
+  challenge: string; // Before — 문제 배경
+  approach: string; // 투입 에이전트·적용 방식
+  outcome: string; // 정성 성과 한 줄
+  metrics?: CaseStudyMetric[]; // 정량형 (Voice)
+  gallery?: CaseGalleryItem[]; // 비주얼형 (LMF)
+  assetNote?: string; // 보조 메시지 (예: 콘텐츠 자산 재활용)
+}
+
 export interface AgentLocalized {
   name: string;
   category: string;
@@ -15,6 +40,7 @@ export interface AgentLocalized {
   problems: { title: string; body: string }[];
   steps: { title: string; description: string }[];
   results: { metric: string; before: string; after: string }[];
+  caseStudy?: CaseStudy;
 }
 
 export interface Agent extends AgentLocalized {
@@ -144,6 +170,23 @@ export const agents: Agent[] = [
       { metric: "ROAS", before: "기존 대비", after: "최대 3배" },
       { metric: "소재 제작 시간", before: "10시간+", after: "1시간 이내" },
     ],
+    caseStudy: {
+      clientLabel: "국내 리빙·생활용품 D2C 브랜드",
+      industry: "리빙 / 뷰티",
+      headline: "제품은 하나, 소구점은 여러 개",
+      challenge:
+        "공급자 중심 언어로만 소구해 뚜렷한 타겟·시즌·핵심 VP가 없었고, 퍼포먼스 광고가 제대로 작동하지 않았습니다.",
+      approach:
+        "LMF Agent가 리서치 → 퍼소나 도출 → VP·소구점 도출 → 카피·이미지 생성 → 메타 퍼포먼스 세팅 → 데이터 분석까지 전 과정을 수행했습니다.",
+      outcome: "매출·ROAS 개선",
+      gallery: [
+        { image: "/cases/lmf/semsay-vp1-family.png", target: "육아·가족", angle: "수건으로 닦아도 남는 물기" },
+        { image: "/cases/lmf/semsay-vp2-male.png", target: "운동 후·남성", angle: "씻고 나서 또 흘리는 땀" },
+        { image: "/cases/lmf/semsay-vp3-hygiene.png", target: "위생 민감", angle: "양말 신기 전 발가락 건조" },
+        { image: "/cases/lmf/semsay-vp7-gift.png", target: "선물 수요", angle: "패키지까지 오브제가 되는 선물" },
+      ],
+      assetNote: "생성된 소재는 광고를 넘어 상세페이지·SNS·기획전 콘텐츠 자산으로 재활용됩니다.",
+    },
     relatedAgents: ["cro-agent", "geo-agent"],
     en: {
       name: "LMF Agent",
@@ -184,6 +227,23 @@ export const agents: Agent[] = [
         { metric: "ROAS", before: "Baseline", after: "Up to 3×" },
         { metric: "Creative production", before: "10+ hrs", after: "Under 1 hr" },
       ],
+      caseStudy: {
+        clientLabel: "Korean D2C living & lifestyle brand",
+        industry: "Living / Beauty",
+        headline: "One product, many angles",
+        challenge:
+          "The brand spoke only in supplier-centric language — no clear target, season, or core value proposition — and its paid ads weren't performing.",
+        approach:
+          "LMF Agent ran the full pipeline: research → personas → value propositions → copy & image generation → Meta campaign setup → data analysis.",
+        outcome: "Revenue & ROAS improvement",
+        gallery: [
+          { image: "/cases/lmf/semsay-vp1-family.png", target: "Parents / family", angle: "Moisture a towel leaves behind" },
+          { image: "/cases/lmf/semsay-vp2-male.png", target: "Post-workout / men", angle: "Still sweating after a shower" },
+          { image: "/cases/lmf/semsay-vp3-hygiene.png", target: "Hygiene-conscious", angle: "Dry between toes before socks" },
+          { image: "/cases/lmf/semsay-vp7-gift.png", target: "Gifting", angle: "Packaging that doubles as an object" },
+        ],
+        assetNote: "The generated creatives are reused beyond ads — across product pages, social, and promotions.",
+      },
     },
   },
   {
@@ -380,6 +440,19 @@ export const agents: Agent[] = [
       { metric: "전화 연결률", before: "8%", after: "54.8% (6.9배)" },
       { metric: "리드-세일즈 전환율", before: "기존 대비", after: "3.6배" },
     ],
+    caseStudy: {
+      clientLabel: "글로벌 완성차 OEM 호주법인",
+      industry: "자동차 / 모빌리티",
+      challenge:
+        "리드가 들어와도 전화 연결률이 8%에 그쳤고, 첫 응답까지 수 시간이 걸려 리드 대부분이 이탈했습니다.",
+      approach:
+        "Voice Agent가 리드 유입 2분 내 자동 콜 → 리드 검증(LQA) → 위치 기반 딜러 배정 → CRM 동기화까지 24/7 자동 운영했습니다.",
+      outcome: "연결률 6.9배 · 전환율 3.6배 향상",
+      metrics: [
+        { label: "전화 연결률", before: "8%", after: "54.8%", badge: "6.9배" },
+        { label: "Lead → Sales 전환율", before: "~1%", after: "3.56%", badge: "3.6배" },
+      ],
+    },
     relatedAgents: ["lmf-agent", "cro-agent"],
     demoUrl: "https://demo.bringtalk.ai/",
     en: {
@@ -419,6 +492,19 @@ export const agents: Agent[] = [
         { metric: "Pickup rate", before: "8%", after: "54.8% (6.9×)" },
         { metric: "Lead-to-sales", before: "Baseline", after: "3.6×" },
       ],
+      caseStudy: {
+        clientLabel: "Global auto OEM, Australia",
+        industry: "Automotive / Mobility",
+        challenge:
+          "Even when leads came in, the call-connect rate was just 8%, and first response took hours — so most leads dropped off.",
+        approach:
+          "Voice Agent ran 24/7: outbound within 2 minutes of a lead, LQA qualification, location-based dealer routing, and CRM sync.",
+        outcome: "6.9× pickup rate · 3.6× conversion",
+        metrics: [
+          { label: "Call-connect rate", before: "8%", after: "54.8%", badge: "6.9×" },
+          { label: "Lead → Sales conversion", before: "~1%", after: "3.56%", badge: "3.6×" },
+        ],
+      },
     },
   },
   {
