@@ -220,7 +220,28 @@ export default function HomePage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* ─── 4. Agent Grid ─── */}
+      {/* ─── 4. 대표 사례 (Voice + LMF) ─── */}
+      {caseAgents.length > 0 && (
+        <section id="cases" className="py-24 bg-gradient-to-b from-[#F2FDFB] to-white">
+          <div className="max-w-5xl mx-auto px-6">
+            <FadeInOnScroll>
+              <p className="text-xs font-semibold tracking-widest uppercase text-[#36B1A7] mb-3">{dict.caseStudies.kicker}</p>
+              <h2 className="text-[28px] md:text-[40px] font-semibold text-[#1B1B1B] leading-[1.5] mb-3">{dict.caseStudies.title}</h2>
+              <p className="text-[#626166] mb-12 max-w-2xl">{dict.caseStudies.subtitle}</p>
+            </FadeInOnScroll>
+
+            <div className="space-y-8">
+              {caseAgents.map((agent, i) => (
+                <FadeInOnScroll key={agent.id} delay={i * 0.05}>
+                  <HomeCaseCard agent={agent} dict={dict} locale={locale} />
+                </FadeInOnScroll>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ─── 5. Agent Grid ─── */}
       <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-6">
           <FadeInOnScroll>
@@ -276,28 +297,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* ─── 4.5 Case Studies ─── */}
-      {caseAgents.length > 0 && (
-        <section id="cases" className="py-24 bg-gradient-to-b from-[#F2FDFB] to-white">
-          <div className="max-w-5xl mx-auto px-6">
-            <FadeInOnScroll>
-              <p className="text-xs font-semibold tracking-widest uppercase text-[#36B1A7] mb-3">{dict.caseStudies.kicker}</p>
-              <h2 className="text-[28px] md:text-[40px] font-semibold text-[#1B1B1B] leading-[1.5] mb-3">{dict.caseStudies.title}</h2>
-              <p className="text-[#626166] mb-12 max-w-2xl">{dict.caseStudies.subtitle}</p>
-            </FadeInOnScroll>
-
-            <div className="space-y-8">
-              {caseAgents.map((agent, i) => (
-                <FadeInOnScroll key={agent.id} delay={i * 0.05}>
-                  <HomeCaseCard agent={agent} dict={dict} locale={locale} />
-                </FadeInOnScroll>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ─── 5. Showcase ─── */}
+      {/* ─── 6. Showcase ─── */}
       <section id="showcase" className="py-24 bg-[#F4F4F4]">
         <div className="max-w-5xl mx-auto px-6">
           <FadeInOnScroll>
