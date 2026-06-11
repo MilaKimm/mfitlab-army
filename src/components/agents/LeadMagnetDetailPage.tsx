@@ -171,29 +171,29 @@ export default function LeadMagnetDetailPage({ agent: rawAgent, locale = "ko" }:
     : "방문자를 참여자로 바꾸고 리드를 자동으로 쌓는 인터랙티브 웹앱";
   const tools = en
     ? [
-        { name: "Product Finder", url: "https://pfinder.aicantalk.com/",
+        { name: "Product Finder", url: "https://pfinder.aicantalk.com/", image: "/cases/lead-magnet/finder.png",
           tagline: "An interactive product-recommendation quiz that stops visitors — with conversion testing built in.",
           problem: "Too many options; visitors stall at “what fits me?” and you can't verify what lifts conversion.",
           solution: "4-question recommender + built-in no-code A/B testing + automatic funnel measurement." },
-        { name: "Carousel Ad Generator", url: "https://carousel.aicantalk.com/",
+        { name: "Carousel Ad Generator", url: "https://carousel.aicantalk.com/", image: "/cases/lead-magnet/carousel.png",
           tagline: "Enter a site URL — ad creatives are generated and published to Meta.",
           problem: "One creative set takes 3 roles (marketer, copywriter, designer) across 10 steps.",
           solution: "Down to 4 steps / 1 person — 4-angle copy + image & video auto-generated, published straight to Meta." },
-        { name: "Product Detail Generator", url: "https://pdetail.aicantalk.com/",
+        { name: "Product Detail Generator", url: "https://pdetail.aicantalk.com/", image: "/cases/lead-magnet/detail.png",
           tagline: "Turns scattered product materials into a ready-to-publish detail page.",
           problem: "~8 hours per detail page; typos and rework eat 12–13% of the work.",
           solution: "5-step AI pipeline (extract → copy → photo sort → compose → HTML); humans only review." },
       ]
     : [
-        { name: "Product Finder", url: "https://pfinder.aicantalk.com/",
+        { name: "Product Finder", url: "https://pfinder.aicantalk.com/", image: "/cases/lead-magnet/finder.png",
           tagline: "고객을 멈춰 세우는 인터랙티브 제품 추천 퀴즈 — 전환 실험까지 한 번에",
           problem: "선택지가 너무 많아 “나에게 뭐가 맞지?”에서 이탈하고, 무엇이 전환을 올렸는지 검증할 방법이 없습니다.",
           solution: "4문항 추천 퀴즈 + 노코드 A/B 테스트 내장 + 전환 퍼널 자동 측정" },
-        { name: "Carousel Ad Generator", url: "https://carousel.aicantalk.com/",
+        { name: "Carousel Ad Generator", url: "https://carousel.aicantalk.com/", image: "/cases/lead-magnet/carousel.png",
           tagline: "사이트 주소만 입력하면 광고 소재가 만들어지고 Meta에 발행됩니다.",
           problem: "소재 한 세트에 마케터·카피라이터·디자이너 3개 역할과 10단계가 필요합니다.",
           solution: "4단계·1명으로 축소 — 4가지 앵글 카피 + 이미지·영상 자동 생성 + Meta 직접 발행" },
-        { name: "Product Detail Generator", url: "https://pdetail.aicantalk.com/",
+        { name: "Product Detail Generator", url: "https://pdetail.aicantalk.com/", image: "/cases/lead-magnet/detail.png",
           tagline: "흩어진 상품 자료를 등록용 상세페이지로 자동 변환합니다.",
           problem: "상세 1건에 평균 8시간, 데이터 오타·수정 핑퐁이 작업의 12~13%를 차지합니다.",
           solution: "5단계 AI 파이프라인(추출→문구→사진분류→합성→HTML), 사람은 검수만" },
@@ -232,22 +232,42 @@ export default function LeadMagnetDetailPage({ agent: rawAgent, locale = "ko" }:
             <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">{toolsTitle}</h2>
             <p className="text-sm text-gray-500 text-center mb-10">{toolsSub}</p>
           </FadeInOnScroll>
-          <div className="grid md:grid-cols-3 gap-5">
-            {tools.map((tool, i) => (
-              <motion.div key={tool.name} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}>
-                <div className="h-full flex flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-                  <h3 className="text-base font-bold text-gray-900">{tool.name}</h3>
-                  <p className="text-sm mt-2 leading-relaxed" style={{ color: agent.color }}>{tool.tagline}</p>
-                  <div className="mt-4 space-y-2 text-sm text-gray-600 leading-relaxed">
-                    <p><span className="font-semibold text-gray-400">{en ? "Problem " : "문제 "}</span>{tool.problem}</p>
-                    <p><span className="font-semibold" style={{ color: agent.color }}>{en ? "Solution " : "해결 "}</span>{tool.solution}</p>
+          <div className="space-y-14 md:space-y-20">
+            {tools.map((tool, i) => {
+              const flip = i % 2 === 1;
+              return (
+                <motion.div
+                  key={tool.name}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.5 }}
+                  className="grid md:grid-cols-2 gap-8 md:gap-12 items-center"
+                >
+                  {/* image */}
+                  <div className={flip ? "md:order-2" : ""}>
+                    <div className="rounded-2xl overflow-hidden border border-gray-100 shadow-[0_18px_50px_-22px_rgba(27,27,27,0.3)]">
+                      <Image src={tool.image} alt={tool.name} width={1474} height={940} className="w-full h-auto" />
+                    </div>
                   </div>
-                  <a href={tool.url} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-1 text-sm font-semibold hover:gap-2 transition-all" style={{ color: agent.color }}>
-                    {en ? "View demo" : "데모 보기"} <ArrowRight size={14} />
-                  </a>
-                </div>
-              </motion.div>
-            ))}
+                  {/* text */}
+                  <div className={flip ? "md:order-1" : ""}>
+                    <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: agent.color }}>
+                      {en ? `Tool ${i + 1}` : `도구 ${i + 1}`}
+                    </span>
+                    <h3 className="text-2xl md:text-[28px] font-bold text-gray-900 mt-1.5">{tool.name}</h3>
+                    <p className="text-[15px] mt-3 leading-relaxed" style={{ color: agent.color }}>{tool.tagline}</p>
+                    <div className="mt-5 space-y-3 text-sm text-gray-600 leading-relaxed">
+                      <p><span className="font-bold text-gray-400 mr-1">{en ? "Problem" : "문제"}</span>{tool.problem}</p>
+                      <p><span className="font-bold mr-1" style={{ color: agent.color }}>{en ? "Solution" : "해결"}</span>{tool.solution}</p>
+                    </div>
+                    <a href={tool.url} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-1 text-sm font-semibold hover:gap-2 transition-all" style={{ color: agent.color }}>
+                      {en ? "View demo" : "데모 보기"} <ArrowRight size={14} />
+                    </a>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
