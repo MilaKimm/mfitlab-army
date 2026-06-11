@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const SHEET_WEBHOOK = "https://script.google.com/macros/s/AKfycbyJjSqTEXBNLxcO50lVvbFF_w1U1lH_rtx3HFwtRQ1lwH2hg2MjABkQ1lO2x8RpYf4Eaw/exec";
 
 export async function POST(req: NextRequest) {
   try {
+    // 빌드 시점이 아니라 요청 시점에 생성 (page-data 수집 단계에서 키가 없어도 빌드 통과)
+    const resend = new Resend(process.env.RESEND_API_KEY);
     const body = await req.json();
     const { name, company, email, phone, solutions, message } = body;
 
