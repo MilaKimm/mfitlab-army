@@ -497,7 +497,7 @@ function HomeCaseRow({ agent, dict, locale, flip }: { agent: Agent; dict: Dict; 
   const detailHref = localePrefix(`/army/${agent.id}`, locale);
   const problemLabel = en ? "Problem" : "문제";
   const solutionLabel = en ? "Solution" : "솔루션";
-  const metricsLabel = en ? "Key metrics" : "주요 지표";
+  const metricsLabel = en ? "Key improvements" : "주요 개선 지표";
 
   const text = (
     <div className={flip ? "md:order-2" : ""}>
