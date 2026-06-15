@@ -1,3 +1,35 @@
+export interface CaseStudyMetric {
+  label: string;
+  before: string;
+  after: string;
+  badge?: string;
+}
+
+export interface CaseGalleryItem {
+  image: string;
+  target: string; // 타겟 (퍼소나)
+  angle: string; // 소구점 (Value Proposition)
+}
+
+export interface CaseStudy {
+  clientLabel: string; // 익명 라벨 (예: "글로벌 자동차 OEM H사")
+  industry: string;
+  headline?: string; // 케이스 핵심 한 줄 (예: "제품은 하나, 소구점은 여러 개")
+  challenge: string; // Before — 문제 배경
+  approach: string; // 투입 에이전트·적용 방식
+  outcome: string; // 정성 성과 한 줄
+  metrics?: CaseStudyMetric[]; // 정량형 (Voice)
+  gallery?: CaseGalleryItem[]; // 비주얼형 (LMF)
+  assetNote?: string; // 보조 메시지 (예: 콘텐츠 자산 재활용)
+  // ── 홈 대표 사례(좌 텍스트 / 우 이미지) 표시용 ──
+  problems?: string[]; // 문제 상황 (구문형, 간결)
+  solutionSteps?: string[]; // 솔루션 — 프로세스 단계형 (LMF)
+  solutionPoints?: string[]; // 솔루션 — 구문형 (Voice)
+  heroImage?: string; // 우측 단일 이미지 (Voice). LMF은 gallery 사용
+  heroImageCaption?: string; // 우측 이미지 소제목 (Voice)
+  bigMetrics?: { value: string; label: string }[]; // 주요 수치 (크게)
+}
+
 export interface AgentLocalized {
   name: string;
   category: string;
@@ -15,6 +47,7 @@ export interface AgentLocalized {
   problems: { title: string; body: string }[];
   steps: { title: string; description: string }[];
   results: { metric: string; before: string; after: string }[];
+  caseStudy?: CaseStudy;
 }
 
 export interface Agent extends AgentLocalized {
@@ -144,6 +177,29 @@ export const agents: Agent[] = [
       { metric: "ROAS", before: "기존 대비", after: "최대 3배" },
       { metric: "소재 제작 시간", before: "10시간+", after: "1시간 이내" },
     ],
+    caseStudy: {
+      clientLabel: "섬세이",
+      industry: "리빙 / 뷰티",
+      headline: "제품은 하나, 소구점은 여러 개",
+      challenge:
+        "공급자 중심 언어로만 소구해 뚜렷한 타겟·시즌·핵심 VP가 없었고, 퍼포먼스 광고가 제대로 작동하지 않았습니다.",
+      approach:
+        "LMF Agent가 리서치 → 퍼소나 도출 → VP·소구점 도출 → 카피·이미지 생성 → 메타 퍼포먼스 세팅 → 데이터 분석까지 전 과정을 수행했습니다.",
+      outcome: "매출·ROAS 개선",
+      problems: ["공급자 중심 언어로만 소구", "타겟·시즌·핵심 VP 부재", "퍼포먼스 광고 부진"],
+      solutionPoints: ["리서치 · 퍼소나 도출", "VP·소구점 도출", "AI 카피·이미지 생성", "메타 퍼포먼스 세팅·분석"],
+      bigMetrics: [
+        { value: "+87%", label: "광고 CTR 성장" },
+        { value: "3배", label: "ROAS 개선" },
+      ],
+      gallery: [
+        { image: "/cases/lmf/semsay-vp1-family.png", target: "육아·가족", angle: "수건으로 닦아도 남는 물기" },
+        { image: "/cases/lmf/semsay-vp2-male.png", target: "운동 후·남성", angle: "씻고 나서 또 흘리는 땀" },
+        { image: "/cases/lmf/semsay-vp3-hygiene.png", target: "위생 민감", angle: "양말 신기 전 발가락 건조" },
+        { image: "/cases/lmf/semsay-vp7-gift.png", target: "선물 수요", angle: "패키지까지 오브제가 되는 선물" },
+      ],
+      assetNote: "생성된 소재는 광고를 넘어 상세페이지·SNS·기획전 콘텐츠 자산으로 재활용됩니다.",
+    },
     relatedAgents: ["cro-agent", "geo-agent"],
     en: {
       name: "LMF Agent",
@@ -184,6 +240,29 @@ export const agents: Agent[] = [
         { metric: "ROAS", before: "Baseline", after: "Up to 3×" },
         { metric: "Creative production", before: "10+ hrs", after: "Under 1 hr" },
       ],
+      caseStudy: {
+        clientLabel: "Semsay",
+        industry: "Living / Beauty",
+        headline: "One product, many angles",
+        challenge:
+          "The brand spoke only in supplier-centric language — no clear target, season, or core value proposition — and its paid ads weren't performing.",
+        approach:
+          "LMF Agent ran the full pipeline: research → personas → value propositions → copy & image generation → Meta campaign setup → data analysis.",
+        outcome: "Revenue & ROAS improvement",
+        problems: ["Supplier-centric language only", "No clear target or core VP", "Underperforming paid ads"],
+        solutionPoints: ["Research · personas", "VP / angle discovery", "AI copy & image generation", "Meta setup & analysis"],
+        bigMetrics: [
+          { value: "+87%", label: "Ad CTR lift" },
+          { value: "×3", label: "ROAS improvement" },
+        ],
+        gallery: [
+          { image: "/cases/lmf/semsay-vp1-family.png", target: "Parents / family", angle: "Moisture a towel leaves behind" },
+          { image: "/cases/lmf/semsay-vp2-male.png", target: "Post-workout / men", angle: "Still sweating after a shower" },
+          { image: "/cases/lmf/semsay-vp3-hygiene.png", target: "Hygiene-conscious", angle: "Dry between toes before socks" },
+          { image: "/cases/lmf/semsay-vp7-gift.png", target: "Gifting", angle: "Packaging that doubles as an object" },
+        ],
+        assetNote: "The generated creatives are reused beyond ads — across product pages, social, and promotions.",
+      },
     },
   },
   {
@@ -350,8 +429,8 @@ export const agents: Agent[] = [
     tagline: "리드 들어오면 2분 내 AI가 전화합니다",
     description: "리드 유입 2분 내 즉시 콜, 24/7 AI 콜센터",
     expertise: "HMCA 등 실전 운영",
-    impactMetric: "연결률",
-    impactValue: "6.9배",
+    impactMetric: "Sales 전환율",
+    impactValue: "14배",
     color: "#4361EE",
     lucideIcon: "Phone",
     features: [
@@ -377,9 +456,30 @@ export const agents: Agent[] = [
       { title: "관리 콘솔", description: "전체 통화 현황을 실시간 모니터링합니다." },
     ],
     results: [
-      { metric: "전화 연결률", before: "8%", after: "54.8% (6.9배)" },
-      { metric: "리드-세일즈 전환율", before: "기존 대비", after: "3.6배" },
+      { metric: "Sales 전환율", before: "0.7%", after: "10.1% (14배)" },
+      { metric: "주말·야간 신규 Sales", before: "0건", after: "+56건" },
     ],
+    caseStudy: {
+      clientLabel: "글로벌 자동차 OEM H사",
+      industry: "자동차 / 모빌리티",
+      challenge:
+        "리드가 들어와도 영업시간 외(주말·야간)에는 응대가 비어 신규 매출이 발생하지 않았고, 리드→세일즈 전환율이 0.7%에 머물렀습니다.",
+      approach:
+        "Voice Agent가 리드 퀄리피케이션을 자동 수행 — 유입 즉시 콜, 구매 의향 검증(LQA), 적합 리드 선별·인계를 24/7로 운영했습니다. ('24.12~'26.03 · 리드 약 4,000건 기준)",
+      outcome: "Sales 전환율 14배 · 무인 시간대 신규 매출 창출",
+      metrics: [
+        { label: "Sales 전환율", before: "0.7%", after: "10.1%", badge: "14배" },
+        { label: "주말·야간 신규 Sales", before: "0건", after: "+56건", badge: "무인 시간대" },
+      ],
+      problems: ["영업시간 외 응대 공백", "리드 → 세일즈 전환율 0.7%", "응답 지연으로 리드 이탈"],
+      solutionPoints: ["리드 유입 즉시 AI 콜", "구매 의향 검증 (LQA)", "적합 리드 선별·인계", "24/7 무중단 운영"],
+      heroImage: "/cases/voice-bringtalk-auto.png",
+      heroImageCaption: "AI 통화로 실시간 리드 검증·인계",
+      bigMetrics: [
+        { value: "14배", label: "Sales 전환율 (0.7% → 10.1%)" },
+        { value: "+56건", label: "주말·야간 신규 Sales" },
+      ],
+    },
     relatedAgents: ["lmf-agent", "cro-agent"],
     demoUrl: "https://demo.bringtalk.ai/",
     en: {
@@ -389,8 +489,8 @@ export const agents: Agent[] = [
       tagline: "New lead? AI follows up in under 2 minutes.",
       description: "Instant follow-up call within 2 minutes of a new lead. 24/7 AI call center.",
       expertise: "Production-grade (HMCA and others)",
-      impactMetric: "Pickup rate",
-      impactValue: "6.9×",
+      impactMetric: "Sales conversion",
+      impactValue: "14×",
       features: [
         "Under-2-min outbound",
         "LQA + FUA automation",
@@ -416,9 +516,30 @@ export const agents: Agent[] = [
         { title: "Admin console", description: "Monitor every call in real time." },
       ],
       results: [
-        { metric: "Pickup rate", before: "8%", after: "54.8% (6.9×)" },
-        { metric: "Lead-to-sales", before: "Baseline", after: "3.6×" },
+        { metric: "Sales conversion", before: "0.7%", after: "10.1% (14×)" },
+        { metric: "Weekend/after-hours new sales", before: "0", after: "+56" },
       ],
+      caseStudy: {
+        clientLabel: "Global auto OEM (Company H)",
+        industry: "Automotive / Mobility",
+        challenge:
+          "Even with incoming leads, no one answered outside business hours (weekends/nights), so no new revenue was generated — and lead-to-sales conversion sat at 0.7%.",
+        approach:
+          "Voice Agent ran lead qualification autonomously — instant outbound on arrival, intent verification (LQA), and routing of qualified leads, 24/7. (Dec '24 – Mar '26, ~4,000 leads)",
+        outcome: "14× sales conversion · revenue created in unattended hours",
+        metrics: [
+          { label: "Sales conversion", before: "0.7%", after: "10.1%", badge: "14×" },
+          { label: "Weekend/after-hours new sales", before: "0", after: "+56", badge: "unattended" },
+        ],
+        problems: ["No coverage outside business hours", "Lead → sales conversion at 0.7%", "Leads lost to response delay"],
+        solutionPoints: ["Instant AI call on lead arrival", "Purchase-intent qualification (LQA)", "Qualified-lead routing", "24/7 uninterrupted operation"],
+        heroImage: "/cases/voice-bringtalk-auto.png",
+        heroImageCaption: "Real-time lead qualification via AI call",
+        bigMetrics: [
+          { value: "14×", label: "Sales conversion (0.7% → 10.1%)" },
+          { value: "+56", label: "Weekend/after-hours new sales" },
+        ],
+      },
     },
   },
   {

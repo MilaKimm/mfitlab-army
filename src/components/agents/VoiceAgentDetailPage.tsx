@@ -28,6 +28,7 @@ import {
 import type { Agent } from "@/data/army";
 import { agents, localizeAgent } from "@/data/army";
 import FadeInOnScroll from "@/components/motion/FadeInOnScroll";
+import CaseStudyBlock from "@/components/agents/CaseStudyBlock";
 import type { Locale } from "@/i18n/dictionaries";
 
 const smallIconMap: Record<string, React.ReactNode> = {
@@ -184,29 +185,6 @@ export default function VoiceAgentDetailPage({ agent: rawAgent, locale = "ko" }:
           { title: "딜러 오딧 (Dealer Audit)", desc: "딜러가 실제로 연락했는지 확인" },
           { title: "공감 및 재확인 (Empathy)", desc: "불만 정리 및 관심도 재확인" },
         ],
-    resultsTitle: en ? "The numbers speak" : "숫자가 말해줍니다",
-    resultsSub: en ? "Voice Agent vs. traditional BPO — real-world operating results" : "기존 BPO 대비, Voice Agent의 실제 운영 성과입니다",
-    barMetrics: en
-      ? [
-          { label: "Call-connect rate", before: "8%", after: "54.8%", badge: "6.9× pickup", beforePct: 15, afterPct: 100 },
-          { label: "Lead → Sales conversion", before: "~1%", after: "3.56%", badge: "3.6× conversion", beforePct: 28, afterPct: 100 },
-        ]
-      : [
-          { label: "전화 연결률", before: "8%", after: "54.8%", badge: "x6.9배", beforePct: 15, afterPct: 100 },
-          { label: "Lead → Sales 전환율", before: "~1%", after: "3.56%", badge: "x3.6배", beforePct: 28, afterPct: 100 },
-        ],
-    statMetrics: en
-      ? [
-          { value: "2×+", label: "Ops cost savings", sub: "Less than half the cost of BPO" },
-          { value: "< 2 min", label: "Response time", sub: "From hours to instant" },
-          { value: "24/7", label: "Uptime", sub: "365 days, no downtime" },
-        ]
-      : [
-          { value: "2배+", label: "운영 비용 절감", sub: "BPO 대비 절반 이하" },
-          { value: "< 2분", label: "응답 시간", sub: "기존 수 시간 → 즉시 연결" },
-          { value: "24/7", label: "운영 시간", sub: "365일 무중단" },
-        ],
-    resultsFootnote: en ? "Based on live production data from an automotive customer" : "자동차 산업 A사 실제 운영 데이터 기준",
     integrationTitle: en ? "Plugs into your stack" : "기존 스택에 바로 연동됩니다",
     integrationSub: en
       ? "Connects to telecom, CRM, and automation tools — ready to go live on day one"
@@ -443,60 +421,8 @@ export default function VoiceAgentDetailPage({ agent: rawAgent, locale = "ko" }:
         </div>
       </section>
 
-      {/* ━━ Results ━━ */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-5xl mx-auto px-6">
-          <FadeInOnScroll>
-            <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">{t.resultsTitle}</h2>
-            <p className="text-sm text-gray-500 text-center mb-10">{t.resultsSub}</p>
-          </FadeInOnScroll>
-
-          <div className="max-w-3xl mx-auto space-y-4 mb-8">
-            {t.barMetrics.map((m, i) => (
-              <FadeInOnScroll key={i} delay={i * 0.08}>
-                <div className="rounded-xl bg-white border border-gray-100 p-5">
-                  <div className="flex items-center justify-between mb-3">
-                    <p className="text-sm font-bold text-gray-900">{m.label}</p>
-                    <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ backgroundColor: `${agent.color}15`, color: agent.color }}>{m.badge}</span>
-                  </div>
-                  <div className="flex items-center gap-3 mb-2">
-                    <span className="text-xs text-gray-400 w-12 text-right flex-shrink-0">Before</span>
-                    <div className="flex-1 flex items-center gap-2">
-                      <div className="h-8 bg-gray-200 rounded-lg flex items-center px-3" style={{ width: `${m.beforePct}%` }}>
-                        <span className="text-[11px] font-bold text-gray-600 whitespace-nowrap">{m.before}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs font-bold w-12 text-right flex-shrink-0" style={{ color: agent.color }}>After</span>
-                    <div className="flex-1 flex items-center gap-2">
-                      <motion.div initial={{ width: 0 }} whileInView={{ width: `${m.afterPct}%` }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 + i * 0.1, ease: "easeOut" }} className="h-8 rounded-lg flex items-center px-3" style={{ backgroundColor: agent.color }}>
-                        <span className="text-[11px] font-bold text-white whitespace-nowrap">{m.after}</span>
-                      </motion.div>
-                    </div>
-                  </div>
-                </div>
-              </FadeInOnScroll>
-            ))}
-          </div>
-
-          <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }} className="grid grid-cols-3 gap-4 max-w-3xl mx-auto">
-            {t.statMetrics.map((m, i) => (
-              <motion.div key={i} variants={item}>
-                <div className="text-center p-5 rounded-xl bg-white border border-gray-100">
-                  <p className="text-2xl md:text-3xl font-bold" style={{ color: agent.color }}>{m.value}</p>
-                  <p className="text-xs font-semibold text-gray-900 mt-2">{m.label}</p>
-                  <p className="text-xs text-gray-400 mt-0.5">{m.sub}</p>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          <FadeInOnScroll>
-            <p className="text-xs text-gray-400 text-center mt-6">{t.resultsFootnote}</p>
-          </FadeInOnScroll>
-        </div>
-      </section>
+      {/* ━━ Case Study (실제 성과) ━━ */}
+      <CaseStudyBlock agent={agent} locale={locale} />
 
       {/* ━━ Integration ━━ */}
       <section className="py-16">

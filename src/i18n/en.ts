@@ -17,7 +17,6 @@ export const en: typeof ko = {
     kicker: "Heritage",
     title: "Agents built on 7 years of growth execution",
     subtitle: "Real-world experiment data sharpens the agent's judgment.",
-    siteCta: "MarketFit Lab Home",
     stats: {
       years: "Years running growth",
       experiments: "A/B experiments",
@@ -37,9 +36,18 @@ export const en: typeof ko = {
     subtitleLine2: "Run them standalone or in combination.",
     detailCta: "Learn more",
   },
+  caseStudies: {
+    kicker: "Customer Success",
+    title: "Proven by real outcomes",
+    subtitle: "Real results from agents solving real customer problems.",
+    detailCta: "See the case",
+    galleryLabel: "Auto-generated ads, one per angle",
+    challengeLabel: "Challenge",
+    approachLabel: "Approach",
+  },
   showcase: {
     kicker: "How It Works",
-    title: "Here's how it actually runs",
+    title: "How the agents work",
     subtitle:
       "Give instructions in Slack. The agent executes. Track everything from the dashboard.",
     agentDemoLabel: "Agent demo — CRO Agent (Slack bot)",

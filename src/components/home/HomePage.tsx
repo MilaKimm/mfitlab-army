@@ -33,6 +33,7 @@ import {
   MmmGraphic,
 } from "@/components/home/AgentCardGraphics";
 import AgentDemo from "@/components/home/AgentDemo";
+import HeroAgentDemo from "@/components/home/HeroAgentDemo";
 import DashboardGraphic from "@/components/home/DashboardGraphic";
 import {
   agents,
@@ -41,9 +42,12 @@ import {
   axSolutions,
   localizeAgent,
   localizeSolution,
+  type Agent,
   type AxSolution,
 } from "@/data/army";
 import { getDictionary, localePrefix, type Locale } from "@/i18n/dictionaries";
+
+type Dict = ReturnType<typeof getDictionary>;
 
 const iconMap: Record<string, React.ReactNode> = {
   Globe: <Globe size={20} />,
@@ -89,6 +93,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
   const heritageStats = overview.heritage.stats;
   const adoptionSteps = overview.adoption.steps;
   const differentiators = overview.differentiators;
+  const caseAgents = agents.map((a) => localizeAgent(a, locale)).filter((a) => a.caseStudy);
 
   return (
     <>
@@ -102,49 +107,53 @@ export default function HomePage({ locale }: { locale: Locale }) {
           <div className="absolute right-[10%] top-[20%] w-[15vw] h-[25vh] rounded-full bg-[#BFE9EF] opacity-15 blur-[100px]" />
         </div>
 
-        <div className="relative z-10 text-center px-6">
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-7xl md:text-9xl font-bold tracking-tight mb-8 leading-[0.9]"
-            style={{ fontFamily: "var(--font-clash)" }}
-          >
-            <span className="block text-[#15867E]">MFL</span>
-            <span className="block text-[#1B1B1B]">ARMY</span>
-          </motion.h1>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="mb-14"
-          >
-            <p className="text-lg md:text-2xl font-bold text-[#36B1A7]">
-              {dict.hero.tagline1}
-            </p>
-            <p className="text-lg md:text-2xl font-bold text-[#1B1B1B]/60">
-              {dict.hero.tagline2}
-            </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="flex flex-col sm:flex-row gap-3 justify-center"
-          >
-            <Link
-              href="#contact"
-              className="h-12 px-8 flex items-center justify-center rounded-full bg-[#36B1A7] text-white font-semibold hover:bg-[#15867E] transition-all duration-300 shadow-lg shadow-[#36B1A7]/20"
+        <div className="relative z-10 w-full max-w-5xl mx-auto px-6 grid md:grid-cols-[1.02fr_0.98fr] gap-10 md:gap-8 items-center">
+          <div className="text-center md:text-left">
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="text-7xl md:text-8xl font-bold tracking-tight mb-7 leading-[0.9]"
+              style={{ fontFamily: "var(--font-clash)" }}
             >
-              {dict.hero.primaryCta}
-            </Link>
-            <Link
-              href={diagnosticHref}
-              className="h-12 px-8 flex items-center justify-center rounded-full bg-white/70 backdrop-blur-sm border border-white/50 text-[#1B1B1B] font-semibold hover:bg-white hover:border-[#36B1A7] hover:text-[#36B1A7] transition-all duration-300"
+              <span className="block text-[#15867E]">MFL</span>
+              <span className="block text-[#1B1B1B]">ARMY</span>
+            </motion.h1>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="mb-9"
             >
-              {dict.hero.secondaryCta}
-            </Link>
-          </motion.div>
+              <p className="text-lg md:text-2xl font-bold text-[#36B1A7]">
+                {dict.hero.tagline1}
+              </p>
+              <p className="text-lg md:text-2xl font-bold text-[#1B1B1B]/60">
+                {dict.hero.tagline2}
+              </p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start"
+            >
+              <Link
+                href="#contact"
+                className="h-12 px-8 flex items-center justify-center rounded-full bg-[#36B1A7] text-white font-semibold hover:bg-[#15867E] transition-all duration-300 shadow-lg shadow-[#36B1A7]/20"
+              >
+                {dict.hero.primaryCta}
+              </Link>
+              <Link
+                href={diagnosticHref}
+                className="h-12 px-8 flex items-center justify-center rounded-full bg-white/70 backdrop-blur-sm border border-white/50 text-[#1B1B1B] font-semibold hover:bg-white hover:border-[#36B1A7] hover:text-[#36B1A7] transition-all duration-300"
+              >
+                {dict.hero.secondaryCta}
+              </Link>
+            </motion.div>
+          </div>
+
+          <HeroAgentDemo />
         </div>
       </section>
 
@@ -180,11 +189,6 @@ export default function HomePage({ locale }: { locale: Locale }) {
                 </div>
               ))}
             </div>
-            <div className="flex justify-center mt-8">
-              <a href="https://www.mfitlab.com/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-6 py-3 text-sm font-semibold text-[#36B1A7] border border-[#36B1A7] rounded-full hover:bg-[#F2FDFB] transition-colors">
-                {dict.heritage.siteCta} <ArrowUpRight size={14} />
-              </a>
-            </div>
           </FadeInOnScroll>
         </div>
       </section>
@@ -216,7 +220,28 @@ export default function HomePage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* ─── 4. Agent Grid ─── */}
+      {/* ─── 4. 대표 사례 (Voice + LMF) ─── */}
+      {caseAgents.length > 0 && (
+        <section id="cases" className="py-24 bg-gradient-to-b from-[#F2FDFB] to-white">
+          <div className="max-w-5xl mx-auto px-6">
+            <FadeInOnScroll>
+              <p className="text-xs font-semibold tracking-widest uppercase text-[#36B1A7] mb-3">{dict.caseStudies.kicker}</p>
+              <h2 className="text-[28px] md:text-[40px] font-semibold text-[#1B1B1B] leading-[1.5] mb-3">{dict.caseStudies.title}</h2>
+              <p className="text-[#626166] mb-12 max-w-2xl">{dict.caseStudies.subtitle}</p>
+            </FadeInOnScroll>
+
+            <div className="space-y-20 md:space-y-28">
+              {caseAgents.map((agent, i) => (
+                <FadeInOnScroll key={agent.id} delay={i * 0.05}>
+                  <HomeCaseRow agent={agent} dict={dict} locale={locale} />
+                </FadeInOnScroll>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ─── 5. Agent Grid ─── */}
       <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-6">
           <FadeInOnScroll>
@@ -272,7 +297,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* ─── 5. Showcase ─── */}
+      {/* ─── 6. Showcase ─── */}
       <section id="showcase" className="py-24 bg-[#F4F4F4]">
         <div className="max-w-5xl mx-auto px-6">
           <FadeInOnScroll>
@@ -460,6 +485,128 @@ function SolutionCardInner({ sol, detailLabel }: { sol: AxSolution; detailLabel:
           {detailLabel} <ArrowRight size={14} />
         </span>
       </div>
+    </div>
+  );
+}
+
+/* ─── Home Case Study Card ─── */
+function HomeCaseRow({ agent, dict, locale, flip }: { agent: Agent; dict: Dict; locale: Locale; flip?: boolean }) {
+  const cs = agent.caseStudy;
+  if (!cs) return null;
+  const en = locale === "en";
+  const detailHref = localePrefix(`/army/${agent.id}`, locale);
+  const problemLabel = en ? "Problem" : "문제";
+  const solutionLabel = en ? "Solution" : "솔루션";
+  const metricsLabel = en ? "Key metrics" : "주요 지표";
+
+  const text = (
+    <div className={flip ? "md:order-2" : ""}>
+      {/* client label */}
+      <div className="flex items-center gap-2 mb-3">
+        <span className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: agent.color + "15", color: agent.color }}>
+          {iconMap[agent.lucideIcon]}
+        </span>
+        <p className="text-xs font-semibold tracking-wide" style={{ color: agent.color }}>{cs.clientLabel} · {cs.industry}</p>
+      </div>
+
+      {/* agent name — biggest */}
+      <h3 className="text-[32px] md:text-[44px] font-bold text-[#1B1B1B] leading-[1.05] mb-6">{agent.name}</h3>
+
+      {/* problems — concise phrases */}
+      {cs.problems && (
+        <div className="mb-5">
+          <p className="text-[11px] font-bold uppercase tracking-widest text-[#9B9B9B] mb-2">{problemLabel}</p>
+          <div className="flex flex-wrap gap-2">
+            {cs.problems.map((p, i) => (
+              <span key={i} className="text-[13px] text-[#626166] px-2.5 py-1 rounded-md bg-[#F4F4F4]">{p}</span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* solution — steps (LMF) or points (Voice) */}
+      {(cs.solutionSteps || cs.solutionPoints) && (
+        <div className="mb-6">
+          <p className="text-[11px] font-bold uppercase tracking-widest text-[#9B9B9B] mb-2">{solutionLabel}</p>
+          {cs.solutionSteps ? (
+            <div className="flex flex-wrap items-center gap-x-1.5 gap-y-2">
+              {cs.solutionSteps.map((s, i) => (
+                <span key={i} className="inline-flex items-center gap-1.5">
+                  <span className="text-[13px] font-medium text-[#15867E] px-2.5 py-1 rounded-md bg-[#F2FDFB] border border-[#36B1A7]/20">{s}</span>
+                  {i < cs.solutionSteps!.length - 1 && <ArrowRight size={12} className="text-[#36B1A7]/50" />}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <ul className="grid sm:grid-cols-2 gap-x-5 gap-y-2">
+              {cs.solutionPoints!.map((p, i) => (
+                <li key={i} className="flex items-center gap-2 text-[14px] text-[#3F3F46]">
+                  <Check size={15} className="flex-shrink-0" style={{ color: agent.color }} /> {p}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
+
+      {/* big metrics */}
+      {cs.bigMetrics && (
+        <div className="mb-7">
+          <p className="text-[11px] font-bold uppercase tracking-widest text-[#9B9B9B] mb-3">{metricsLabel}</p>
+          <div className="flex flex-wrap gap-x-10 gap-y-5">
+            {cs.bigMetrics.map((m, i) => (
+              <div key={i}>
+                <p className="text-[32px] md:text-[40px] font-bold leading-none" style={{ color: agent.color }}>{m.value}</p>
+                <p className="text-[13px] text-[#626166] mt-2">{m.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <Link href={detailHref} className="inline-flex items-center gap-1 text-sm font-semibold text-[#36B1A7] hover:gap-2 transition-all">
+        {dict.caseStudies.detailCta}
+        <ArrowRight size={14} />
+      </Link>
+    </div>
+  );
+
+  const visual = (
+    <div className={flip ? "md:order-1" : ""}>
+      {cs.heroImage ? (
+        <div>
+          {cs.heroImageCaption && (
+            <p className="text-xs font-semibold text-[#9B9B9B] mb-3">{cs.heroImageCaption}</p>
+          )}
+          <div className="relative w-full max-w-[400px] aspect-[940/1104] rounded-2xl overflow-hidden shadow-[0_24px_60px_-24px_rgba(27,27,27,0.3)]">
+            <Image src={cs.heroImage} alt={`${agent.name} ${cs.clientLabel}`} fill sizes="(max-width: 768px) 90vw, 400px" className="object-cover" />
+          </div>
+        </div>
+      ) : cs.gallery ? (
+        <div>
+          <p className="text-xs font-semibold text-[#9B9B9B] mb-3">{dict.caseStudies.galleryLabel}</p>
+          <div className="grid grid-cols-2 gap-3">
+            {cs.gallery.map((g, i) => (
+              <div key={i} className="group/g rounded-xl overflow-hidden bg-[#FAFAFA] shadow-[0_8px_24px_-14px_rgba(27,27,27,0.25)]">
+                <div className="relative aspect-square overflow-hidden">
+                  <Image src={g.image} alt={g.angle} fill sizes="(max-width: 768px) 45vw, 240px" className="object-cover transition-transform duration-500 group-hover/g:scale-105" />
+                </div>
+                <div className="px-2.5 py-2">
+                  <p className="text-[11px] font-semibold leading-tight" style={{ color: agent.color }}>{g.target}</p>
+                  <p className="text-[11px] text-[#626166] leading-tight mt-0.5 line-clamp-1">{g.angle}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+
+  return (
+    <div className="grid md:grid-cols-2 gap-10 md:gap-14 items-start">
+      {text}
+      {visual}
     </div>
   );
 }
