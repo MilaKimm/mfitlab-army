@@ -27,7 +27,7 @@ export interface CaseStudy {
   solutionPoints?: string[]; // 솔루션 — 구문형 (Voice)
   heroImage?: string; // 우측 단일 이미지 (Voice). LMF은 gallery 사용
   heroImageCaption?: string; // 우측 이미지 소제목 (Voice)
-  bigMetrics?: { value: string; label: string }[]; // 주요 수치 (크게)
+  bigMetrics?: { value: string; label?: string }[]; // 주요 수치 (크게). label 생략 시 값만 표기
 }
 
 export interface AgentLocalized {
@@ -189,8 +189,9 @@ export const agents: Agent[] = [
       problems: ["공급자 중심 언어로만 소구", "타겟·시즌·핵심 VP 부재", "퍼포먼스 광고 부진"],
       solutionPoints: ["리서치 · 퍼소나 도출", "VP·소구점 도출", "AI 카피·이미지 생성", "메타 퍼포먼스 세팅·분석"],
       bigMetrics: [
-        { value: "+87%", label: "광고 CTR 성장" },
-        { value: "3배", label: "ROAS 개선" },
+        { value: "ROAS" },
+        { value: "CTR" },
+        { value: "매출" },
       ],
       gallery: [
         { image: "/cases/lmf/semsay-vp1-family.png", target: "육아·가족", angle: "수건으로 닦아도 남는 물기" },
@@ -252,8 +253,9 @@ export const agents: Agent[] = [
         problems: ["Supplier-centric language only", "No clear target or core VP", "Underperforming paid ads"],
         solutionPoints: ["Research · personas", "VP / angle discovery", "AI copy & image generation", "Meta setup & analysis"],
         bigMetrics: [
-          { value: "+87%", label: "Ad CTR lift" },
-          { value: "×3", label: "ROAS improvement" },
+          { value: "ROAS" },
+          { value: "CTR" },
+          { value: "Revenue" },
         ],
         gallery: [
           { image: "/cases/lmf/semsay-vp1-family.png", target: "Parents / family", angle: "Moisture a towel leaves behind" },
