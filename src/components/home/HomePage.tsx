@@ -557,7 +557,7 @@ function HomeCaseRow({ agent, dict, locale, flip }: { agent: Agent; dict: Dict; 
             {cs.bigMetrics.map((m, i) => (
               <div key={i}>
                 <p className="text-[32px] md:text-[40px] font-bold leading-none" style={{ color: agent.color }}>{m.value}</p>
-                <p className="text-[13px] text-[#626166] mt-2">{m.label}</p>
+                {m.label && <p className="text-[13px] text-[#626166] mt-2">{m.label}</p>}
               </div>
             ))}
           </div>
