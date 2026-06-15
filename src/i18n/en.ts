@@ -17,7 +17,6 @@ export const en: typeof ko = {
     kicker: "Heritage",
     title: "Agents built on 7 years of growth execution",
     subtitle: "Real-world experiment data sharpens the agent's judgment.",
-    siteCta: "MarketFit Lab Home",
     stats: {
       years: "Years running growth",
       experiments: "A/B experiments",

@@ -15,7 +15,6 @@ export const ko = {
     kicker: "Heritage",
     title: "마켓핏랩의 노하우를 담은 에이전트",
     subtitle: "실전 실험 데이터가 에이전트의 정교한 판단력이 됩니다.",
-    siteCta: "마켓핏랩 홈페이지",
     stats: {
       years: "그로스 마케팅 전문 운영",
       experiments: "AB 실험 레코드",

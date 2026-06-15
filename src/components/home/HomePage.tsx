@@ -189,11 +189,6 @@ export default function HomePage({ locale }: { locale: Locale }) {
                 </div>
               ))}
             </div>
-            <div className="flex justify-center mt-8">
-              <a href="https://www.mfitlab.com/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-6 py-3 text-sm font-semibold text-[#36B1A7] border border-[#36B1A7] rounded-full hover:bg-[#F2FDFB] transition-colors">
-                {dict.heritage.siteCta} <ArrowUpRight size={14} />
-              </a>
-            </div>
           </FadeInOnScroll>
         </div>
       </section>
