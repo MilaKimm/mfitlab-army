@@ -19,7 +19,12 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({ name, company, email, phone, solutions: solutionList, message: message || "-" }),
       redirect: "follow",
       signal: AbortSignal.timeout(5000),
-    }).catch(() => {});
+    })
+      .then((res) => {
+        // fetch는 4xx/5xx에 throw하지 않으므로 상태 코드를 직접 확인한다
+        if (!res.ok) console.error(`[contact] 시트 저장 실패 (HTTP ${res.status})`, { company, email });
+      })
+      .catch((err) => console.error("[contact] 시트 저장 실패", { company, email }, err));
 
     // Resend 메일 발송
     const mailPromise = resend.emails.send({
@@ -37,7 +42,12 @@ export async function POST(req: NextRequest) {
           <tr><td style="padding:8px;color:#666;">문의 내용</td><td style="padding:8px;">${message || "-"}</td></tr>
         </table>
       `,
-    }).catch(() => {});
+    })
+      .then((res) => {
+        // Resend SDK는 API 오류를 throw하지 않고 error 필드로 돌려준다 (키 만료·도메인 미인증 등)
+        if (res?.error) console.error("[contact] 메일 발송 실패", { company, email }, res.error);
+      })
+      .catch((err) => console.error("[contact] 메일 발송 실패", { company, email }, err));
 
     await Promise.allSettled([sheetPromise, mailPromise]);
 
