@@ -32,6 +32,7 @@ import FadeInOnScroll from "@/components/motion/FadeInOnScroll";
 import AgentLink from "@/components/AgentLink";
 import CaseStudyBlock from "@/components/agents/CaseStudyBlock";
 import type { Locale } from "@/i18n/dictionaries";
+import { contactHref } from "@/i18n/dictionaries";
 
 const smallIconMap: Record<string, React.ReactNode> = {
   Globe: <Globe size={18} />,
@@ -221,7 +222,7 @@ export default function VoiceAgentDetailPage({ agent: rawAgent, locale = "ko" }:
             <p className="text-sm text-gray-500 mt-3 max-w-xl mx-auto">{t.heroSub}</p>
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.25 }} className="mt-8 flex items-center justify-center gap-3">
-            <Link href="#contact" className="inline-flex items-center px-6 py-3 text-sm font-semibold text-white rounded-lg hover:opacity-90 transition-colors" style={{ backgroundColor: agent.color }}>{t.heroCta}</Link>
+            <Link href={contactHref(locale)} className="inline-flex items-center px-6 py-3 text-sm font-semibold text-white rounded-lg hover:opacity-90 transition-colors" style={{ backgroundColor: agent.color }}>{t.heroCta}</Link>
             {agent.demoUrl && (
               <a href={agent.demoUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-6 py-3 text-sm font-semibold rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors">
                 {t.demoCta} <ArrowRight size={14} className="ml-1.5" />
@@ -502,7 +503,7 @@ export default function VoiceAgentDetailPage({ agent: rawAgent, locale = "ko" }:
             <h2 className="text-2xl font-bold text-gray-900">{t.ctaTitle}</h2>
             <p className="text-sm text-gray-500 mt-3">{t.ctaSub}</p>
             <div className="mt-8">
-              <Link href="#contact" className="inline-flex items-center px-6 py-3 text-sm font-semibold text-white rounded-lg hover:opacity-90 transition-colors" style={{ backgroundColor: agent.color }}>{t.heroCta}</Link>
+              <Link href={contactHref(locale)} className="inline-flex items-center px-6 py-3 text-sm font-semibold text-white rounded-lg hover:opacity-90 transition-colors" style={{ backgroundColor: agent.color }}>{t.heroCta}</Link>
             </div>
           </FadeInOnScroll>
         </div>

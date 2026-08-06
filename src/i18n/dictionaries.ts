@@ -24,6 +24,16 @@ export function localizePath(pathname: string, target: Locale): string {
   return clean === "/" ? "/en" : `/en${clean}`;
 }
 
+/**
+ * 홈의 도입 문의 섹션으로 가는 링크.
+ *
+ * 문의 섹션(id="contact")은 홈에만 있으므로, 홈이 아닌 페이지에서 `#contact`처럼
+ * 맨 해시를 쓰면 대상이 없어 아무 일도 일어나지 않는다. 항상 홈 경로를 포함시킨다.
+ */
+export function contactHref(locale: Locale): string {
+  return locale === "en" ? "/en#contact" : "/#contact";
+}
+
 /** Prefix an internal path with the locale. For "ko" returns as-is; for "en" prefixes "/en". */
 export function localePrefix(path: string, locale: Locale): string {
   if (locale === "ko") return path;

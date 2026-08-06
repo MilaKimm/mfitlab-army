@@ -1,7 +1,7 @@
 import Link from "next/link";
 import FadeInOnScroll from "@/components/motion/FadeInOnScroll";
 import type { Locale } from "@/i18n/dictionaries";
-import { localePrefix } from "@/i18n/dictionaries";
+import { contactHref, localePrefix } from "@/i18n/dictionaries";
 
 export default function ReplitSolutionPage({ locale = "ko" }: { locale?: Locale } = {}) {
   const en = locale === "en";
@@ -66,7 +66,7 @@ export default function ReplitSolutionPage({ locale = "ko" }: { locale?: Locale 
           <p className="text-lg text-gray-600 max-w-3xl mb-8">
             {t.heroSub}
           </p>
-          <Link href="#contact" className="h-12 px-6 inline-flex items-center justify-center rounded-lg bg-gray-900 text-white font-medium hover:bg-gray-800 transition">
+          <Link href={contactHref(locale)} className="h-12 px-6 inline-flex items-center justify-center rounded-lg bg-gray-900 text-white font-medium hover:bg-gray-800 transition">
             {t.primaryCta}
           </Link>
         </div>
