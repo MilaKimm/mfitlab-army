@@ -1,9 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { agents, localizeAgent } from "@/data/army";
 import AgentLink from "@/components/AgentLink";
-import { getDictionary, type Locale } from "@/i18n/dictionaries";
+import { getDictionary, localePrefix, type Locale } from "@/i18n/dictionaries";
 
 export default function Footer() {
   const pathname = usePathname() || "/";
@@ -91,9 +92,9 @@ export default function Footer() {
         <div className="mt-12 pt-6 border-t border-white/10 space-y-2 text-center">
           <p className="text-xs text-white/30">{corpLine}</p>
           <p className="text-xs text-white/30">
-            <a href="https://www.mfitlab.com/terms" target="_blank" rel="noopener noreferrer" className="hover:text-white/50 transition">{terms}</a>
+            <Link href={localePrefix("/terms", locale)} className="hover:text-white/50 transition">{terms}</Link>
             {" | "}
-            <a href="https://www.mfitlab.com/privacy" target="_blank" rel="noopener noreferrer" className="hover:text-white/50 transition">{privacy}</a>
+            <Link href={localePrefix("/privacy", locale)} className="hover:text-white/50 transition">{privacy}</Link>
             {" | "}&copy; 2026 MarketFitLab Inc. All rights reserved.
           </p>
         </div>

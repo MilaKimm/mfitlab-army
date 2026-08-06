@@ -388,7 +388,6 @@ export const agents: Agent[] = [
       { metric: "리드 전환", before: "일반 랜딩", after: "바이럴 루프 형성" },
     ],
     relatedAgents: ["cro-agent", "lmf-agent"],
-    demoUrl: "https://pfinder.aicantalk.com/",
     en: {
       name: "Lead Magnet Agent",
       category: "Viral Loop",
@@ -486,7 +485,6 @@ export const agents: Agent[] = [
       ],
     },
     relatedAgents: ["lmf-agent", "cro-agent"],
-    demoUrl: "https://demo.bringtalk.ai/",
     en: {
       name: "Voice Agent",
       category: "AI Voice Agent",

@@ -113,7 +113,7 @@ export default function ReplitSolutionPage({ locale = "ko" }: { locale?: Locale 
           <FadeInOnScroll>
             <p className="text-sm text-gray-500 mb-3">{t.relatedHeader}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href={localePrefix("/army", locale)} className="text-sm text-purple-600 hover:underline">{t.relatedArmy}</Link>
+              <Link href={localePrefix("/", locale)} className="text-sm text-purple-600 hover:underline">{t.relatedArmy}</Link>
               <Link href={localePrefix("/solutions/articul8", locale)} className="text-sm text-blue-600 hover:underline">{t.relatedArticul8}</Link>
             </div>
           </FadeInOnScroll>
