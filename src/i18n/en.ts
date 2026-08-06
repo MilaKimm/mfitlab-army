@@ -41,6 +41,7 @@ export const en: typeof ko = {
     title: "Proven by real outcomes",
     subtitle: "Real results from agents solving real customer problems.",
     detailCta: "See the case",
+    externalCta: "Try {agent}",
     galleryLabel: "Auto-generated ads, one per angle",
     challengeLabel: "Challenge",
     approachLabel: "Approach",

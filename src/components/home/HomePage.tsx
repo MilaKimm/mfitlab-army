@@ -498,6 +498,10 @@ function HomeCaseRow({ agent, dict, locale, flip }: { agent: Agent; dict: Dict; 
   const problemLabel = en ? "Problem" : "문제";
   const solutionLabel = en ? "Solution" : "솔루션";
   const metricsLabel = en ? "Key improvements" : "주요 개선 지표";
+  // 외부 사이트로 나가는 에이전트는 "사례 보기"가 아니라 제품 체험 CTA로 표기한다.
+  const ctaLabel = agent.externalUrl
+    ? dict.caseStudies.externalCta.replace("{agent}", agent.name)
+    : dict.caseStudies.detailCta;
 
   const text = (
     <div className={flip ? "md:order-2" : ""}>
@@ -565,7 +569,7 @@ function HomeCaseRow({ agent, dict, locale, flip }: { agent: Agent; dict: Dict; 
       )}
 
       <AgentLink agent={agent} locale={locale} className="inline-flex items-center gap-1 text-sm font-semibold text-[#36B1A7] hover:gap-2 transition-all">
-        {dict.caseStudies.detailCta}
+        {ctaLabel}
         <ArrowRight size={14} />
       </AgentLink>
     </div>

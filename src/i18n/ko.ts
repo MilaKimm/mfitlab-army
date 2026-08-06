@@ -39,6 +39,8 @@ export const ko = {
     title: "실제 성과로 증명합니다",
     subtitle: "에이전트가 실제 고객의 문제를 풀고 만들어낸 결과입니다.",
     detailCta: "사례 자세히 보기",
+    /** externalUrl이 있는 에이전트용. {agent}는 에이전트 이름으로 치환된다. */
+    externalCta: "{agent} 체험하기",
     galleryLabel: "소구점별 자동 생성 광고",
     challengeLabel: "문제",
     approachLabel: "투입",
