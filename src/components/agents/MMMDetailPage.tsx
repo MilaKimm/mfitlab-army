@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import {
   PieChart,
   ArrowRight,
+  ArrowUpRight,
   Database,
   Brain,
   LineChart,
@@ -23,6 +24,7 @@ import {
 import type { Agent } from "@/data/army";
 import { agents, localizeAgent } from "@/data/army";
 import FadeInOnScroll from "@/components/motion/FadeInOnScroll";
+import AgentLink from "@/components/AgentLink";
 import type { Locale } from "@/i18n/dictionaries";
 
 const smallIconMap: Record<string, React.ReactNode> = {
@@ -175,7 +177,6 @@ export default function MMMDetailPage({ agent: rawAgent, locale = "ko" }: Props)
   const impactMetricsLocal = t.impactMetrics;
   const capabilitiesLocal = t.capabilities.map((c, i) => ({ ...c, icon: capabilities[i].icon }));
   const stepsLocal = t.stepsText.map((s, i) => ({ ...s, icon: mmmSteps[i].icon }));
-  const prefix = locale === "en" ? "/en" : "";
 
   return (
     <div className="pt-20">
@@ -404,14 +405,14 @@ export default function MMMDetailPage({ agent: rawAgent, locale = "ko" }: Props)
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {relatedAgents.map((rel) => (
                 <FadeInOnScroll key={rel.id}>
-                  <Link href={`${prefix}/army/${rel.id}`} className="flex items-center gap-4 p-5 bg-white rounded-xl border border-gray-100 hover:shadow-md transition-shadow">
+                  <AgentLink agent={rel} locale={locale} className="flex items-center gap-4 p-5 bg-white rounded-xl border border-gray-100 hover:shadow-md transition-shadow">
                     <div className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${rel.color}15`, color: rel.color }}>{smallIconMap[rel.lucideIcon]}</div>
                     <div className="flex-1 min-w-0">
                       <h3 className="text-sm font-semibold text-gray-900">{rel.name}</h3>
                       <p className="text-xs text-gray-500 line-clamp-1">{rel.tagline}</p>
                     </div>
-                    <ArrowRight size={16} className="text-gray-400" />
-                  </Link>
+                    {rel.externalUrl ? <ArrowUpRight size={16} className="text-gray-400" /> : <ArrowRight size={16} className="text-gray-400" />}
+                  </AgentLink>
                 </FadeInOnScroll>
               ))}
             </div>

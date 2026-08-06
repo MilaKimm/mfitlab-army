@@ -56,6 +56,8 @@ export interface Agent extends AgentLocalized {
   lucideIcon: string;
   relatedAgents: string[];
   demoUrl?: string;
+  /** 설정 시 사이트 내 상세 페이지 대신 이 외부 사이트로 연결한다 (독립 운영 에이전트). */
+  externalUrl?: string;
   /** Optional English overrides. When locale is "en", these replace the Korean fields. */
   en?: AgentLocalized;
 }
@@ -202,6 +204,7 @@ export const agents: Agent[] = [
       assetNote: "생성된 소재는 광고를 넘어 상세페이지·SNS·기획전 콘텐츠 자산으로 재활용됩니다.",
     },
     relatedAgents: ["cro-agent", "geo-agent"],
+    externalUrl: "https://lmf.aicantalk.com/",
     en: {
       name: "LMF Agent",
       category: "Ad Marketing Automation",
@@ -385,7 +388,6 @@ export const agents: Agent[] = [
       { metric: "리드 전환", before: "일반 랜딩", after: "바이럴 루프 형성" },
     ],
     relatedAgents: ["cro-agent", "lmf-agent"],
-    demoUrl: "https://pfinder.aicantalk.com/",
     en: {
       name: "Lead Magnet Agent",
       category: "Viral Loop",
@@ -483,7 +485,6 @@ export const agents: Agent[] = [
       ],
     },
     relatedAgents: ["lmf-agent", "cro-agent"],
-    demoUrl: "https://demo.bringtalk.ai/",
     en: {
       name: "Voice Agent",
       category: "AI Voice Agent",

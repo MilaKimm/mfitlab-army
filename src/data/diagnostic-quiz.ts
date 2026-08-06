@@ -29,14 +29,10 @@ export const SOLUTION_KEY_TO_ID: Record<SolutionKey, string> = {
   mmm: "mmm-agent",
 };
 
-export const THEORETICAL_MAX: Record<SolutionKey, number> = {
-  geo: 15,
-  lmf: 13,
-  cro: 24,
-  "lead-magnet": 13,
-  voice: 20,
-  mmm: 16,
-};
+const ALL_SOLUTION_KEYS: SolutionKey[] = ["geo", "lmf", "cro", "lead-magnet", "voice", "mmm"];
+
+const zeroScores = (): Record<SolutionKey, number> =>
+  Object.fromEntries(ALL_SOLUTION_KEYS.map((k) => [k, 0])) as Record<SolutionKey, number>;
 
 export const questions: Question[] = [
   {
@@ -100,6 +96,24 @@ export const questions: Question[] = [
     ],
   },
 ];
+
+/**
+ * 각 솔루션이 받을 수 있는 이론상 최대 점수 — 문항별 최고 배점의 합.
+ *
+ * 이전에는 손으로 적은 상수였는데 questions와 동기화되지 않아
+ * 정규화 점수가 100%를 넘었다(LMF 최대 154%). 배점이나 문항을 바꿔도
+ * 어긋나지 않도록 questions에서 직접 계산한다.
+ */
+export const THEORETICAL_MAX: Record<SolutionKey, number> = questions.reduce((total, question) => {
+  const bestPerQuestion = zeroScores();
+  for (const choice of question.choices) {
+    for (const { solution, points } of choice.scores) {
+      bestPerQuestion[solution] = Math.max(bestPerQuestion[solution], points);
+    }
+  }
+  for (const key of ALL_SOLUTION_KEYS) total[key] += bestPerQuestion[key];
+  return total;
+}, zeroScores());
 
 export const resultCopyTemplates: Record<SolutionKey, string> = {
   geo: "AI 검색 노출이 과제라고 하셨죠. ARMY의 GEO Agent가 ChatGPT, Perplexity 등에서 브랜드 인용률을 높여드립니다.",

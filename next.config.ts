@@ -6,6 +6,14 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: __dirname,
   },
+  // LMF Agent는 별도 사이트로 독립 운영. 직접 URL·북마크·검색 유입까지 커버하는 안전망.
+  // 307(임시) — 브라우저가 캐시하지 않아 되돌리기 쉽다.
+  async redirects() {
+    return [
+      { source: "/army/lmf-agent", destination: "https://lmf.aicantalk.com/", permanent: false },
+      { source: "/en/army/lmf-agent", destination: "https://lmf.aicantalk.com/", permanent: false },
+    ];
+  },
 };
 
 export default nextConfig;

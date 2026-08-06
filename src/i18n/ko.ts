@@ -33,12 +33,16 @@ export const ko = {
     subtitleLine1: "각 에이전트에는 마켓핏랩의 프레임워크와 실전 데이터가 학습되어 있습니다.",
     subtitleLine2: "독립 도입도, 조합 운영도 가능합니다.",
     detailCta: "자세히 보기",
+    /** externalUrl이 있는 에이전트용. 카드가 좁아 이름 없이 짧게 쓴다. */
+    externalCta: "체험하기",
   },
   caseStudies: {
     kicker: "Customer Success",
     title: "실제 성과로 증명합니다",
     subtitle: "에이전트가 실제 고객의 문제를 풀고 만들어낸 결과입니다.",
     detailCta: "사례 자세히 보기",
+    /** externalUrl이 있는 에이전트용. {agent}는 에이전트 이름으로 치환된다. */
+    externalCta: "{agent} 체험하기",
     galleryLabel: "소구점별 자동 생성 광고",
     challengeLabel: "문제",
     approachLabel: "투입",

@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import {
   Magnet,
   ArrowRight,
+  ArrowUpRight,
   Search,
   FileText,
   Monitor,
@@ -24,6 +25,7 @@ import {
 import type { Agent } from "@/data/army";
 import { agents, localizeAgent } from "@/data/army";
 import FadeInOnScroll from "@/components/motion/FadeInOnScroll";
+import AgentLink from "@/components/AgentLink";
 import type { Locale } from "@/i18n/dictionaries";
 
 const smallIconMap: Record<string, React.ReactNode> = {
@@ -70,7 +72,6 @@ export default function LeadMagnetDetailPage({ agent: rawAgent, locale = "ko" }:
   const agent = localizeAgent(rawAgent, locale);
   const relatedAgents = agents.filter((a) => agent.relatedAgents.includes(a.id)).map((a) => localizeAgent(a, locale));
   const en = locale === "en";
-  const prefix = locale === "en" ? "/en" : "";
 
   const t = {
     heroCta: en ? "Get in Touch" : "도입 문의",
@@ -170,29 +171,29 @@ export default function LeadMagnetDetailPage({ agent: rawAgent, locale = "ko" }:
     : "방문자를 참여자로 바꾸고 리드를 자동으로 쌓는 인터랙티브 웹앱";
   const tools = en
     ? [
-        { name: "Product Finder", url: "https://pfinder.aicantalk.com/", image: "/cases/lead-magnet/finder.png",
+        { name: "Product Finder", image: "/cases/lead-magnet/finder.png",
           tagline: "An interactive product-recommendation quiz that stops visitors — with conversion testing built in.",
           problem: "Too many options; visitors stall at “what fits me?” and you can't verify what lifts conversion.",
           solution: "4-question recommender + built-in no-code A/B testing + automatic funnel measurement." },
-        { name: "Carousel Ad Generator", url: "https://carousel.aicantalk.com/", image: "/cases/lead-magnet/carousel.png",
+        { name: "Carousel Ad Generator", image: "/cases/lead-magnet/carousel.png",
           tagline: "Enter a site URL — ad creatives are generated and published to Meta.",
           problem: "One creative set takes 3 roles (marketer, copywriter, designer) across 10 steps.",
           solution: "Down to 4 steps / 1 person — 4-angle copy + image & video auto-generated, published straight to Meta." },
-        { name: "Product Detail Generator", url: "https://pdetail.aicantalk.com/", image: "/cases/lead-magnet/detail.png",
+        { name: "Product Detail Generator", image: "/cases/lead-magnet/detail.png",
           tagline: "Turns scattered product materials into a ready-to-publish detail page.",
           problem: "~8 hours per detail page; typos and rework eat 12–13% of the work.",
           solution: "5-step AI pipeline (extract → copy → photo sort → compose → HTML); humans only review." },
       ]
     : [
-        { name: "Product Finder", url: "https://pfinder.aicantalk.com/", image: "/cases/lead-magnet/finder.png",
+        { name: "Product Finder", image: "/cases/lead-magnet/finder.png",
           tagline: "고객을 멈춰 세우는 인터랙티브 제품 추천 퀴즈 — 전환 실험까지 한 번에",
           problem: "선택지가 너무 많아 “나에게 뭐가 맞지?”에서 이탈하고, 무엇이 전환을 올렸는지 검증할 방법이 없습니다.",
           solution: "4문항 추천 퀴즈 + 노코드 A/B 테스트 내장 + 전환 퍼널 자동 측정" },
-        { name: "Carousel Ad Generator", url: "https://carousel.aicantalk.com/", image: "/cases/lead-magnet/carousel.png",
+        { name: "Carousel Ad Generator", image: "/cases/lead-magnet/carousel.png",
           tagline: "사이트 주소만 입력하면 광고 소재가 만들어지고 Meta에 발행됩니다.",
           problem: "소재 한 세트에 마케터·카피라이터·디자이너 3개 역할과 10단계가 필요합니다.",
           solution: "4단계·1명으로 축소 — 4가지 앵글 카피 + 이미지·영상 자동 생성 + Meta 직접 발행" },
-        { name: "Product Detail Generator", url: "https://pdetail.aicantalk.com/", image: "/cases/lead-magnet/detail.png",
+        { name: "Product Detail Generator", image: "/cases/lead-magnet/detail.png",
           tagline: "흩어진 상품 자료를 등록용 상세페이지로 자동 변환합니다.",
           problem: "상세 1건에 평균 8시간, 데이터 오타·수정 핑퐁이 작업의 12~13%를 차지합니다.",
           solution: "5단계 AI 파이프라인(추출→문구→사진분류→합성→HTML), 사람은 검수만" },
@@ -316,9 +317,6 @@ export default function LeadMagnetDetailPage({ agent: rawAgent, locale = "ko" }:
                       <p><span className="font-bold text-gray-400 mr-1">{en ? "Problem" : "문제"}</span>{tool.problem}</p>
                       <p><span className="font-bold mr-1" style={{ color: agent.color }}>{en ? "Solution" : "해결"}</span>{tool.solution}</p>
                     </div>
-                    <a href={tool.url} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-1 text-sm font-semibold hover:gap-2 transition-all" style={{ color: agent.color }}>
-                      {en ? "View demo" : "데모 보기"} <ArrowRight size={14} />
-                    </a>
                   </div>
                 </motion.div>
               );
@@ -479,14 +477,14 @@ export default function LeadMagnetDetailPage({ agent: rawAgent, locale = "ko" }:
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {relatedAgents.map((rel) => (
                 <FadeInOnScroll key={rel.id}>
-                  <Link href={`${prefix}/army/${rel.id}`} className="flex items-center gap-4 p-5 bg-white rounded-xl border border-gray-100 hover:shadow-md transition-shadow">
+                  <AgentLink agent={rel} locale={locale} className="flex items-center gap-4 p-5 bg-white rounded-xl border border-gray-100 hover:shadow-md transition-shadow">
                     <div className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${rel.color}15`, color: rel.color }}>{smallIconMap[rel.lucideIcon]}</div>
                     <div className="flex-1 min-w-0">
                       <h3 className="text-sm font-semibold text-gray-900">{rel.name}</h3>
                       <p className="text-xs text-gray-500 line-clamp-1">{rel.tagline}</p>
                     </div>
-                    <ArrowRight size={16} className="text-gray-400" />
-                  </Link>
+                    {rel.externalUrl ? <ArrowUpRight size={16} className="text-gray-400" /> : <ArrowRight size={16} className="text-gray-400" />}
+                  </AgentLink>
                 </FadeInOnScroll>
               ))}
             </div>
