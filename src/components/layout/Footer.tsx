@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { agents, localizeAgent } from "@/data/army";
-import { getDictionary, localePrefix, type Locale } from "@/i18n/dictionaries";
+import AgentLink from "@/components/AgentLink";
+import { getDictionary, type Locale } from "@/i18n/dictionaries";
 
 export default function Footer() {
   const pathname = usePathname() || "/";
@@ -41,13 +41,14 @@ export default function Footer() {
               {agents.map((a) => {
                 const agent = localizeAgent(a, locale);
                 return (
-                  <Link
+                  <AgentLink
                     key={agent.id}
-                    href={localePrefix(`/army/${agent.id}`, locale)}
+                    agent={agent}
+                    locale={locale}
                     className="block text-sm text-white/40 hover:text-white/70 transition"
                   >
                     {agent.name}
-                  </Link>
+                  </AgentLink>
                 );
               })}
             </div>

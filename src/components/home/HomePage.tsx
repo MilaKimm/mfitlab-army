@@ -45,6 +45,7 @@ import {
   type Agent,
   type AxSolution,
 } from "@/data/army";
+import AgentLink from "@/components/AgentLink";
 import { getDictionary, localePrefix, type Locale } from "@/i18n/dictionaries";
 
 type Dict = ReturnType<typeof getDictionary>;
@@ -266,7 +267,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <Link href={localePrefix(`/army/${agent.id}`, locale)} className="block group">
+                  <AgentLink agent={agent} locale={locale} className="block group">
                     <div className={`rounded-2xl border border-[#E9E9E9] bg-gradient-to-br ${gradientMap[agent.id]} p-0 shadow-[0_8px_24px_-8px_rgba(27,27,27,0.12)] md:shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-[#36B1A7]/40 transition-all duration-300 h-[260px] flex overflow-hidden`}>
                       <div className="flex flex-col justify-between p-6 w-[55%]">
                         <div>
@@ -289,7 +290,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
                       </div>
                       <div className="w-[45%] relative">{graphicMap[agent.id]}</div>
                     </div>
-                  </Link>
+                  </AgentLink>
                 </motion.div>
               );
             })}
@@ -494,7 +495,6 @@ function HomeCaseRow({ agent, dict, locale, flip }: { agent: Agent; dict: Dict; 
   const cs = agent.caseStudy;
   if (!cs) return null;
   const en = locale === "en";
-  const detailHref = localePrefix(`/army/${agent.id}`, locale);
   const problemLabel = en ? "Problem" : "문제";
   const solutionLabel = en ? "Solution" : "솔루션";
   const metricsLabel = en ? "Key improvements" : "주요 개선 지표";
@@ -564,10 +564,10 @@ function HomeCaseRow({ agent, dict, locale, flip }: { agent: Agent; dict: Dict; 
         </div>
       )}
 
-      <Link href={detailHref} className="inline-flex items-center gap-1 text-sm font-semibold text-[#36B1A7] hover:gap-2 transition-all">
+      <AgentLink agent={agent} locale={locale} className="inline-flex items-center gap-1 text-sm font-semibold text-[#36B1A7] hover:gap-2 transition-all">
         {dict.caseStudies.detailCta}
         <ArrowRight size={14} />
-      </Link>
+      </AgentLink>
     </div>
   );
 

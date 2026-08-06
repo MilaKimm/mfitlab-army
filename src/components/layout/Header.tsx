@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown, ArrowUpRight } from "lucide-react";
 import { agents, localizeAgent } from "@/data/army";
+import AgentLink from "@/components/AgentLink";
 import {
   getDictionary,
   localePrefix,
@@ -57,9 +58,10 @@ export default function Header() {
                   {agents.map((a) => {
                     const agent = localizeAgent(a, locale);
                     return (
-                      <Link
+                      <AgentLink
                         key={agent.id}
-                        href={localePrefix(`/army/${agent.id}`, locale)}
+                        agent={agent}
+                        locale={locale}
                         className="flex items-center text-sm text-[#626166] hover:text-[#1B1B1B] transition py-2 px-2 rounded-lg hover:bg-[#F4F4F4]"
                       >
                         <span
@@ -67,7 +69,7 @@ export default function Header() {
                           style={{ backgroundColor: agent.color }}
                         />
                         {agent.name}
-                      </Link>
+                      </AgentLink>
                     );
                   })}
                 </div>
@@ -176,9 +178,9 @@ export default function Header() {
             {agents.map((a) => {
               const agent = localizeAgent(a, locale);
               return (
-                <Link key={agent.id} href={localePrefix(`/army/${agent.id}`, locale)} className="block text-sm text-[#626166] py-2" onClick={() => setMobileOpen(false)}>
+                <AgentLink key={agent.id} agent={agent} locale={locale} className="block text-sm text-[#626166] py-2" onClick={() => setMobileOpen(false)}>
                   {agent.name}
-                </Link>
+                </AgentLink>
               );
             })}
           </div>

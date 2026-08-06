@@ -8,8 +8,8 @@ import { ArrowLeft, ArrowRight, RotateCcw } from "lucide-react";
 import type { Choice, SolutionKey } from "@/data/diagnostic-quiz";
 import { questions, resultCopyTemplates, resultCopyTemplatesEn } from "@/data/diagnostic-quiz";
 import { agents, localizeAgent } from "@/data/army";
+import AgentLink from "@/components/AgentLink";
 import type { Locale } from "@/i18n/dictionaries";
-import { localePrefix } from "@/i18n/dictionaries";
 import {
   calculateRawScores,
   normalizeScores,
@@ -274,9 +274,9 @@ function QuizResultsView({ locale, recommendations, allScores, isFullFunnel, onR
               <h3 className="text-lg font-semibold text-[#1B1B1B] mb-1">{agent.name}</h3>
               <p className="text-xs text-[#9B9B9B] mb-3">{agent.category}</p>
               <p className="text-sm text-[#626166] leading-relaxed mb-4">{templates[rec.solutionKey]}</p>
-              <Link href={localePrefix(`/army/${rawAgent.id}`, locale)} className="inline-flex items-center gap-1 text-sm font-semibold text-[#36B1A7] hover:text-[#15867E] transition-colors">
+              <AgentLink agent={rawAgent} locale={locale} className="inline-flex items-center gap-1 text-sm font-semibold text-[#36B1A7] hover:text-[#15867E] transition-colors">
                 {rt.detailCta} <ArrowRight size={14} />
-              </Link>
+              </AgentLink>
             </motion.div>
           );
         })}
