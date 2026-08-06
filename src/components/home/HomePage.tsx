@@ -282,8 +282,12 @@ export default function HomePage({ locale }: { locale: Locale }) {
                         </div>
                         <div className="flex items-center justify-between gap-2">
                           <span className="inline-flex items-center gap-1 text-xs font-semibold text-[#36B1A7] group-hover:gap-2 transition-all">
-                            {dict.agentGrid.detailCta}
-                            <ArrowRight size={12} className="transition-transform group-hover:translate-x-0.5" />
+                            {agent.externalUrl ? dict.agentGrid.externalCta : dict.agentGrid.detailCta}
+                            {agent.externalUrl ? (
+                              <ArrowUpRight size={12} className="transition-transform group-hover:-translate-y-0.5" />
+                            ) : (
+                              <ArrowRight size={12} className="transition-transform group-hover:translate-x-0.5" />
+                            )}
                           </span>
                           <span className="text-sm font-semibold" style={{ color: agent.color }}>{agent.impactValue}</span>
                         </div>
@@ -570,7 +574,7 @@ function HomeCaseRow({ agent, dict, locale, flip }: { agent: Agent; dict: Dict; 
 
       <AgentLink agent={agent} locale={locale} className="inline-flex items-center gap-1 text-sm font-semibold text-[#36B1A7] hover:gap-2 transition-all">
         {ctaLabel}
-        <ArrowRight size={14} />
+        {agent.externalUrl ? <ArrowUpRight size={14} /> : <ArrowRight size={14} />}
       </AgentLink>
     </div>
   );

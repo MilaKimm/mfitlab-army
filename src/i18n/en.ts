@@ -35,6 +35,7 @@ export const en: typeof ko = {
     subtitleLine1: "Each agent is trained on MarketFit Lab's frameworks and field-tested data.",
     subtitleLine2: "Run them standalone or in combination.",
     detailCta: "Learn more",
+    externalCta: "Try it",
   },
   caseStudies: {
     kicker: "Customer Success",

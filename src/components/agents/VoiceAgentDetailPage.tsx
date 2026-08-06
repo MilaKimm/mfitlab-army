@@ -18,6 +18,7 @@ import {
   Search,
   MessageSquare,
   ArrowRight,
+  ArrowUpRight,
   Globe,
   FlaskConical,
   Megaphone,
@@ -485,7 +486,7 @@ export default function VoiceAgentDetailPage({ agent: rawAgent, locale = "ko" }:
                       <h3 className="text-sm font-semibold text-gray-900">{rel.name}</h3>
                       <p className="text-xs text-gray-500 line-clamp-1">{rel.tagline}</p>
                     </div>
-                    <ArrowRight size={16} className="text-gray-400" />
+                    {rel.externalUrl ? <ArrowUpRight size={16} className="text-gray-400" /> : <ArrowRight size={16} className="text-gray-400" />}
                   </AgentLink>
                 </FadeInOnScroll>
               ))}

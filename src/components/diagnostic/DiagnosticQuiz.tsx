@@ -4,7 +4,7 @@ import { useReducer, useRef, useCallback, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, RotateCcw } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, RotateCcw } from "lucide-react";
 import type { Choice, SolutionKey } from "@/data/diagnostic-quiz";
 import { questions, resultCopyTemplates, resultCopyTemplatesEn } from "@/data/diagnostic-quiz";
 import { agents, localizeAgent } from "@/data/army";
@@ -233,6 +233,8 @@ function QuizResultsView({ locale, recommendations, allScores, isFullFunnel, onR
     title: en ? "Recommended ARMY Agents" : "추천 ARMY 에이전트",
     fullFunnel: en ? "Full-Funnel Package — recommended" : "Full-Funnel Package 추천",
     detailCta: en ? "Learn more" : "자세히 보기",
+    // externalUrl이 있는 에이전트는 상세가 아니라 외부 제품 사이트로 나간다.
+    externalCta: en ? "Try it" : "체험하기",
     allScores: en ? "All agent scores" : "전체 에이전트 점수",
     contact: en ? "Get in Touch" : "도입 상담 받기",
     reset: en ? "Restart diagnostic" : "다시 진단하기",
@@ -275,7 +277,8 @@ function QuizResultsView({ locale, recommendations, allScores, isFullFunnel, onR
               <p className="text-xs text-[#9B9B9B] mb-3">{agent.category}</p>
               <p className="text-sm text-[#626166] leading-relaxed mb-4">{templates[rec.solutionKey]}</p>
               <AgentLink agent={rawAgent} locale={locale} className="inline-flex items-center gap-1 text-sm font-semibold text-[#36B1A7] hover:text-[#15867E] transition-colors">
-                {rt.detailCta} <ArrowRight size={14} />
+                {rawAgent.externalUrl ? rt.externalCta : rt.detailCta}{" "}
+                {rawAgent.externalUrl ? <ArrowUpRight size={14} /> : <ArrowRight size={14} />}
               </AgentLink>
             </motion.div>
           );

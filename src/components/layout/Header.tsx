@@ -62,6 +62,7 @@ export default function Header() {
                         key={agent.id}
                         agent={agent}
                         locale={locale}
+                        externalIcon
                         className="flex items-center text-sm text-[#626166] hover:text-[#1B1B1B] transition py-2 px-2 rounded-lg hover:bg-[#F4F4F4]"
                       >
                         <span
@@ -178,7 +179,7 @@ export default function Header() {
             {agents.map((a) => {
               const agent = localizeAgent(a, locale);
               return (
-                <AgentLink key={agent.id} agent={agent} locale={locale} className="block text-sm text-[#626166] py-2" onClick={() => setMobileOpen(false)}>
+                <AgentLink key={agent.id} agent={agent} locale={locale} externalIcon className="flex items-center text-sm text-[#626166] py-2" onClick={() => setMobileOpen(false)}>
                   {agent.name}
                 </AgentLink>
               );
