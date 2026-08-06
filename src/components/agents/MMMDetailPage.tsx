@@ -26,6 +26,7 @@ import { agents, localizeAgent } from "@/data/army";
 import FadeInOnScroll from "@/components/motion/FadeInOnScroll";
 import AgentLink from "@/components/AgentLink";
 import type { Locale } from "@/i18n/dictionaries";
+import { contactHref } from "@/i18n/dictionaries";
 
 const smallIconMap: Record<string, React.ReactNode> = {
   Globe: <Globe size={18} />,
@@ -194,7 +195,7 @@ export default function MMMDetailPage({ agent: rawAgent, locale = "ko" }: Props)
             <p className="text-sm text-gray-500 mt-3 max-w-xl mx-auto">{agent.heroSub}</p>
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.25 }} className="mt-8">
-            <Link href="#contact" className="inline-flex items-center px-6 py-3 text-sm font-semibold text-white rounded-lg hover:opacity-90 transition-colors" style={{ backgroundColor: agent.color }}>{t.heroCta}</Link>
+            <Link href={contactHref(locale)} className="inline-flex items-center px-6 py-3 text-sm font-semibold text-white rounded-lg hover:opacity-90 transition-colors" style={{ backgroundColor: agent.color }}>{t.heroCta}</Link>
           </motion.div>
         </div>
       </section>
@@ -427,7 +428,7 @@ export default function MMMDetailPage({ agent: rawAgent, locale = "ko" }: Props)
             <h2 className="text-2xl font-bold text-gray-900">{t.ctaTitle}</h2>
             <p className="text-sm text-gray-500 mt-3">{t.ctaSub}</p>
             <div className="mt-8">
-              <Link href="#contact" className="inline-flex items-center px-6 py-3 text-sm font-semibold text-white rounded-lg hover:opacity-90 transition-colors" style={{ backgroundColor: agent.color }}>{t.heroCta}</Link>
+              <Link href={contactHref(locale)} className="inline-flex items-center px-6 py-3 text-sm font-semibold text-white rounded-lg hover:opacity-90 transition-colors" style={{ backgroundColor: agent.color }}>{t.heroCta}</Link>
             </div>
           </FadeInOnScroll>
         </div>

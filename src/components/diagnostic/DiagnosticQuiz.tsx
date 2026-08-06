@@ -10,6 +10,7 @@ import { questions, resultCopyTemplates, resultCopyTemplatesEn } from "@/data/di
 import { agents, localizeAgent } from "@/data/army";
 import AgentLink from "@/components/AgentLink";
 import type { Locale } from "@/i18n/dictionaries";
+import { contactHref } from "@/i18n/dictionaries";
 import {
   calculateRawScores,
   normalizeScores,
@@ -308,7 +309,7 @@ function QuizResultsView({ locale, recommendations, allScores, isFullFunnel, onR
 
       {/* CTAs */}
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.5 }} className="flex flex-col sm:flex-row gap-3 justify-center mt-10">
-        <Link href="#contact" className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white bg-[#36B1A7] rounded-full hover:bg-[#15867E] transition-colors shadow-lg shadow-[#36B1A7]/20">
+        <Link href={contactHref(locale)} className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white bg-[#36B1A7] rounded-full hover:bg-[#15867E] transition-colors shadow-lg shadow-[#36B1A7]/20">
           {rt.contact}
         </Link>
         <button onClick={onReset} className="inline-flex items-center justify-center gap-1.5 px-6 py-3 text-sm font-semibold text-[#626166] border border-[#E9E9E9] rounded-full hover:bg-[#F4F4F4] transition-colors">
