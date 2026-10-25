@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -622,8 +622,11 @@ function HomeCaseRow({ agent, dict, locale, flip }: { agent: Agent; dict: Dict; 
 /* ─── Contact Section ─── */
 function ContactSection({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale);
-  const [formState, setFormState] = useState<"idle" | "sending" | "sent">("idle");
+  const [formState, setFormState] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [selectedSolutions, setSelectedSolutions] = useState<string[]>([]);
+  // 폼이 화면에 뜬 시각 — 서버가 "열자마자 제출"한 봇 요청을 걸러내는 데 쓴다
+  const mountedAt = useRef(0);
+  useEffect(() => { mountedAt.current = Date.now(); }, []);
 
   const toggleSolution = (id: string) => {
     setSelectedSolutions((prev) => prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]);
@@ -641,11 +644,13 @@ function ContactSection({ locale }: { locale: Locale }) {
       solutions: selectedSolutions,
       message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
       locale,
+      website: (form.elements.namedItem("website") as HTMLInputElement).value,
+      elapsedMs: Date.now() - mountedAt.current,
     };
     try {
-      await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
-      setFormState("sent");
-    } catch { setFormState("idle"); }
+      const res = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+      setFormState(res.ok ? "sent" : "error");
+    } catch { setFormState("error"); }
   };
 
   const solutionGroups = [
@@ -680,12 +685,12 @@ function ContactSection({ locale }: { locale: Locale }) {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-2 gap-3">
-                  <input name="name" type="text" placeholder={dict.contact.form.name} required className="w-full px-4 py-3 rounded-lg border border-[#E9E9E9] text-sm focus:outline-none focus:ring-2 focus:ring-[#CCFFFC] focus:border-[#36B1A7] transition-all" />
-                  <input name="company" type="text" placeholder={dict.contact.form.company} required className="w-full px-4 py-3 rounded-lg border border-[#E9E9E9] text-sm focus:outline-none focus:ring-2 focus:ring-[#CCFFFC] focus:border-[#36B1A7] transition-all" />
+                  <input name="name" type="text" placeholder={dict.contact.form.name} required maxLength={50} className="w-full px-4 py-3 rounded-lg border border-[#E9E9E9] text-sm focus:outline-none focus:ring-2 focus:ring-[#CCFFFC] focus:border-[#36B1A7] transition-all" />
+                  <input name="company" type="text" placeholder={dict.contact.form.company} required maxLength={100} className="w-full px-4 py-3 rounded-lg border border-[#E9E9E9] text-sm focus:outline-none focus:ring-2 focus:ring-[#CCFFFC] focus:border-[#36B1A7] transition-all" />
                 </div>
                 <div className="grid grid-cols-2 gap-3">
-                  <input name="email" type="email" placeholder={dict.contact.form.email} required className="w-full px-4 py-3 rounded-lg border border-[#E9E9E9] text-sm focus:outline-none focus:ring-2 focus:ring-[#CCFFFC] focus:border-[#36B1A7] transition-all" />
-                  <input name="phone" type="tel" placeholder={dict.contact.form.phone} required className="w-full px-4 py-3 rounded-lg border border-[#E9E9E9] text-sm focus:outline-none focus:ring-2 focus:ring-[#CCFFFC] focus:border-[#36B1A7] transition-all" />
+                  <input name="email" type="email" placeholder={dict.contact.form.email} required maxLength={254} className="w-full px-4 py-3 rounded-lg border border-[#E9E9E9] text-sm focus:outline-none focus:ring-2 focus:ring-[#CCFFFC] focus:border-[#36B1A7] transition-all" />
+                  <input name="phone" type="tel" placeholder={dict.contact.form.phone} required maxLength={20} className="w-full px-4 py-3 rounded-lg border border-[#E9E9E9] text-sm focus:outline-none focus:ring-2 focus:ring-[#CCFFFC] focus:border-[#36B1A7] transition-all" />
                 </div>
                 {solutionGroups.map((group) => (
                   <div key={group.label}>
@@ -699,7 +704,12 @@ function ContactSection({ locale }: { locale: Locale }) {
                     </div>
                   </div>
                 ))}
-                <textarea name="message" placeholder={dict.contact.form.messagePlaceholder} rows={3} className="w-full px-4 py-3 rounded-lg border border-[#E9E9E9] text-sm focus:outline-none focus:ring-2 focus:ring-[#CCFFFC] focus:border-[#36B1A7] resize-none transition-all" />
+                <textarea name="message" placeholder={dict.contact.form.messagePlaceholder} rows={3} maxLength={2000} className="w-full px-4 py-3 rounded-lg border border-[#E9E9E9] text-sm focus:outline-none focus:ring-2 focus:ring-[#CCFFFC] focus:border-[#36B1A7] resize-none transition-all" />
+                {/* 봇 차단용 숨김 칸 — 사람에게는 보이지 않고, 자동 입력 봇만 채운다 */}
+                <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: 1, height: 1, overflow: "hidden" }}>
+                  <input name="website" type="text" tabIndex={-1} autoComplete="off" defaultValue="" />
+                </div>
+                {formState === "error" && <p role="alert" className="text-sm text-[#D14343]">{dict.contact.form.error}</p>}
                 <button type="submit" disabled={formState === "sending"} className="w-full h-12 flex items-center justify-center gap-2 rounded-full bg-[#36B1A7] text-white font-semibold hover:bg-[#15867E] transition-all duration-300 disabled:opacity-50 shadow-lg shadow-[#36B1A7]/20">
                   <Send size={16} />
                   {formState === "sending" ? dict.contact.form.sending : dict.contact.form.submit}

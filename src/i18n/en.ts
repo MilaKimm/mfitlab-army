@@ -103,6 +103,7 @@ export const en: typeof ko = {
       articul8: "Articul8",
       sending: "Sending...",
       submit: "Send",
+      error: "Something went wrong. Please check your details or email us at hello@mfitlab.com.",
     },
   },
   detail: {
