@@ -101,6 +101,7 @@ export const ko = {
       articul8: "Articul8",
       sending: "전송 중...",
       submit: "문의하기",
+      error: "전송에 실패했습니다. 입력 내용을 확인하시거나 hello@mfitlab.com으로 연락 부탁드립니다.",
     },
   },
   detail: {
